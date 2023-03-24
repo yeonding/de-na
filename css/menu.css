@@ -1,0 +1,13 @@
+.main{
+    height: 700px;
+    background: url("../images/background_space.jpg");
+    background-size: cover;
+    color:aliceblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.main ul{
+    list-style-type: none;
+}
