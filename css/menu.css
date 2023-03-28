@@ -1,6 +1,6 @@
 .main{
     height: 700px;
-    background: url("../images/background_space.jpg");
+    background: url("../images/background/space.jpg");
     background-size: cover;
     color:aliceblue;
     display: flex;

@@ -8,8 +8,21 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
-ctx.fillStyle = 'blue'
-ctx.fillRect (0, 0, canvas.width, canvas.height)
+
+ctx.fillStyle = 'white';
+ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+//스테이지1 불러오기
+const citystage = new Image()
+citystage.onload = () => {
+    ctx.drawImage(citystage, 0, 0);
+}
+citystage.src = '../images/background/citytileset.png';
+
+function animate() {
+    requestAnimationFrame(animate)
+}
+
 
 const ch1 = document.getElementById('ch1');
 const ch2 = document.getElementById('ch2');
@@ -27,7 +40,6 @@ const characterSeletion = document.getElementById('characterSelection');
 function startGame() {
   //캐릭터 선택 화면 숨기기
      characterSeletion.classList.add("hidden");
-
     //
  }
 
@@ -73,22 +85,22 @@ startButton.addEventListener('click', function() {
   // 게임 시작에 필요한 초기화 작업 수행
   
   // 선택한 캐릭터 그리기
-  ctx.drawImage(selectedCharacter, 0, 0);
+  //ctx.drawImage(selectedCharacter, 0, 0);
   
   // 게임 루프 실행
-  gameLoop();
+  //gameLoop();
 });
 
-function gameLoop() {
+//function gameLoop() {
   // 게임 루프
   // 게임의 상태 업데이트
   
   // 게임 화면 그리기
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  //ctx.clearRect(0, 0, canvas.width, canvas.height);
   // 캐릭터 등 게임 요소 그리기
   
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
-  requestAnimationFrame(gameLoop);
-}
+  //requestAnimationFrame(gameLoop);
+//}
 
 
