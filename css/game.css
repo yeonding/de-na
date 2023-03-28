@@ -10,3 +10,17 @@ div h1 img{
 ul {
  list-style: none;
 }
+
+#characterSelection{
+    width: 500px;
+    height: 500px;
+    border: 1px solid red;
+    position:absolute;
+    top: 5%;
+    left: 15%;
+    color: white;
+}
+
+.hidden{
+    display: none;
+}
