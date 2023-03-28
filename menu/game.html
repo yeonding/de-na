@@ -5,9 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="game.js" defer="defer"></script>
+    <script type='module' src="game.js" defer="defer"></script>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <canvas id="game1"></canvas>
+    
+    <section id="select-character">
+        <ul>
+            <li><img src="../images/mob/ChargeAttackPreview.gif" id="ch1"></li>
+            <li><img src="../images/mob/HitPreview.gif" id="ch2"></li>
+            <li><img src="../images/mob/JumpPreview.gif" id="ch3"></li>
+        </ul>
+    </section>
+
+    <!-- <section id="select-stage"></section> -->
+
+    <canvas id="game2"></canvas>
+    <section id="ending"></section>
 </body>
 </html>

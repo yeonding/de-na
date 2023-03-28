@@ -11,6 +11,14 @@
 .main ul{
     list-style-type: none;
 }
+
+.main .logo2{
+    width: 70px;
+    position: fixed;
+    left: 28%;
+    top: 42%;
+    transform: scaleX(-1);
+}
 .main ul li:first-child a{
     display: block;
     width: 150px;
@@ -60,7 +68,7 @@
     background-size: contain;
 }
 
-.main ul li:nth-child(4) a{
+/* .main ul li:nth-child(4) a{
     display: block;
     width: 150px;
     height: 90px;
@@ -74,4 +82,4 @@
     height: 90px;
     background: url('../images/logo/out2.png') no-repeat 0 0;
     background-size: contain;
-}
+} */

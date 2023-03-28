@@ -1,0 +1,12 @@
+body{
+    background: black;
+}
+div h1 img{
+ width: 120px;
+ position: relative;
+ left: 50%;
+ transform: translateX(-50%);
+}
+ul {
+ list-style: none;
+}
