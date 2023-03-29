@@ -1,13 +1,11 @@
 /**@type {HTMLCanvasElement} */
 
-// 자바스크립트 코드
 const canvas = document.getElementById('game1');
 const ctx = canvas.getContext('2d');
 
-
+//캔버스 크기
 canvas.width = 1024;
 canvas.height = 576;
-
 
 ctx.fillStyle = 'white';
 ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -23,7 +21,11 @@ function animate() {
     requestAnimationFrame(animate)
 }
 
+//타이머
+let gameInterval;
 
+
+//캐릭터 선택
 const ch1 = document.getElementById('ch1');
 const ch2 = document.getElementById('ch2');
 const ch3 = document.getElementById('ch3');
@@ -38,10 +40,41 @@ let selectedCharacter = null;
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
 function startGame() {
-  //캐릭터 선택 화면 숨기기
-     characterSeletion.classList.add("hidden");
-    //
- }
+    //캐릭터 선택 화면 숨기기
+    characterSeletion.classList.add("hidden");
+    
+    //타이머 시작하기
+    clearInterval(gameInterval);
+
+    const startTime = Date.now();
+    const endTime = startTime + (3 * 60 * 1000)+2000;
+
+    let timerInterval = setInterval(() => {
+      const remainingTime = endTime - Date.now();
+
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        alert("Time's up!");
+      } else {
+        const seconds = Math.floor(remainingTime / 1000) % 60;
+        const minutes = Math.floor(remainingTime / 1000 / 60);
+
+
+        ctx.clearRect(5, 10, 200, 50);
+        ctx.drawImage(citystage, 0, 0);
+        ctx.font = "30px Arial";
+        ctx.fillText(`Time ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, 10, 50);
+      }
+    }, 1000);
+   
+    //타이머를 멈추는 function
+    function stopTimer() {
+      clearInterval(timerInterval);
+      alert("Timer stopped.");
+    
+    }
+  }
+
 
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
