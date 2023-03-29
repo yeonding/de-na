@@ -14,8 +14,8 @@ let backgroundImage,playerImage,monsterImage
 let playerX = canvas.width/2-32;
 let playerY = canvas.height/2;
 
-ctx.fillStyle = 'white';
-ctx.fillRect(0, 0, canvas.width, canvas.height)
+// ctx.fillStyle = 'white';
+// ctx.fillRect(0, 0, canvas.width, canvas.height)
 
 // 이미지 로드
 function loadImage(){
@@ -26,12 +26,19 @@ function loadImage(){
 }
 
 // 화면에 계속 배경과 플레이어 보이도록 설정
+// function render(){
+//     const bgX = -playerX + canvas.width / 2;
+//     const bgY = -playerY + canvas.height / 2;
+//     // 배경 이미지 그리기
+//     ctx.drawImage(backgroundImage, Math.floor(bgX), Math.floor(bgY));
+//     // 캐릭터 그리기
+//     ctx.drawImage(playerImage, playerX, playerY);
+// }
+
 function render(){
     const bgX = -playerX + canvas.width / 2;
     const bgY = -playerY + canvas.height / 2;
-    // 배경 이미지 그리기
-    ctx.drawImage(backgroundImage, bgX, bgY);
-    // 캐릭터 그리기
+    ctx.drawImage(backgroundImage, Math.floor(bgX), Math.floor(bgY));
     ctx.drawImage(playerImage, playerX, playerY);
 }
 
