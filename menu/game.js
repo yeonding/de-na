@@ -40,40 +40,84 @@ let selectedCharacter = null;
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
 function startGame() {
+
     //캐릭터 선택 화면 숨기기
-    characterSeletion.classList.add("hidden");
-    
-    //타이머 시작하기
-    clearInterval(gameInterval);
+    characterSeletion.classList.add("hidden"); 
 
-    const startTime = Date.now();
-    const endTime = startTime + (3 * 60 * 1000)+2000;
-
-    let timerInterval = setInterval(() => {
-      const remainingTime = endTime - Date.now();
-
-      if (remainingTime <= 0) {
-        clearInterval(timerInterval);
-        alert("Time's up!");
-      } else {
-        const seconds = Math.floor(remainingTime / 1000) % 60;
-        const minutes = Math.floor(remainingTime / 1000 / 60);
-
-
-        ctx.clearRect(5, 10, 200, 50);
-        ctx.drawImage(citystage, 0, 0);
-        ctx.font = "30px Arial";
-        ctx.fillText(`Time ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, 10, 50);
-      }
-    }, 1000);
-   
-    //타이머를 멈추는 function
-    function stopTimer() {
-      clearInterval(timerInterval);
-      alert("Timer stopped.");
-    
-    }
+     //움직이는 코드 가져옴
+   setuKeyboardListener();
+ main();
   }
+
+class Player{
+  //position이랑 velocity
+  playerX
+  playerY
+  playerImage
+
+  constructor(){
+  this.playerImage = selectedCharacter
+  this.playerX = canvas.width/2-32;
+  this.playerY = canvas.height/2;
+  }
+}
+
+const player = new Player()
+
+function render(){
+  const bgX = -player.playerX + canvas.width / 2;
+  const bgY = -player.playerY + canvas.height / 2;
+  ctx.drawImage(citystage, Math.floor(bgX), Math.floor(bgY));
+  ctx.drawImage(selectedCharacter, player.playerX, player.playerY);
+}
+
+let keysDown={} // 내가 누른 버튼의 값들을 객체에 저장
+function setuKeyboardListener(){
+  document.addEventListener('keydown', function(event){
+      keysDown[event.key] = true // 키보드 누르고 있을 때
+  });
+  document.addEventListener('keyup', function(event){
+      delete keysDown[event.key] // 키보드 누르지 않을 때 객체 안의 값들 삭제
+  })
+}
+
+function move(){
+  if('ArrowRight' in keysDown){
+    player.playerX += 2;
+  } // 오른쪽 버튼 눌림
+  if('ArrowLeft' in keysDown){
+    player.playerX -= 2;
+  } // 왼쪽 버튼 눌림
+  if('ArrowUp' in keysDown){
+    player.playerY -= 2;
+  } // 위쪽 버튼 눌림
+  if('ArrowDown' in keysDown){
+    player.playerY += 2;
+  } // 아래쪽 버튼 눌림
+
+
+  // 플레이어를 스테이지 안에서만 있게 하려면?(캔버스를 벗어나지 않게)
+  if(player.playerX <= 0){
+    player.playerX = 0
+  }
+  if(player.playerX >= canvas.width-32){
+    player.playerX = canvas.width-32
+  }
+
+  if(player.playerY <= 0){
+    player.playerY = 0
+  }
+  if(player.playerY >= canvas.height-32){
+    player.playerY = canvas.height-32
+  }
+}
+
+function main(){
+  move(); // 움직이면서 바뀐 좌표값
+  render(); // 화면에 보여 주기
+  requestAnimationFrame(main);
+}
+
 
 
 ch1.addEventListener('click', function() {
@@ -118,22 +162,54 @@ startButton.addEventListener('click', function() {
   // 게임 시작에 필요한 초기화 작업 수행
   
   // 선택한 캐릭터 그리기
-  //ctx.drawImage(selectedCharacter, 0, 0);
+  //ctx.drawImage(selectedCharacter, 500, 500);
   
   // 게임 루프 실행
-  //gameLoop();
+  gameLoop();
 });
 
-//function gameLoop() {
+function gameLoop() {
   // 게임 루프
   // 게임의 상태 업데이트
-  
+
   // 게임 화면 그리기
   //ctx.clearRect(0, 0, canvas.width, canvas.height);
-  // 캐릭터 등 게임 요소 그리기
+   //타이머 시작하기
+   clearInterval(gameInterval);
+
+   const startTime = Date.now();
+   const endTime = startTime + (3 * 60 * 1000)+2000;
+
+   let timerInterval = setInterval(() => {
+     const remainingTime = endTime - Date.now();
+
+     if (remainingTime <= 0) {
+       clearInterval(timerInterval);
+       alert("Time's up!");
+     } else {
+       const seconds = Math.floor(remainingTime / 1000) % 60;
+       const minutes = Math.floor(remainingTime / 1000 / 60);
+
+
+       ctx.clearRect(5, 10, 200, 50);
+       //ctx.drawImage(citystage, 0, 0);
+       ctx.font = "30px Arial";
+       ctx.fillText(`Time ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`, 10, 50);
+     }
+   }, 1000);
   
+   //타이머를 멈추는 function
+   function stopTimer() {
+     clearInterval(timerInterval);
+     alert("Timer stopped.");
+
+  // 캐릭터 등 게임 요소 그리기
+  ctx.drawImage(selectedCharacter, 500, 500);
+
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
-  //requestAnimationFrame(gameLoop);
-//}
+  requestAnimationFrame(gameLoop);
+}
 
 
+
+}

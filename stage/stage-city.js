@@ -65,6 +65,7 @@ function move(){
     if('ArrowDown' in keysDown){
         playerY += 2;
     } // 아래쪽 버튼 눌림
+  
 
     // 플레이어를 스테이지 안에서만 있게 하려면?(캔버스를 벗어나지 않게)
     if(playerX <= 0){
