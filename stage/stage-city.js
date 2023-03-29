@@ -8,12 +8,16 @@ canvas.height = 576;
 document.body.appendChild(canvas)
 +8
 // 배경, 플레이어 로딩
-let backgroundImage,playerImage,monsterImage
+let backgroundImage, playerImage;
+
 
 // 플레이어 좌표(계속 바뀌는 값이라 따로 빼기)
 let playerX = canvas.width/2-32;
 let playerY = canvas.height/2;
 
+// 카메라 위치
+// let cameraX = backgroundImage;
+// let cameraY = backgroundImage;
 // ctx.fillStyle = 'white';
 // ctx.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -27,18 +31,21 @@ function loadImage(){
 
 // 화면에 계속 배경과 플레이어 보이도록 설정
 // function render(){
-//     const bgX = -playerX + canvas.width / 2;
-//     const bgY = -playerY + canvas.height / 2;
-//     // 배경 이미지 그리기
-//     ctx.drawImage(backgroundImage, Math.floor(bgX), Math.floor(bgY));
-//     // 캐릭터 그리기
-//     ctx.drawImage(playerImage, playerX, playerY);
-// }
-
-function render(){
+    //     const bgX = -playerX + canvas.width / 2;
+    //     const bgY = -playerY + canvas.height / 2;
+    //     // 배경 이미지 그리기
+    //     ctx.drawImage(backgroundImage, Math.floor(bgX), Math.floor(bgY));
+    //     // 캐릭터 그리기
+    //     ctx.drawImage(playerImage, playerX, playerY);
+    // }
+    
+    function render(){
     const bgX = -playerX + canvas.width / 2;
     const bgY = -playerY + canvas.height / 2;
-    ctx.drawImage(backgroundImage, Math.floor(bgX), Math.floor(bgY));
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // console.log("bgy:" + bgY);
+    // console.log("bgx:" +bgX);
+    ctx.drawImage(backgroundImage, 0, 0);
     ctx.drawImage(playerImage, playerX, playerY);
 }
 
