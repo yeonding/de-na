@@ -7,23 +7,23 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
-ctx.fillStyle = 'white';
-ctx.fillRect(0, 0, canvas.width, canvas.height)
+// ctx.fillStyle = 'white';
+// ctx.fillRect(0, 0, canvas.width, canvas.height)
 
 //스테이지1 불러오기
 const citystage = new Image()
 citystage.onload = () => {
     ctx.drawImage(citystage, 0, 0);
 }
-citystage.src = '../images/background/citytileset.png';
+citystage.src = '../images/background/citytile1.png';
 
 function animate() {
     requestAnimationFrame(animate)
+    // clearRect(0, 0, canvas.width, canvas.height)
 }
 
 //타이머
 let gameInterval;
-
 
 //캐릭터 선택
 const ch1 = document.getElementById('ch1');
@@ -43,6 +43,7 @@ function startGame() {
 
     //캐릭터 선택 화면 숨기기
     characterSeletion.classList.add("hidden"); 
+    
 
      //움직이는 코드 가져옴
    setuKeyboardListener();
@@ -57,7 +58,7 @@ class Player{
 
   constructor(){
   this.playerImage = selectedCharacter
-  this.playerX = canvas.width/2-32;
+  this.playerX = canvas.width/2;
   this.playerY = canvas.height/2;
   }
 }
@@ -65,9 +66,11 @@ class Player{
 const player = new Player()
 
 function render(){
-  const bgX = -player.playerX + canvas.width / 2;
-  const bgY = -player.playerY + canvas.height / 2;
-  ctx.drawImage(citystage, Math.floor(bgX), Math.floor(bgY));
+  const bgX = -player.playerX;
+  // console.log(bgX);
+  const bgY = -player.playerY;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.drawImage(citystage, bgX, bgY, 2300, 1200);
   ctx.drawImage(selectedCharacter, player.playerX, player.playerY);
 }
 
@@ -100,15 +103,15 @@ function move(){
   if(player.playerX <= 0){
     player.playerX = 0
   }
-  if(player.playerX >= canvas.width-32){
-    player.playerX = canvas.width-32
+  if(player.playerX >= canvas.width-40){
+    player.playerX = canvas.width-40
   }
 
   if(player.playerY <= 0){
     player.playerY = 0
   }
-  if(player.playerY >= canvas.height-32){
-    player.playerY = canvas.height-32
+  if(player.playerY >= canvas.height-45){
+    player.playerY = canvas.height-45
   }
 }
 
@@ -117,8 +120,6 @@ function main(){
   render(); // 화면에 보여 주기
   requestAnimationFrame(main);
 }
-
-
 
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
@@ -209,7 +210,6 @@ function gameLoop() {
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   requestAnimationFrame(gameLoop);
 }
-
 
 
 }
