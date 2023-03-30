@@ -1,11 +1,15 @@
+import { Player } from "../class/model.js";
 /**@type {HTMLCanvasElement} */
 
 const canvas = document.getElementById('game1');
 const ctx = canvas.getContext('2d');
 
+
+
 //캔버스 크기
 canvas.width = 1024;
 canvas.height = 576;
+
 
 // ctx.fillStyle = 'white';
 // ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -25,6 +29,8 @@ function animate() {
 //타이머
 let gameInterval;
 
+
+
 //캐릭터 선택
 const ch1 = document.getElementById('ch1');
 const ch2 = document.getElementById('ch2');
@@ -35,7 +41,10 @@ const ch5 = document.getElementById('ch5');
 const startButton = document.getElementById('start-button');
 startButton.style.display = 'none'; // 시작 버튼은 처음에 보이지 않음
 
-let selectedCharacter = null;
+let selectedCharacter = ch1;
+// selectedCharacter.width=50;
+// selectedCharacter.height=50;
+
 
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
@@ -50,28 +59,32 @@ function startGame() {
  main();
   }
 
-class Player{
-  //position이랑 velocity
-  playerX
-  playerY
-  playerImage
+// class Player{
+//   //position이랑 velocity
+//   playerX
+//   playerY
+//   playerImage
 
-  constructor(){
-  this.playerImage = selectedCharacter
-  this.playerX = canvas.width/2;
-  this.playerY = canvas.height/2;
-  }
-}
+//   constructor(){
+//   this.playerImage = selectedCharacter
+//   this.playerX = canvas.width/2;
+//   this.playerY = canvas.height/2;
+//   }
+// }
 
-const player = new Player()
+const player = new Player(32,56,selectedCharacter,{right:selectedCharacter,
+  left:selectedCharacter,
+  touchedLeft: selectedCharacter,
+  touchedRight: selectedCharacter})
+// player.playerImage=selectedCharacter;
 
 function render(){
-  const bgX = -player.playerX;
+  const bgX = -player.position.x;
   // console.log(bgX);
-  const bgY = -player.playerY;
+  const bgY = -player.position.y;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(citystage, bgX, bgY, 2300, 1200);
-  ctx.drawImage(selectedCharacter, player.playerX, player.playerY);
+  ctx.drawImage(selectedCharacter, player.position.x, player.position.y);
 }
 
 let keysDown={} // 내가 누른 버튼의 값들을 객체에 저장
@@ -86,32 +99,32 @@ function setuKeyboardListener(){
 
 function move(){
   if('ArrowRight' in keysDown){
-    player.playerX += 2;
+    player.position.x += 2;
   } // 오른쪽 버튼 눌림
   if('ArrowLeft' in keysDown){
-    player.playerX -= 2;
+    player.position.x -= 2;
   } // 왼쪽 버튼 눌림
   if('ArrowUp' in keysDown){
-    player.playerY -= 2;
+    player.position.y -= 2;
   } // 위쪽 버튼 눌림
   if('ArrowDown' in keysDown){
-    player.playerY += 2;
+    player.position.y += 2;
   } // 아래쪽 버튼 눌림
 
 
   // 플레이어를 스테이지 안에서만 있게 하려면?(캔버스를 벗어나지 않게)
-  if(player.playerX <= 0){
-    player.playerX = 0
+  if(player.position.x <= 0){
+    player.position.x = 0
   }
-  if(player.playerX >= canvas.width-40){
-    player.playerX = canvas.width-40
+  if(player.position.x >= canvas.width-40){
+    player.position.x = canvas.width-40
   }
 
-  if(player.playerY <= 0){
-    player.playerY = 0
+  if(player.position.y <= 0){
+    player.position.y = 0
   }
-  if(player.playerY >= canvas.height-45){
-    player.playerY = canvas.height-45
+  if(player.position.y >= canvas.height-45){
+    player.position.y = canvas.height-45
   }
 }
 
