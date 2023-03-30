@@ -72,6 +72,7 @@ function render(){
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(citystage, bgX, bgY, 2300, 1200);
   ctx.drawImage(selectedCharacter, player.playerX, player.playerY);
+  
 }
 
 let keysDown={} // 내가 누른 버튼의 값들을 객체에 저장
@@ -118,6 +119,7 @@ function move(){
 function main(){
   move(); // 움직이면서 바뀐 좌표값
   render(); // 화면에 보여 주기
+  createMonster();
   requestAnimationFrame(main);
 }
 
@@ -156,6 +158,42 @@ ch5.addEventListener('click', function() {
     startButton.style.display = 'block';
   });  
 
+  // 몬스터 이미지 객체 생성
+const monsterImage = new Image();
+monsterImage.src = '../images/mob/mob1.gif';
+
+// 몬스터 정보를 저장하는 배열
+let monsters = [];
+
+// 새로운 몬스터 생성 함수
+function createMonster() {
+  // 캔버스의 가로, 세로 크기 구하기
+  // const canvasWidth = canvas.width;
+  // const canvasHeight = canvas.height;
+
+  // 몬스터의 위치 랜덤으로 생성하기
+  const x = Math.random() * canvas.width;
+  const y = Math.random() * canvas.height;
+
+  // 몬스터의 크기 랜덤으로 생성하기
+  const size = Math.random() * 50 + 20;
+
+  // 몬스터 정보를 객체로 저장하고 배열에 추가하기
+  monsters.push({
+    x: x,
+    y: y,
+    size: size,
+    image: monsterImage
+  });
+
+  ctx.drawImage(monsterImage, x, y);
+}
+
+// 여러마리 몬스터 생성하기
+for (let i = 0; i < 200; i++) {
+  createMonster();
+}
+
 startButton.addEventListener('click', function() {
   // 게임 시작 버튼을 눌렀을 때
   startGame();
@@ -173,6 +211,7 @@ function gameLoop() {
   // 게임 루프
   // 게임의 상태 업데이트
 
+  createMonster();
   // 게임 화면 그리기
   //ctx.clearRect(0, 0, canvas.width, canvas.height);
    //타이머 시작하기
