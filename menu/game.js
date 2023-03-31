@@ -84,12 +84,7 @@ function render(){
   const bgY = -player.position.y;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(citystage, bgX, bgY, 2300, 1200);
-<<<<<<< HEAD
   ctx.drawImage(selectedCharacter, player.position.x, player.position.y);
-=======
-  ctx.drawImage(selectedCharacter, player.playerX, player.playerY);
-  
->>>>>>> 8c4c269302da93fa532a1ec5c44984ee7c6e617a
 }
 
 let keysDown={} // 내가 누른 버튼의 값들을 객체에 저장
