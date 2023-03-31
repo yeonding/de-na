@@ -158,18 +158,23 @@ ch5.addEventListener('click', function() {
     startButton.style.display = 'block';
   });  
 
-  // 몬스터 이미지 객체 생성
+// 몬스터 이미지 객체 생성
 const monsterImage = new Image();
-monsterImage.src = '../images/mob/mob1.gif';
+monsterImage.src = '../images/mob/mob2.gif';
 
 // 몬스터 정보를 저장하는 배열
 let monsters = [];
 
+// 몬스터 그리는 함수
+function drawMonsters() {
+  for (let i = 0; i < monsters.length-i; i++) {
+    const monster = monsters[i];
+    ctx.drawImage(monster.image, monster.x, monster.y, monster.size, monster.size);
+  }
+}
+
 // 새로운 몬스터 생성 함수
 function createMonster() {
-  // 캔버스의 가로, 세로 크기 구하기
-  // const canvasWidth = canvas.width;
-  // const canvasHeight = canvas.height;
 
   // 몬스터의 위치 랜덤으로 생성하기
   const x = Math.random() * canvas.width;
@@ -178,27 +183,66 @@ function createMonster() {
   // 몬스터의 크기 랜덤으로 생성하기
   const size = Math.random() * 50 + 20;
 
+  // 몬스터 이동 속도 랜덤으로 생성하기
+  const speed = Math.random() * 2 + 1;
+
+  // 몬스터 이동 방향 랜덤으로 생성하기
+  // const direction = Math.random() * 2 * Math.PI;
+  const direction = Math.atan2(player.playerY - y, player.playerX - x);
+
   // 몬스터 정보를 객체로 저장하고 배열에 추가하기
+ 
+  if(monsters.length <= 50) {
   monsters.push({
     x: x,
     y: y,
     size: size,
+    speed: speed,
+    direction: direction,
     image: monsterImage
   });
+};
 
-  ctx.drawImage(monsterImage, x, y);
+  // 모든 몬스터 그리기
+  drawMonsters();
 }
 
-// 여러마리 몬스터 생성하기
-for (let i = 0; i < 200; i++) {
-  createMonster();
+// 일정 주기로 몬스터 생성하기
+// if(monsters.length <= 10) {
+// setInterval(createMonster, 3000);
+// }
+
+// 몬스터 움직임 구현
+function moveMonsters() {
+  for (let i = 0; i < monsters.length; i++) {
+    const monster = monsters[i];
+
+    // 몬스터의 위치 변경
+    monster.x += monster.speed * Math.cos(monster.direction);
+    monster.y += monster.speed * Math.sin(monster.direction);
+
+    // 화면 밖으로 나갔을 경우 위치 초기화
+    if (monster.x < -monster.size || monster.x > canvas.width + monster.size ||
+      monster.y < -monster.size || monster.y > canvas.height + monster.size) {
+      monster.x = Math.random() * canvas.width;
+      monster.y = Math.random() * canvas.height;
+    }
+    monster.direction = Math.atan2(player.playerY - monster.y, player.playerX - monster.x);
+  }
 }
+
+// 일정 주기로 몬스터 움직이기
+setInterval(moveMonsters, 100);
 
 startButton.addEventListener('click', function() {
   // 게임 시작 버튼을 눌렀을 때
   startGame();
   console.log('게임을 시작합니다.');
   // 게임 시작에 필요한 초기화 작업 수행
+
+  if(monsters.length <= 10) {
+    setInterval(createMonster, 10000);
+    }
   
   // 선택한 캐릭터 그리기
   //ctx.drawImage(selectedCharacter, 500, 500);
