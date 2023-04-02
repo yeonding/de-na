@@ -22,8 +22,34 @@ end.style.display = 'none';
 
 const restartButton = document.getElementById('restart-button');
 
-
 let selectedCharacter = null;
+
+const ch1Front = new Image();
+ch1Front.src = "../images/player/ch1/spriteFront.png";
+const ch1Back = new Image();
+ch1Back.src = "../images/player/ch1/spriteBack.png";
+const ch1Left = new Image();
+ch1Left.src = "../images/player/ch1/spriteLeft.png";
+const ch1Right = new Image();
+ch1Right.src = "../images/player/ch1/spriteRight.png"; 
+const ch1Stop = new Image();
+ch1Stop.src = "../images/player/ch1/spriteStop.png"
+
+
+const ch2Front = new Image();
+ch2Front.src = "../images/player/ch4/spriteFront.png";
+const ch2Back = new Image();
+ch2Back.src = "../images/player/ch4/spriteBack.png";
+const ch2Left = new Image();
+ch2Left.src = "../images/player/ch4/spriteLeft.png";
+const ch2Right = new Image();
+ch2Right.src = "../images/player/ch4/spriteRight.png"; 
+const ch2Stop = new Image();
+ch2Stop.src = "../images/player/ch4/spriteFront.png"
+
+var characterSpeed = 1;
+var characterDirection = "stop"; // 캐릭터의 초기 방향은 멈춤
+
 
 // Player
 class Player{
@@ -157,40 +183,116 @@ function autoAttack() {
 }
 }
 
+function drawCharacter() {
+  var frameIndex = 4; // 스프라이트 이미지에서 사용할 프레임 인덱스
+  var spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표
+  var spriteY = 0; // 스프라이트 이미지에서 사용할 y 좌표
+
+
+if(selectedCharacter == ch1){
+  if (characterDirection === "stop") {
+      frameIndex = Math.floor(Date.now() / 500) % 2;
+      spriteX = frameIndex*48;}
+  if (characterDirection === "left") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteX = frameIndex * 48;
+      player.position.x -= characterSpeed;}
+  if (characterDirection === "up") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteX = frameIndex * 48;
+      player.position.y -= characterSpeed;}
+  if (characterDirection === "down") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteX = frameIndex * 48;
+      player.position.y += characterSpeed;}
+   else if (characterDirection === "right") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteX = frameIndex * 48;
+      player.position.x+= characterSpeed;} 
+
+  if (characterDirection == 'stop')
+  ctx.drawImage(ch1Stop, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
+  if (characterDirection == 'up')
+  ctx.drawImage(ch1Back, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
+  if (characterDirection == 'down')
+  ctx.drawImage(ch1Front, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
+  if (characterDirection === "left") {
+  ctx.drawImage(ch1Left, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
+  }
+  if (characterDirection === "right") {
+  ctx.drawImage(ch1Right, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
+  }
+}
+
+if(selectedCharacter == ch2){
+  if (characterDirection === "stop") {
+      frameIndex = Math.floor(Date.now() / 500) % 2;
+      spriteX = frameIndex * 48;}
+  if (characterDirection === "left") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteX = frameIndex * 48;
+      player.position.x -= characterSpeed;}
+  if (characterDirection === "up") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteX = frameIndex * 48;
+      player.position.y -= characterSpeed;}
+  if (characterDirection === "down") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteX = frameIndex * 48;
+      player.position.y += characterSpeed;}
+   else if (characterDirection === "right") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteX = frameIndex * 48;
+      player.position.x+= characterSpeed;} 
+
+  if (characterDirection == 'stop')
+  ctx.drawImage(ch2Stop, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  if (characterDirection == 'up')
+  ctx.drawImage(ch2Back, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  if (characterDirection == 'down')
+  ctx.drawImage(ch2Front, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  if (characterDirection === "left") {
+  ctx.drawImage(ch2Left, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  }
+  if (characterDirection === "right") {
+  ctx.drawImage(ch2Right, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  }
+}
+
+
+ 
+  document.addEventListener("keydown", function(event) {
+    if (event.keyCode === 37) { // 왼쪽 방향키를 눌렀을 때
+      characterDirection = "left";
+    } else if (event.keyCode === 39) { // 오른쪽 방향키를 눌렀을 때
+      characterDirection = "right";
+    }
+    else if (event.keyCode === 38) { // 위 방향키를 눌렀을 때
+      characterDirection = "up";
+    }
+    else if (event.keyCode === 40) { // 아래 방향키를 눌렀을 때
+      characterDirection = "down";
+    }
+  });
+
+  document.addEventListener("keyup", function(event) {
+    if (event.keyCode === 37 || event.keyCode === 39 || event.keyCode === 38 || event.keyCode === 40) { // 왼쪽 또는 오른쪽 방향키를 떼었을 때
+      characterDirection = "stop";
+    }
+  });
+}
+
 setInterval(autoAttack, 1000); // 3초마다 autoAttack() 함수 실행
 // setInterval(attackImage, 1000);
 
-
-function move(){
-  if('ArrowRight' in keysDown){
-    player.position.x += 2;
-  } // 오른쪽 버튼 눌림
-  if('ArrowLeft' in keysDown){
-    player.position.x -= 2;
-  } // 왼쪽 버튼 눌림
-  if('ArrowUp' in keysDown){
-    player.position.y -= 2;
-  } // 위쪽 버튼 눌림
-  if('ArrowDown' in keysDown){
-    player.position.y += 2;
-  } // 아래쪽 버튼 눌림
-
-
-  // 플레이어를 스테이지 안에서만 있게 하려면?(캔버스를 벗어나지 않게)
-  if(player.position.x <= 0){
-    player.position.x = 0
-  }
-  if(player.position.x >= canvas.width-40){
-    player.position.x = canvas.width-40
-  }
-
-  if(player.position.y <= 0){
-    player.position.y = 0
-  }
-  if(player.position.y >= canvas.height-45){
-    player.position.y = canvas.height-45
-  }
-}
 
 //스테이지1 불러오기
 const citystage = new Image();
@@ -205,7 +307,7 @@ function render(){
   const bgY = -player.position.y;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(citystage, bgX, bgY, 2300, 1200);
-  ctx.drawImage(selectedCharacter, player.position.x, player.position.y);
+  drawCharacter()
 }
 
 const player = new Player()
@@ -251,20 +353,11 @@ const characterSeletion = document.getElementById('characterSelection');
 function startGame() {
     //캐릭터 선택 화면 숨기기
     characterSeletion.classList.add("hidden"); 
-    
-    //움직이는 코드 가져옴
-    setuKeyboardListener();
+
 }
 
-let keysDown={} // 내가 누른 버튼의 값들을 객체에 저장
-function setuKeyboardListener(){
-  document.addEventListener('keydown', function(event){
-      keysDown[event.key] = true // 키보드 누르고 있을 때
-  });
-  document.addEventListener('keyup', function(event){
-      delete keysDown[event.key] // 키보드 누르지 않을 때 객체 안의 값들 삭제
-  })
-}
+
+
 
 startButton.addEventListener('click', function() {
   // 게임 시작 버튼을 눌렀을 때
@@ -281,7 +374,6 @@ startButton.addEventListener('click', function() {
 
 //gameLoop
 function gameLoop() {
-  move(); // 움직이면서 바뀐 좌표값
   render(); // 화면에 보여 주기
   createMonster();
 
