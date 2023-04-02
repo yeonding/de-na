@@ -30,24 +30,24 @@ let selectedCharacter = ch1;
 >>>>>>> fe96ba356f5810e408b41fe21baef5436441da50
 // Player
 class Player{
-    playerX
-    playerY
+    position = {x:0, y:0}
     playerImage
     health
+    attackRange
     
     constructor(){
         this.playerImage = selectedCharacter
-        this.playerX = canvas.width/2;
-        this.playerY = canvas.height/2;
+        this.position.x = canvas.width/2;
+        this.position.y = canvas.height/2;
         this.health = 100;
+        this.attackRange = 100;
     }
     // 플레이어가 몬스터를 공격하는 함수
 }
 
 // Monster
 class Monster {
-    x
-    y
+    position = {x:0, y:0}
     size
     speed
     direction
@@ -56,15 +56,15 @@ class Monster {
     
     constructor() {
         // 몬스터의 위치 랜덤으로 생성하기
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
+        this.position.x = Math.random() * canvas.width;
+        this.position.y = Math.random() * canvas.height;
         // 몬스터의 크기 랜덤으로 생성하기
         this.size = Math.random() * 50 + 20;
         // 몬스터 이동 속도 랜덤으로 생성하기
         this.speed = Math.random() * 2 + 1;
         // 몬스터 이동 방향 랜덤으로 생성하기
         // const direction = Math.random() * 2 * Math.PI;
-        this.direction = Math.atan2(player.playerY - this.y, player.playerX - this.x);
+        this.direction = Math.atan2(player.position.y - this.position.y, player.position.x - this.position.x);
         // 몬스터 정보를 객체로 저장하고 배열에 추가하기
         this.image = monsterImage;
         this.health = 100;
@@ -82,7 +82,7 @@ let monsters = [];
 function drawMonsters() {
   for (let i = 0; i < monsters.length-i; i++) {
     const monster = monsters[i];
-    ctx.drawImage(monster.image, monster.x, monster.y, monster.size, monster.size);
+    ctx.drawImage(monster.image, monster.position.x, monster.position.y, monster.size, monster.size);
   }
 }
 
@@ -103,21 +103,63 @@ function moveMonsters() {
     const monster = monsters[i];
 
     // 몬스터의 위치 변경
-    monster.x += monster.speed * Math.cos(monster.direction);
-    monster.y += monster.speed * Math.sin(monster.direction);
+    monster.position.x += monster.speed * Math.cos(monster.direction);
+    monster.position.y += monster.speed * Math.sin(monster.direction);
 
     // 화면 밖으로 나갔을 경우 위치 초기화
-    if (monster.x < -monster.size || monster.x > canvas.width + monster.size ||
-      monster.y < -monster.size || monster.y > canvas.height + monster.size) {
-      monster.x = Math.random() * canvas.width;
-      monster.y = Math.random() * canvas.height;
+    if (monster.position.x < -monster.size || monster.position.x > canvas.width + monster.size ||
+      monster.position.y < -monster.size || monster.position.y > canvas.height + monster.size) {
+      monster.position.x = Math.random() * canvas.width;
+      monster.position.y = Math.random() * canvas.height;
     }
-    monster.direction = Math.atan2(player.playerY - monster.y, player.playerX - monster.x);
+    monster.direction = Math.atan2(player.position.y - monster.position.y, player.position.x - monster.position.x);
   }
 }
 
 // 일정 주기로 몬스터 움직이기
 setInterval(moveMonsters, 100);
+
+// function attackImage() {
+//   // 플레이어 공격 이미지 그리기
+//   ctx.fillStyle = "yellow";
+//   ctx.fillRect(player.position.x + player.position.y, player.position.y, 20, 20);
+// }
+
+function getDistance(point1, point2) {
+  const dx = point1.x - point2.x;
+  const dy = point1.y - point2.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+
+function autoAttack() {
+  for (let i = 0; i < monsters.length; i++) {
+    const monster = monsters[i];
+
+    // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
+    if (getDistance(player.position, monster.position) < player.attackRange) {
+      monster.health -= 100;
+      if (monster.health <= 0) {
+        // 몬스터가 죽었을 때의 처리
+        monsters.splice(i, 1);
+      }
+    }
+
+    // 플레이어와 몬스터 충돌 시 플레이어 체력 닳기
+    if (player.position.x < monster.position.x + monster.size &&
+      player.position.x + 40 > monster.position.x &&
+      player.position.y < monster.position.y + monster.size &&
+      45 + player.position.y > monster.position.y) {
+
+        player.health -= 5;
+        
+  }
+}
+}
+
+setInterval(autoAttack, 1000); // 3초마다 autoAttack() 함수 실행
+// setInterval(attackImage, 1000);
+
 
 function move(){
   if('ArrowRight' in keysDown){
@@ -159,11 +201,11 @@ citystage.onload = () => {
 }
 
 function render(){
-  const bgX = -player.playerX;
-  const bgY = -player.playerY;
+  const bgX = -player.position.x;
+  const bgY = -player.position.y;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(citystage, bgX, bgY, 2300, 1200);
-  ctx.drawImage(selectedCharacter, player.playerX, player.playerY);
+  ctx.drawImage(selectedCharacter, player.position.x, player.position.y);
 }
 
 const player = new Player()
@@ -244,5 +286,9 @@ function gameLoop() {
   createMonster();
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
-  requestAnimationFrame(gameLoop);
+  if(player.health <= 0) {
+    alert("게임이 종료되었습니다.")
+  } else {
+    requestAnimationFrame(gameLoop);
+  }
 }
