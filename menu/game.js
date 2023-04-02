@@ -24,11 +24,41 @@ class Player{
     playerX
     playerY
     playerImage
+    health
     
     constructor(){
         this.playerImage = selectedCharacter
         this.playerX = canvas.width/2;
         this.playerY = canvas.height/2;
+        this.health = 100;
+    }
+    // 플레이어가 몬스터를 공격하는 함수
+}
+
+// Monster
+class Monster {
+    x
+    y
+    size
+    speed
+    direction
+    image
+    health
+    
+    constructor() {
+        // 몬스터의 위치 랜덤으로 생성하기
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        // 몬스터의 크기 랜덤으로 생성하기
+        this.size = Math.random() * 50 + 20;
+        // 몬스터 이동 속도 랜덤으로 생성하기
+        this.speed = Math.random() * 2 + 1;
+        // 몬스터 이동 방향 랜덤으로 생성하기
+        // const direction = Math.random() * 2 * Math.PI;
+        this.direction = Math.atan2(player.playerY - this.y, player.playerX - this.x);
+        // 몬스터 정보를 객체로 저장하고 배열에 추가하기
+        this.image = monsterImage;
+        this.health = 100;
     }
 }
 
@@ -49,42 +79,14 @@ function drawMonsters() {
 
 // 새로운 몬스터 생성 함수
 function createMonster() {
-
-  // 몬스터의 위치 랜덤으로 생성하기
-  const x = Math.random() * canvas.width;
-  const y = Math.random() * canvas.height;
-
-  // 몬스터의 크기 랜덤으로 생성하기
-  const size = Math.random() * 50 + 20;
-
-  // 몬스터 이동 속도 랜덤으로 생성하기
-  const speed = Math.random() * 2 + 1;
-
-  // 몬스터 이동 방향 랜덤으로 생성하기
-  // const direction = Math.random() * 2 * Math.PI;
-  const direction = Math.atan2(player.playerY - y, player.playerX - x);
-
-  // 몬스터 정보를 객체로 저장하고 배열에 추가하기
- 
-  if(monsters.length <= 50) {
-  monsters.push({
-    x: x,
-    y: y,
-    size: size,
-    speed: speed,
-    direction: direction,
-    image: monsterImage
-  });
-};
-
-  // 모든 몬스터 그리기
-  drawMonsters();
-}
-
-// 일정 주기로 몬스터 생성하기
-// if(monsters.length <= 10) {
-// setInterval(createMonster, 3000);
-// }
+    if(monsters.length <= 50) {
+        const monster = new Monster();
+        monsters.push(monster);
+    }
+  
+    // 모든 몬스터 그리기
+    drawMonsters();
+  }
 
 // 몬스터 움직임 구현
 function moveMonsters() {
@@ -231,9 +233,6 @@ function gameLoop() {
   move(); // 움직이면서 바뀐 좌표값
   render(); // 화면에 보여 주기
   createMonster();
-
-  // 캐릭터 등 게임 요소 그리기
-  ctx.drawImage(selectedCharacter, 500, 500);
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   requestAnimationFrame(gameLoop);
