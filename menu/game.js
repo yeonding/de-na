@@ -1,4 +1,3 @@
-import { Player } from "../class/model.js";
 /**@type {HTMLCanvasElement} */
 
 const canvas = document.getElementById('game1');
@@ -24,10 +23,6 @@ let selectedCharacter = ch1;
 // selectedCharacter.width=50;
 // selectedCharacter.height=50;
 
-<<<<<<< HEAD
-
-=======
->>>>>>> fe96ba356f5810e408b41fe21baef5436441da50
 // Player
 class Player{
     position = {x:0, y:0}
@@ -284,10 +279,11 @@ function gameLoop() {
   move(); // 움직이면서 바뀐 좌표값
   render(); // 화면에 보여 주기
   createMonster();
-
+  console.log(player.health)
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0) {
     alert("게임이 종료되었습니다.")
+    location.reload();
   } else {
     requestAnimationFrame(gameLoop);
   }

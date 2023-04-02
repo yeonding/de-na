@@ -18,7 +18,7 @@ ul {
     /* border: 1px solid red; */
     position:absolute;
     top: 5%;
-    left: 10%;
+    left: 20%;
     /* color: white; */
 }
 
@@ -61,8 +61,6 @@ ul {
     border: 1px solid red;
 }
 
-
-
 #characterSelection p#start-button img{
     width: 200px;
     position: absolute;
@@ -78,4 +76,27 @@ ul {
 
 .hidden{
     display: none;
+}
+
+#endScreenDefeat {
+    background-image: url('../images/background/gameover.png');
+    width: 700px;
+    height: 500px;
+    /* border: 1px solid red; */
+    position:absolute;
+    top: 5%;
+    left: 20%
+}
+
+#endScreenDefeat p#restart-button img{
+    width: 200px;
+    position: absolute;
+    bottom: 2%;
+    left: 35%;
+    /* transform: translateX(-50%); */
+}
+
+#endScreenDefeat p#restart-button img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
 }
