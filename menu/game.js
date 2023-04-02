@@ -17,6 +17,12 @@ const ch5 = document.getElementById('ch5');
 const startButton = document.getElementById('start-button');
 startButton.style.display = 'none'; // 시작 버튼은 처음에 보이지 않음
 
+const end = document.getElementById('endScreenDefeat');
+end.style.display = 'none';
+
+const restartButton = document.getElementById('restart-button');
+
+
 let selectedCharacter = null;
 
 // Player
@@ -79,13 +85,16 @@ function drawMonsters() {
 
 // 새로운 몬스터 생성 함수
 function createMonster() {
+  if(player.health<=0){
+    return;
+  }else{
     if(monsters.length <= 50) {
         const monster = new Monster();
         monsters.push(monster);
     }
-  
-    // 모든 몬스터 그리기
     drawMonsters();
+  }
+    // 모든 몬스터 그리기
   }
 
 // 몬스터 움직임 구현
@@ -278,7 +287,11 @@ function gameLoop() {
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0) {
-    alert("게임이 종료되었습니다.")
+    end.style.display = 'block';
+
+    restartButton.addEventListener('click', function() {
+      document.location.reload();
+    });
   } else {
     requestAnimationFrame(gameLoop);
   }
