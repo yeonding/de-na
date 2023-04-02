@@ -24,7 +24,10 @@ let selectedCharacter = ch1;
 // selectedCharacter.width=50;
 // selectedCharacter.height=50;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> fe96ba356f5810e408b41fe21baef5436441da50
 // Player
 class Player{
     playerX
