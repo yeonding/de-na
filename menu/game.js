@@ -24,12 +24,14 @@ class Player{
     position = {x:0, y:0}
     playerImage
     health
+    attackRange
     
     constructor(){
         this.playerImage = selectedCharacter
         this.position.x = canvas.width/2;
         this.position.y = canvas.height/2;
         this.health = 100;
+        this.attackRange = 100;
     }
     // 플레이어가 몬스터를 공격하는 함수
 }
@@ -108,33 +110,46 @@ function moveMonsters() {
 // 일정 주기로 몬스터 움직이기
 setInterval(moveMonsters, 100);
 
+// function attackImage() {
+//   // 플레이어 공격 이미지 그리기
+//   ctx.fillStyle = "yellow";
+//   ctx.fillRect(player.position.x + player.position.y, player.position.y, 20, 20);
+// }
+
 function getDistance(point1, point2) {
   const dx = point1.x - point2.x;
   const dy = point1.y - point2.y;
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-function checkCollisions() {
+
+function autoAttack() {
   for (let i = 0; i < monsters.length; i++) {
     const monster = monsters[i];
 
-    // 플레이어와 몬스터의 충돌 여부 체크
-    if (player.position.x < monster.position.x + monster.size &&
-        player.position.x + 40 > monster.position.x &&
-        player.position.y < monster.position.y + monster.size &&
-        45 + player.position.y > monster.position.y) {
-
-      // 충돌했을 때의 처리
+    // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
+    if (getDistance(player.position, monster.position) < player.attackRange) {
       monster.health -= 100;
       if (monster.health <= 0) {
         // 몬스터가 죽었을 때의 처리
         monsters.splice(i, 1);
       }
-      // 플레이어의 체력 감소
-      player.health -= 10;
     }
+
+    // 플레이어와 몬스터 충돌 시 플레이어 체력 닳기
+    if (player.position.x < monster.position.x + monster.size &&
+      player.position.x + 40 > monster.position.x &&
+      player.position.y < monster.position.y + monster.size &&
+      45 + player.position.y > monster.position.y) {
+
+        player.health -= 5;
+        
   }
 }
+}
+
+setInterval(autoAttack, 1000); // 3초마다 autoAttack() 함수 실행
+// setInterval(attackImage, 1000);
 
 
 function move(){
@@ -166,7 +181,6 @@ function move(){
   if(player.position.y >= canvas.height-45){
     player.position.y = canvas.height-45
   }
-  checkCollisions();
 }
 
 //스테이지1 불러오기
