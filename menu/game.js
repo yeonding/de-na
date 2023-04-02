@@ -267,7 +267,6 @@ if(selectedCharacter == ch2){
   }
 }
 
-
  
   document.addEventListener("keydown", function(event) {
     if (event.keyCode === 37) { // 왼쪽 방향키를 눌렀을 때
@@ -288,6 +287,20 @@ if(selectedCharacter == ch2){
       characterDirection = "stop";
     }
   });
+
+  if(player.position.x <= 0){
+    player.position.x = 0
+  }
+  if(player.position.x >= canvas.width-40){
+    player.position.x = canvas.width-40
+  }
+
+  if(player.position.y <= 0){
+    player.position.y = 0
+  }
+  if(player.position.y >= canvas.height-45){
+    player.position.y = canvas.height-45
+  }
 }
 
 setInterval(autoAttack, 1000); // 3초마다 autoAttack() 함수 실행
@@ -355,8 +368,6 @@ function startGame() {
     characterSeletion.classList.add("hidden"); 
 
 }
-
-
 
 
 startButton.addEventListener('click', function() {
