@@ -480,7 +480,9 @@ function startTimer() {
 
     ctx.font = '48px sans-serif';
     ctx.fillStyle = 'white';
-    ctx.fillText(timerString, 10, 50);
+
+    //timer위치 여기서 지정 마지막 두 인자가 타이머가 시작하는 x, y 위치 
+    ctx.fillText(timerString, 900, 50);
 
     if (elapsedTime < 180000) {
       requestAnimationFrame(updateTimer);
@@ -520,8 +522,8 @@ function gameLoop() {
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0 || remainingTime<=0) {
+    ctx.drawImage(citystage, 2300, 1200);
     end.style.display = 'block';
-
     restartButton.addEventListener('click', function() {
       document.location.reload();
     });
