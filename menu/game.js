@@ -207,7 +207,8 @@ function autoAttack() {
       player.position.y < monster.position.y + monster.size &&
       45 + player.position.y > monster.position.y) {
 
-      player.health -= 5;
+      player.health -= 10;
+      currentHealth -= 10*2;
     }
   }
 }
@@ -365,6 +366,33 @@ const show = new Audio;
 show.src = '../sounds/show.mp3';
 show.volume = 1;
 
+// const monster = new Monster();
+
+const barWidth = 200;
+const barHeight = 20;
+const barX = 20;
+const barY = 30;
+
+let maxHealth = 200;
+let currentHealth = 200;
+
+function drawHealthBar() {
+  ctx.fillStyle = "gray";
+  ctx.fillRect(barX, barY, barWidth, barHeight);
+
+  ctx.fillStyle = "skyblue";
+  const currentHealthWidth = (currentHealth / maxHealth) * barWidth;
+  ctx.fillRect(barX, barY, currentHealthWidth, barHeight);
+}
+
+let heading = document.createElement("h1");
+let text = document.createTextNode("HP"); 
+heading.appendChild(text);
+document.body.append(heading);
+
+text.x = 100;
+text.y = 100;
+
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
   console.log('캐릭터1을 선택했습니다.');
@@ -458,9 +486,10 @@ function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
   drawAttack();
+  drawHealthBar();
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
-  if(player.health <= 0) {
+  if(player.health == 0) {
     end.style.display = 'block';
 
     restartButton.addEventListener('click', function() {
