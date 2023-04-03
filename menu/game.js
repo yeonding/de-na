@@ -173,6 +173,7 @@ function autoAttack() {
       if (monster.health <= 0) {
         // 몬스터가 죽었을 때의 처리
         monsters.splice(i, 1);
+        i--; // 삭제된 요소 이후의 요소들의 인덱스를 감소시킴
       }
     }
 
@@ -185,6 +186,17 @@ function autoAttack() {
       player.health -= 5;
     }
   }
+}
+
+function drawAttack() {
+  const attackImage = new Image();
+  attackImage.src = '../images/attackeffect/attack3.png';
+  let spriteX = 0;
+  let spriteY = 0;
+  let frameIndex = 0;
+  frameIndex = Math.floor(Date.now() / 500) % 2;
+  spriteX = frameIndex*32;
+  ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
 }
 
 function drawCharacter() {
@@ -421,6 +433,7 @@ startButton.addEventListener('click', function() {
 function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
+  drawAttack();
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0) {
