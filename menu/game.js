@@ -271,21 +271,21 @@ if(selectedCharacter == ch2){
 }
 
 document.addEventListener("keydown", function(event) {
-    if (event.keyCode === 37) { // 왼쪽 방향키를 눌렀을 때
+    if (event.key === 37) { // 왼쪽 방향키를 눌렀을 때
       characterDirection = "left";
-    } else if (event.keyCode === 39) { // 오른쪽 방향키를 눌렀을 때
+    } else if (event.key === 39) { // 오른쪽 방향키를 눌렀을 때
       characterDirection = "right";
     }
-    else if (event.keyCode === 38) { // 위 방향키를 눌렀을 때
+    else if (event.key === 38) { // 위 방향키를 눌렀을 때
       characterDirection = "up";
     }
-    else if (event.keyCode === 40) { // 아래 방향키를 눌렀을 때
+    else if (event.key === 40) { // 아래 방향키를 눌렀을 때
       characterDirection = "down";
     }
   });
 
   document.addEventListener("keyup", function(event) {
-    if (event.keyCode === 37 || event.keyCode === 39 || event.keyCode === 38 || event.keyCode === 40) { // 왼쪽 또는 오른쪽 방향키를 떼었을 때
+    if (event.key === 37 || event.key === 39 || event.key === 38 || event.key === 40) { // 왼쪽 또는 오른쪽 방향키를 떼었을 때
       characterDirection = "stop";
     }
   });
