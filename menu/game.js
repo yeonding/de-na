@@ -3,8 +3,6 @@
 const canvas = document.getElementById('game1');
 const ctx = canvas.getContext('2d');
 
-
-
 //캔버스 크기
 canvas.width = 1024;
 canvas.height = 576;
@@ -59,6 +57,7 @@ const bgmusic = new Audio;
 bgmusic.src = '../sounds/music2.mp3';
 bgmusic.volume = 1;
 
+
 // Player
 class Player{
     position = {x:0, y:0}
@@ -102,12 +101,13 @@ class Monster {
     }
 }
 
+
 // 몬스터 이미지 객체 생성
 const monsterImage = new Image();
 
 
-leftSrc= '../images/mob/frogleft.png';
-rightSrc = '../images/mob/frogright.png'
+const leftSrc= '../images/mob/frogleft.png';
+const rightSrc = '../images/mob/frogright.png'
 
 const monsterleft = new Image();
 monsterleft.src = '../images/mob/frogleft.png'
@@ -140,15 +140,19 @@ function drawMonsters() {
     }
     // ctx.drawImage(monsterright, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
 }
+
 // 새로운 몬스터 생성 함수
 function createMonster() {
+  if(player.health<=0){
+    return;
+  }else{
     if(monsters.length <= 50) {
         const monster = new Monster();
         monsters.push(monster);
     }
-  
-    // 모든 몬스터 그리기
     drawMonsters();
+  }
+    // 모든 몬스터 그리기
   }
 
 // 몬스터 움직임 구현
@@ -430,6 +434,33 @@ ch5.addEventListener('click', function() {
 
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
+let remainingTime = 180000;
+
+//타이머
+function startTimer() {
+  const startTime = Date.now();
+
+  function updateTimer() {
+    const currentTime = Date.now();
+    const elapsedTime = currentTime - startTime;
+    remainingTime = 180000 - elapsedTime;
+
+
+    const minuteString = Math.floor(remainingTime / 60000).toString().padStart(2, '0');
+    const secondString = Math.floor(remainingTime % 60000 / 1000).toString().padStart(2, '0');
+    const timerString = `${minuteString}:${secondString}`;
+
+    ctx.font = '48px sans-serif';
+    ctx.fillStyle = 'white';
+    ctx.fillText(timerString, 10, 50);
+
+    if (elapsedTime < 180000) {
+      requestAnimationFrame(updateTimer);
+    }
+  }
+
+  updateTimer();
+}
 
 function startGame() {
     music.play();
@@ -449,6 +480,7 @@ startButton.addEventListener('click', function() {
     }
   // 게임 루프 실행
   gameLoop();
+  startTimer();
 });
 
 //gameLoop
@@ -456,11 +488,13 @@ function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
   drawAttack();
-
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
-  if(player.health <= 0) {
-    alert("게임이 종료되었습니다.")
-    location.reload();
+  if(player.health <= 0 || remainingTime<=0) {
+    end.style.display = 'block';
+
+    restartButton.addEventListener('click', function() {
+      document.location.reload();
+    });
   } else {
     requestAnimationFrame(gameLoop);
   }
