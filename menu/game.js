@@ -37,7 +37,6 @@ ch1Right.src = "../images/player/ch1/spriteRight.png";
 const ch1Stop = new Image();
 ch1Stop.src = "../images/player/ch1/spriteStop.png"
 
-
 const ch2Front = new Image();
 ch2Front.src = "../images/player/ch4/spriteFront.png";
 const ch2Back = new Image();
@@ -52,6 +51,13 @@ ch2Stop.src = "../images/player/ch4/spriteFront.png"
 var characterSpeed = 1;
 var characterDirection = "stop"; // 캐릭터의 초기 방향은 멈춤
 
+const music = new Audio;
+music.src = '../sounds/music.mp3';
+music.volume = 1;
+
+const bgmusic = new Audio;
+bgmusic.src = '../sounds/music2.mp3';
+bgmusic.volume = 1;
 
 // Player
 class Player{
@@ -156,7 +162,6 @@ function getDistance(point1, point2) {
   return Math.sqrt(dx * dx + dy * dy);
 }
 
-
 function autoAttack() {
   for (let i = 0; i < monsters.length; i++) {
     const monster = monsters[i];
@@ -167,6 +172,7 @@ function autoAttack() {
       if (monster.health <= 0) {
         // 몬스터가 죽었을 때의 처리
         monsters.splice(i, 1);
+        i--; // 삭제된 요소 이후의 요소들의 인덱스를 감소시킴
       }
     }
 
@@ -176,17 +182,26 @@ function autoAttack() {
       player.position.y < monster.position.y + monster.size &&
       45 + player.position.y > monster.position.y) {
 
-        player.health -= 5;
-        
+      player.health -= 5;
+    }
   }
 }
+
+function drawAttack() {
+  const attackImage = new Image();
+  attackImage.src = '../images/attackeffect/attack3.png';
+  let spriteX = 0;
+  let spriteY = 0;
+  let frameIndex = 0;
+  frameIndex = Math.floor(Date.now() / 500) % 2;
+  spriteX = frameIndex*32;
+  ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
 }
 
 function drawCharacter() {
   var frameIndex = 4; // 스프라이트 이미지에서 사용할 프레임 인덱스
   var spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표
   var spriteY = 0; // 스프라이트 이미지에서 사용할 y 좌표
-
 
 if(selectedCharacter == ch1){
   if (characterDirection === "stop") {
@@ -266,8 +281,7 @@ if(selectedCharacter == ch2){
   }
 }
 
- 
-  document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function(event) {
     if (event.keyCode === 37) { // 왼쪽 방향키를 눌렀을 때
       characterDirection = "left";
     } else if (event.keyCode === 39) { // 오른쪽 방향키를 눌렀을 때
@@ -303,15 +317,14 @@ if(selectedCharacter == ch2){
 }
 
 setInterval(autoAttack, 1000); // 3초마다 autoAttack() 함수 실행
-// setInterval(attackImage, 1000);
-
 
 //스테이지1 불러오기
 const citystage = new Image();
 citystage.src = '../images/background/citytile1.png';
 
 citystage.onload = () => {
-    ctx.drawImage(citystage, 0, 0);
+  bgmusic.play();
+  ctx.drawImage(citystage, 0, 0);
 }
 
 function render(){
@@ -319,16 +332,25 @@ function render(){
   const bgY = -player.position.y;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(citystage, bgX, bgY, 2300, 1200);
-  drawCharacter()
+  drawCharacter();
 }
 
-const player = new Player()
+const player = new Player();
+const show = new Audio;
+show.src = '../sounds/show.mp3';
+show.volume = 1;
 
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
   console.log('캐릭터1을 선택했습니다.');
   selectedCharacter = ch1;
   startButton.style.display = 'block';
+  ch1.style.background = 'skyblue';
+  ch2.style.background =  'none';
+  ch3.style.background =  'none';
+  ch4.style.background =  'none';
+  ch5.style.background =  'none';
+  show.play();
 });
 
 ch2.addEventListener('click', function() {
@@ -336,6 +358,12 @@ ch2.addEventListener('click', function() {
   console.log('캐릭터2을 선택했습니다.');
   selectedCharacter = ch2;
   startButton.style.display = 'block';
+  ch2.style.background = 'skyblue';
+  ch1.style.background =  'none';
+  ch3.style.background =  'none';
+  ch4.style.background =  'none';
+  ch5.style.background =  'none';
+  show.play();
 });
 
 ch3.addEventListener('click', function() {
@@ -343,6 +371,12 @@ ch3.addEventListener('click', function() {
   console.log('캐릭터3을 선택했습니다.');
   selectedCharacter = ch3;
   startButton.style.display = 'block';
+  ch3.style.background = 'skyblue';
+  ch1.style.background =  'none';
+  ch2.style.background =  'none';
+  ch4.style.background =  'none';
+  ch5.style.background =  'none';
+  show.play();
 });
 
 ch4.addEventListener('click', function() {
@@ -350,6 +384,12 @@ ch4.addEventListener('click', function() {
     console.log('캐릭터4을 선택했습니다.');
     selectedCharacter = ch4;
     startButton.style.display = 'block';
+    ch4.style.background = 'skyblue';
+    ch1.style.background =  'none';
+    ch2.style.background =  'none';
+    ch3.style.background =  'none';
+    ch5.style.background =  'none';
+    show.play();
   });
 
 ch5.addEventListener('click', function() {
@@ -357,17 +397,23 @@ ch5.addEventListener('click', function() {
     console.log('캐릭터5을 선택했습니다.');
     selectedCharacter = ch5;
     startButton.style.display = 'block';
+    ch5.style.background = 'skyblue';
+    ch1.style.background =  'none';
+    ch2.style.background =  'none';
+    ch3.style.background =  'none';
+    ch4.style.background =  'none';
+    show.play();
   });  
 
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
 
 function startGame() {
+    music.play();
+    bgmusic.pause();
     //캐릭터 선택 화면 숨기기
-    characterSeletion.classList.add("hidden"); 
-
+    characterSeletion.classList.add("hidden");
 }
-
 
 startButton.addEventListener('click', function() {
   // 게임 시작 버튼을 눌렀을 때
@@ -386,7 +432,12 @@ startButton.addEventListener('click', function() {
 function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
+<<<<<<< HEAD
   console.log(player.health)
+=======
+  drawAttack();
+
+>>>>>>> 5af5513a51a29162f915a2dd9e026aa77629bc67
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0) {
     alert("게임이 종료되었습니다.")
