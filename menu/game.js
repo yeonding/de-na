@@ -465,6 +465,7 @@ const characterSeletion = document.getElementById('characterSelection');
 let remainingTime = 180000;
 
 //타이머
+let timerAnimation = null;
 function startTimer() {
   const startTime = Date.now();
 
@@ -485,7 +486,7 @@ function startTimer() {
     ctx.fillText(timerString, 900, 50);
 
     if (elapsedTime < 180000) {
-      requestAnimationFrame(updateTimer);
+      timerAnimation = requestAnimationFrame(updateTimer);
     }
   }
 
@@ -522,7 +523,7 @@ function gameLoop() {
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0 || remainingTime<=0) {
-    ctx.drawImage(citystage, 2300, 1200);
+    cancelAnimationFrame(timerAnimation);
     end.style.display = 'block';
     restartButton.addEventListener('click', function() {
       document.location.reload();
