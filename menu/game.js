@@ -102,17 +102,41 @@ class Monster {
 
 // 몬스터 이미지 객체 생성
 const monsterImage = new Image();
-monsterImage.src = '../images/mob/mob2.gif';
+
+
+leftSrc= '../images/mob/frogleft.png';
+rightSrc = '../images/mob/frogright.png'
+
+const monsterleft = new Image();
+monsterleft.src = '../images/mob/frogleft.png'
+
+const monsterright = new Image();
+monsterright.src = '../images/mob/frogright.png'
 
 // 몬스터 정보를 저장하는 배열
 let monsters = [];
 
 // 몬스터 그리는 함수
 function drawMonsters() {
-  for (let i = 0; i < monsters.length-i; i++) {
-    const monster = monsters[i];
-    ctx.drawImage(monster.image, monster.position.x, monster.position.y, monster.size, monster.size);
-  }
+    let frameIndex = 4; // 스프라이트 이미지에서 사용할 프레임 인덱스
+    let spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표
+    let spriteY = 0; // 스프라이트 이미지에서 사용할 y 좌표
+    frameIndex = Math.floor(Date.now() / 500) % 2;
+    spriteX = frameIndex*40;
+    for (let i = 0; i < monsters.length-i; i++) {
+        const monster = monsters[i];
+        // ctx.drawImage(monster.image, monster.position.x, monster.position.y, monster.size, monster.size);
+        if(monster.position.x>player.position.x+25){
+            monsterImage.src= leftSrc;
+            ctx.drawImage(monsterImage, spriteX, spriteY, 40, 40, monster.position.x, monster.position.y, 40, 40);
+            // ctx.drawImage(monsterleft,monster.position.x, monster.position.y, monster.size, monster.size)
+        }else{
+            monsterImage.src= rightSrc;
+            // ctx.drawImage(monsterright,monster.position.x, monster.position.y, monster.size, monster.size)
+            ctx.drawImage(monsterImage, spriteX, spriteY, 40, 40, monster.position.x, monster.position.y, 40, 40);
+        }
+    }
+    // ctx.drawImage(monsterright, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
 }
 
 // 새로운 몬스터 생성 함수
