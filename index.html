@@ -6,6 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/menu.css" type="text/css" rel="stylesheet">
     <title>Dev's Nightmare</title>
+    <script>
+        const dream = new Audio;
+        dream.src = 'sounds/dream.mp3';
+
+        window.onload = () => {
+            dream.muted = true;
+            dream.play();
+            dream.muted = false;
+            dream.volume = 1;
+        }
+    </script>
 </head>
 <body>
     <div class="main">
