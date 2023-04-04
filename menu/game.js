@@ -36,15 +36,26 @@ const ch1Stop = new Image();
 ch1Stop.src = "../images/player/ch1/spriteStop.png"
 
 const ch2Front = new Image();
-ch2Front.src = "../images/player/ch4/spriteFront.png";
+ch2Front.src = "../images/player/ch5/spriteFront.png";
 const ch2Back = new Image();
-ch2Back.src = "../images/player/ch4/spriteBack.png";
+ch2Back.src = "../images/player/ch5/spriteBack.png";
 const ch2Left = new Image();
-ch2Left.src = "../images/player/ch4/spriteLeft.png";
+ch2Left.src = "../images/player/ch5/spriteLeft.png";
 const ch2Right = new Image();
-ch2Right.src = "../images/player/ch4/spriteRight.png"; 
+ch2Right.src = "../images/player/ch5/spriteRight.png"; 
 const ch2Stop = new Image();
-ch2Stop.src = "../images/player/ch4/spriteFront.png"
+ch2Stop.src = "../images/player/ch5/spriteStop.png"
+
+const ch3Front = new Image();
+ch3Front.src = "../images/player/ch2/spriteFront.png";
+const ch3Back = new Image();
+ch3Back.src = "../images/player/ch2/spriteBack.png";
+const ch3Left = new Image();
+ch3Left.src = "../images/player/ch2/spriteLeft.png";
+const ch3Right = new Image();
+ch3Right.src = "../images/player/ch2/spriteRight.png"; 
+const ch3Stop = new Image();
+ch3Stop.src = "../images/player/ch2/spriteStop.png"
 
 var characterSpeed = 1;
 var characterDirection = "stop"; // 캐릭터의 초기 방향은 멈춤
@@ -223,7 +234,19 @@ function drawAttack() {
   let frameIndex = 0;
   frameIndex = Math.floor(Date.now() / 500) % 2;
   spriteX = frameIndex*32;
-  ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
+  if(selectedCharacter== ch1)
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
+ 
+  if(selectedCharacter == ch2){
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
+
+  if(selectedCharacter == ch3){
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
+  }
 }
 
 function drawCharacter() {
@@ -273,41 +296,81 @@ if(selectedCharacter == ch1){
 if(selectedCharacter == ch2){
   if (characterDirection === "stop") {
       frameIndex = Math.floor(Date.now() / 500) % 2;
-      spriteX = frameIndex * 48;}
+      spriteX = frameIndex * 16;}
   if (characterDirection === "left") {
       frameIndex = Math.floor(Date.now() / 100) % 4;
       //spriteX = 0
-      spriteX = frameIndex * 48;
+      spriteY = frameIndex * 16;
       player.position.x -= characterSpeed;}
   if (characterDirection === "up") {
       frameIndex = Math.floor(Date.now() / 100) % 4;
       //spriteX = 0
-      spriteX = frameIndex * 48;
+      spriteY = frameIndex * 16;
       player.position.y -= characterSpeed;}
   if (characterDirection === "down") {
       frameIndex = Math.floor(Date.now() / 100) % 4;
       //spriteX = 0
-      spriteX = frameIndex * 48;
+      spriteY = frameIndex * 16;
       player.position.y += characterSpeed;}
    else if (characterDirection === "right") {
       frameIndex = Math.floor(Date.now() / 100) % 4;
       //spriteX = 0
-      spriteX = frameIndex * 48;
+      spriteY = frameIndex * 16;
       player.position.x+= characterSpeed;} 
 
   if (characterDirection == 'stop')
-  ctx.drawImage(ch2Stop, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  ctx.drawImage(ch2Stop, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
   if (characterDirection == 'up')
-  ctx.drawImage(ch2Back, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  ctx.drawImage(ch2Back, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
   if (characterDirection == 'down')
-  ctx.drawImage(ch2Front, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  ctx.drawImage(ch2Front, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
   if (characterDirection === "left") {
-  ctx.drawImage(ch2Left, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  ctx.drawImage(ch2Left, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
   }
   if (characterDirection === "right") {
-  ctx.drawImage(ch2Right, spriteX, spriteY, 48, 68, player.position.x, player.position.y, 48, 68);
+  ctx.drawImage(ch2Right, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
   }
 }
+
+if(selectedCharacter == ch3){
+  if (characterDirection === "stop") {
+      frameIndex = Math.floor(Date.now() / 500) % 2;
+      spriteX = frameIndex * 16;}
+  if (characterDirection === "left") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteY = frameIndex * 16;
+      player.position.x -= characterSpeed;}
+  if (characterDirection === "up") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteY = frameIndex * 16;
+      player.position.y -= characterSpeed;}
+  if (characterDirection === "down") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteY = frameIndex * 16;
+      player.position.y += characterSpeed;}
+   else if (characterDirection === "right") {
+      frameIndex = Math.floor(Date.now() / 100) % 4;
+      //spriteX = 0
+      spriteY = frameIndex * 16;
+      player.position.x+= characterSpeed;} 
+
+  if (characterDirection == 'stop')
+  ctx.drawImage(ch3Stop, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
+  if (characterDirection == 'up')
+  ctx.drawImage(ch3Back, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
+  if (characterDirection == 'down')
+  ctx.drawImage(ch3Front, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
+  if (characterDirection === "left") {
+  ctx.drawImage(ch3Left, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
+  }
+  if (characterDirection === "right") {
+  ctx.drawImage(ch3Right, spriteX, spriteY, 16, 16, player.position.x, player.position.y, 16, 16);
+  }
+}
+
 
 document.addEventListener("keydown", function(event) {
     if (event.keyCode === 37) { // 왼쪽 방향키를 눌렀을 때
@@ -355,11 +418,15 @@ citystage.onload = () => {
   ctx.drawImage(citystage, 0, 0);
 }
 
+const map = new Image();
+map.src = '../images/background/map.png'
+
 function render(){
   const bgX = -player.position.x;
   const bgY = -player.position.y;
+  ctx.drawImage(map, -500, -700);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.drawImage(citystage, bgX, bgY, 2300, 1200);
+  ctx.drawImage(map, bgX, bgY, 2300, 1200);
   drawCharacter();
 }
 
@@ -403,8 +470,6 @@ ch1.addEventListener('click', function() {
   ch1.style.background = 'skyblue';
   ch2.style.background =  'none';
   ch3.style.background =  'none';
-  ch4.style.background =  'none';
-  ch5.style.background =  'none';
   show.play();
 });
 
@@ -416,8 +481,6 @@ ch2.addEventListener('click', function() {
   ch2.style.background = 'skyblue';
   ch1.style.background =  'none';
   ch3.style.background =  'none';
-  ch4.style.background =  'none';
-  ch5.style.background =  'none';
   show.play();
 });
 
@@ -429,36 +492,10 @@ ch3.addEventListener('click', function() {
   ch3.style.background = 'skyblue';
   ch1.style.background =  'none';
   ch2.style.background =  'none';
-  ch4.style.background =  'none';
-  ch5.style.background =  'none';
   show.play();
 });
 
-ch4.addEventListener('click', function() {
-    // 캐릭터4를 선택했을 때
-    console.log('캐릭터4을 선택했습니다.');
-    selectedCharacter = ch4;
-    startButton.style.display = 'block';
-    ch4.style.background = 'skyblue';
-    ch1.style.background =  'none';
-    ch2.style.background =  'none';
-    ch3.style.background =  'none';
-    ch5.style.background =  'none';
-    show.play();
-  });
 
-ch5.addEventListener('click', function() {
-    // 캐릭터5를 선택했을 때
-    console.log('캐릭터5을 선택했습니다.');
-    selectedCharacter = ch5;
-    startButton.style.display = 'block';
-    ch5.style.background = 'skyblue';
-    ch1.style.background =  'none';
-    ch2.style.background =  'none';
-    ch3.style.background =  'none';
-    ch4.style.background =  'none';
-    show.play();
-  });  
 
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
