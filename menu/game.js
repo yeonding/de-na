@@ -134,7 +134,7 @@ function drawMonsters() {
     let frameIndex = 4; // 스프라이트 이미지에서 사용할 프레임 인덱스
     let spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표
     let spriteY = 0; // 스프라이트 이미지에서 사용할 y 좌표
-    frameIndex = Math.floor(Date.now() / 500) % 2;
+    frameIndex = Math.floor(Date.now() / 500) % 4;
     spriteX = frameIndex*40;
     for (let i = 0; i < monsters.length-i; i++) {
         const monster = monsters[i];
@@ -154,17 +154,14 @@ function drawMonsters() {
 
 // 새로운 몬스터 생성 함수
 function createMonster() {
-  if(player.health<=0){
-    return;
-  }else{
-    if(monsters.length <= 50) {
+    if(monsters.length <= 150) {
         const monster = new Monster();
         monsters.push(monster);
     }
     drawMonsters();
+    console.log(currentHealth);
   }
-    // 모든 몬스터 그리기
-  }
+  
 
 // 몬스터 움직임 구현
 function moveMonsters() {
@@ -188,12 +185,6 @@ function moveMonsters() {
 // 일정 주기로 몬스터 움직이기
 setInterval(moveMonsters, 100);
 
-// function attackImage() {
-//   // 플레이어 공격 이미지 그리기
-//   ctx.fillStyle = "yellow";
-//   ctx.fillRect(player.position.x + player.position.y, player.position.y, 20, 20);
-// }
-
 function getDistance(point1, point2) {
   const dx = point1.x - point2.x;
   const dy = point1.y - point2.y;
@@ -216,9 +207,9 @@ function autoAttack() {
 
     // 플레이어와 몬스터 충돌 시 플레이어 체력 닳기
     if (player.position.x < monster.position.x + monster.size &&
-      player.position.x + 40 > monster.position.x &&
+      player.position.x + 20 > monster.position.x &&
       player.position.y < monster.position.y + monster.size &&
-      45 + player.position.y > monster.position.y) {
+      25 + player.position.y > monster.position.y) {
 
       player.health -= 10;
       currentHealth -= 10*2;
@@ -436,8 +427,7 @@ const show = new Audio;
 show.src = '../sounds/show.mp3';
 show.volume = 1;
 
-// const monster = new Monster();
-
+// hp바 구현
 const barWidth = 200;
 const barHeight = 20;
 const barX = 20;
@@ -450,18 +440,12 @@ function drawHealthBar() {
   ctx.fillStyle = "gray";
   ctx.fillRect(barX, barY, barWidth, barHeight);
 
+  if(currentHealth >= 0) {
   ctx.fillStyle = "skyblue";
   const currentHealthWidth = (currentHealth / maxHealth) * barWidth;
   ctx.fillRect(barX, barY, currentHealthWidth, barHeight);
+  }
 }
-
-let heading = document.createElement("h1");
-let text = document.createTextNode("HP"); 
-heading.appendChild(text);
-document.body.append(heading);
-
-text.x = 100;
-text.y = 100;
 
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
@@ -512,7 +496,6 @@ function startTimer() {
     const elapsedTime = currentTime - startTime;
     remainingTime = 180000 - elapsedTime;
 
-
     const minuteString = Math.floor(remainingTime / 60000).toString().padStart(2, '0');
     const secondString = Math.floor(remainingTime % 60000 / 1000).toString().padStart(2, '0');
     const timerString = `${minuteString}:${secondString}`;
@@ -560,7 +543,7 @@ function gameLoop() {
   drawHealthBar();
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
-  if(player.health == 0 || remainingTime ==0) {
+  if(player.health <= 0 || remainingTime <=0) {
     cancelAnimationFrame(timerAnimation);
 
     music.pause();
