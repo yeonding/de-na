@@ -497,11 +497,9 @@ ch3.addEventListener('click', function() {
   show.play();
 });
 
-
-
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
-let remainingTime = 180000;
+let remainingTime = 10000;
 
 //타이머
 let timerAnimation = null;
@@ -511,7 +509,7 @@ function startTimer() {
   function updateTimer() {
     const currentTime = Date.now();
     const elapsedTime = currentTime - startTime;
-    remainingTime = 180000 - elapsedTime;
+    remainingTime = 10000 - elapsedTime;
 
     const minuteString = Math.floor(remainingTime / 60000).toString().padStart(2, '0');
     const secondString = Math.floor(remainingTime % 60000 / 1000).toString().padStart(2, '0');
@@ -560,7 +558,7 @@ function gameLoop() {
   drawHealthBar();
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
-  if(player.health <= 0 || remainingTime <=0) {
+  if(player.health <= 0) {
     cancelAnimationFrame(timerAnimation);
 
     music.pause();
@@ -572,6 +570,7 @@ function gameLoop() {
       document.location.reload();
     });
   } else if (remainingTime < 0){
+    cancelAnimationFrame(timerAnimation);
     victory.style.display = 'block';
 
   }else {
