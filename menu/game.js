@@ -241,7 +241,8 @@ function drawAttack() {
     ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
     ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
     ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
-
+  }
+  
   if(selectedCharacter == ch3){
     ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
     ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
