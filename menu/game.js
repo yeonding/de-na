@@ -97,8 +97,8 @@ class Monster {
     
     constructor() {
         // 몬스터의 위치 랜덤으로 생성하기
-        this.position.x = Math.random() * canvas.width;
-        this.position.y = Math.random() * canvas.height;
+        this.position.x = Math.random() * map.width;
+        this.position.y = Math.random() * map.height;
         // 몬스터의 크기 랜덤으로 생성하기
         this.size = Math.random() * 50 + 20;
         // 몬스터 이동 속도 랜덤으로 생성하기
@@ -134,7 +134,7 @@ function drawMonsters() {
     let frameIndex = 4; // 스프라이트 이미지에서 사용할 프레임 인덱스
     let spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표
     let spriteY = 0; // 스프라이트 이미지에서 사용할 y 좌표
-    frameIndex = Math.floor(Date.now() / 500) % 2;
+    frameIndex = Math.floor(Date.now() / 500) % 4;
     spriteX = frameIndex*40;
     for (let i = 0; i < monsters.length-i; i++) {
         const monster = monsters[i];
@@ -227,15 +227,19 @@ function autoAttack() {
 }
 
 function drawAttack() {
-  const attackImage = new Image();
-  attackImage.src = '../images/attackeffect/attack3.png';
+  const attackImage1 = new Image();
+  attackImage1.src = '../images/attackeffect/attack1.png'
+  const attackImage3 = new Image();
+  attackImage3.src = '../images/attackeffect/attack3.png'
+  const attackImage33 = new Image()
+  attackImage33.src = '../images/attackeffect/attack33.png'
   let spriteX = 0;
   let spriteY = 0;
   let frameIndex = 0;
-  frameIndex = Math.floor(Date.now() / 500) % 2;
+  frameIndex = Math.floor(Date.now() / 500) % 4;
   spriteX = frameIndex*32;
   if(selectedCharacter== ch1)
-    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
+    ctx.drawImage(attackImage1, spriteX, spriteY, 32, 32, player.position.x-70, player.position.y-70, 180, 180);
  
   if(selectedCharacter == ch2){
     ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
@@ -244,9 +248,9 @@ function drawAttack() {
   }
   
   if(selectedCharacter == ch3){
-    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
-    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
-    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
+    ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
+    ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
+    ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
   }
 }
 
