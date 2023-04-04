@@ -560,7 +560,7 @@ function gameLoop() {
   drawHealthBar();
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
-  if(player.health <= 0 || remainingTime<=0) {
+  if(player.health == 0 || remainingTime ==0) {
     cancelAnimationFrame(timerAnimation);
 
     music.pause();
