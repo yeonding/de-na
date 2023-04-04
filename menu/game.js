@@ -576,5 +576,5 @@ function gameLoop() {
 
   }else {
     requestAnimationFrame(gameLoop);
-  }stAnimationFrame(gameLoop);
+  }
 }
