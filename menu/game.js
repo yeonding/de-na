@@ -524,6 +524,15 @@ function gameLoop() {
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0 || remainingTime<=0) {
     cancelAnimationFrame(timerAnimation);
+
+    music.pause();
+
+    const death = new Audio;
+    death.src = '../sounds/dead.mp3';
+
+    death.play();
+    death.volume = 1;
+    
     end.style.display = 'block';
     restartButton.addEventListener('click', function() {
       document.location.reload();
