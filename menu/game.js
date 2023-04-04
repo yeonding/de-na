@@ -83,6 +83,10 @@ const deathmusic = new Audio;
 deathmusic.src = '../sounds/dead.mp3';
 deathmusic.volume = 1;
 
+const winmusic = new Audio;
+winmusic.src = '../sounds/win.mp3';
+winmusic.volume = 1;
+
 
 // Player
 class Player{
@@ -572,6 +576,9 @@ function gameLoop() {
   } else if (remainingTime < 0){
     cancelAnimationFrame(timerAnimation);
     victory.style.display = 'block';
+    music.pause();
+    winmusic.play();
+    hitmusic.volume = 0;
 
   }else {
     requestAnimationFrame(gameLoop);
