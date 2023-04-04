@@ -15,7 +15,6 @@ ul {
     background-image: url('../images/background/pink2.png');
     width: 700px;
     height: 500px;
-    /* border: 1px solid red; */
     position:absolute;
     top: 5%;
     left: 10%;
@@ -26,7 +25,6 @@ ul {
     position: relative;
     left: 50%;
     top: 50%;
-    border: 1px solid red;
     transform: translateX(-50%);
     transform: translateZ(-50%);
 }
@@ -34,41 +32,36 @@ ul {
 #characterSelection .characters img#ch1{
     position: absolute;
     left: 5%;
-    border: 1px solid red;
+}
+#characterSelection .characters img#ch1:hover, img#ch2:hover, img#ch3:hover, img#ch4:hover,img#ch5:hover{
+    background: skyblue;
 }
 
 #characterSelection .characters img#ch2{
     position: absolute;
     left: 25%;
-    border: 1px solid red;
 }
 
 #characterSelection .characters img#ch3{
     position: absolute;
     left: 45%;
-    border: 1px solid red;
 }
 
 #characterSelection .characters img#ch4{
     position: absolute;
     left:65%;
-    border: 1px solid red;
 }
 
 #characterSelection .characters img#ch5{
     position: absolute;
     left:85%;
-    border: 1px solid red;
 }
-
-
 
 #characterSelection p#start-button img{
     width: 200px;
     position: absolute;
     bottom: 2%;
     left: 35%;
-    /* transform: translateX(-50%); */
 }
 
 #characterSelection p#start-button img:hover{
@@ -78,4 +71,58 @@ ul {
 
 .hidden{
     display: none;
+}
+
+/* endScreenDefeat */
+#endScreenDefeat {
+    background-image: url('../images/background/gameover.png');
+    width: 700px;
+    height: 500px;
+    position:absolute;
+    top: 5%;
+    left: 10%
+}
+
+#endScreenDefeat p#restart-button img{
+    width: 200px;
+    position: absolute;
+    bottom: 2%;
+    left: 35%;
+}
+
+#endScreenDefeat p#restart-button img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}
+
+/* victory */
+#victory {
+    background-image: url('../images/background/victory.png');
+    width: 700px;
+    height: 500px;
+    position:absolute;
+    top: 5%;
+    left: 10%
+}
+
+#victory p#backto img{
+    width: 200px;
+    position: absolute;
+    bottom: 2%;
+    left: 35%;
+}
+
+#victory p#backto img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}
+
+/* chance */
+#chance {
+    background-image: url('../images/background/chance.png');
+    width: 700px;
+    height: 500px;
+    position:absolute;
+    top: 5%;
+    left: 10%
 }
