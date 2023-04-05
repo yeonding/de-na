@@ -27,6 +27,9 @@ victory.style.display = 'none';
 const chance = document.getElementById('chance');
 chance.style.display = 'none';
 
+const video = document.getElementById('video');
+video.style.display = 'none';
+
 const restartButton = document.getElementById('restart-button');
 
 let selectedCharacter = null;
@@ -463,6 +466,24 @@ function drawHealthBar() {
   ctx.fillRect(barX, barY, currentHealthWidth, barHeight);
   }
 }
+const yes = document.getElementById("yes-btuoon");
+const no = document.getElementById("no-btuoon");
+const noButton = document.getElementById("no-btuoon2");
+
+  function updateHP() {
+    if (player.health <= 50) {
+      chance.style.display = "block";
+      // gameLoop.pause();
+
+      yes.addEventListener('click', function(){
+        video.style.display = 'block';
+        chance.style.display = "none";
+        noButton.style.display = "none";
+      })
+    }
+  }
+
+
 
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
@@ -499,7 +520,7 @@ ch3.addEventListener('click', function() {
 
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
-let remainingTime = 10000;
+let remainingTime = 180000;
 
 //타이머
 let timerAnimation = null;
@@ -509,7 +530,7 @@ function startTimer() {
   function updateTimer() {
     const currentTime = Date.now();
     const elapsedTime = currentTime - startTime;
-    remainingTime = 10000 - elapsedTime;
+    remainingTime = 180000 - elapsedTime;
 
     const minuteString = Math.floor(remainingTime / 60000).toString().padStart(2, '0');
     const secondString = Math.floor(remainingTime % 60000 / 1000).toString().padStart(2, '0');
@@ -556,6 +577,7 @@ function gameLoop() {
   createMonster();
   drawAttack();
   drawHealthBar();
+  updateHP();
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0) {
@@ -572,6 +594,8 @@ function gameLoop() {
   } else if (remainingTime < 0){
     cancelAnimationFrame(timerAnimation);
     victory.style.display = 'block';
+    music.pause();
+    hitmusic.volume = 0;
 
   }else {
     requestAnimationFrame(gameLoop);
