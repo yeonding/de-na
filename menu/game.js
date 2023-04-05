@@ -254,9 +254,9 @@ function drawAttack() {
     ctx.drawImage(attackImage1, spriteX, spriteY, 32, 32, player.position.x-70, player.position.y-70, 180, 180);
  
   if(selectedCharacter == ch2){
-    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
-    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
-    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
+    ctx.drawImage(attackImage33, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
+    ctx.drawImage(attackImage33, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
+    ctx.drawImage(attackImage33, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
   }
   
   if(selectedCharacter == ch3){
@@ -545,7 +545,8 @@ function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
   drawAttack();
-  healthBar.draw(ctx);
+
+  healthBar.draw(ctx,player.position.x,player.position.y,selectedCharacter);
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0) {

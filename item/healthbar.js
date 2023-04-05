@@ -8,23 +8,35 @@ export default class HealthBar {
     currentHealthWidth;
 
     constructor() {
-        this.width = 200;
-        this.height = 20;
-        this.x = 20;
-        this.y = 30;
+        this.width = 50;
+        this.height = 8;
+        this.x;
+        this.y;
 
         this.maxHealth = 200;
         this.currentHealth = 200;
     }
     
-    draw(ctx) {
+    draw(ctx,x,y,selectedCharacter) {
+        this.selectedCharacter = selectedCharacter
+        this.x = x
+        this.y = y-12
         ctx.fillStyle = 'gray';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         
-        if(this.currentHealth >= 0) {
-            ctx.fillStyle = 'skyblue';
-            this.currentHealthWidth = (this.currentHealth / this.maxHealth) * this.width;
-            ctx.fillRect(this.x, this.y, this.currentHealthWidth, this.height);
-        }
+        if(selectedCharacter==ch1)    
+            if(this.currentHealth >= 0) {
+                ctx.fillStyle = 'skyblue';
+                this.currentHealthWidth = (this.currentHealth / this.maxHealth) * this.width;
+                ctx.fillRect(this.x-12, this.y, this.currentHealthWidth, this.height);
+            }
+        if(selectedCharacter==ch2||selectedCharacter==ch3)
+            if(this.currentHealth >= 0) {
+                ctx.fillStyle = 'skyblue';
+                this.currentHealthWidth = (this.currentHealth / this.maxHealth) * this.width;
+                ctx.fillRect(this.x-12, this.y, this.currentHealthWidth, this.height);
+            }
+       
+
     }
 }
