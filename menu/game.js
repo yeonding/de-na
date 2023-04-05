@@ -27,6 +27,9 @@ victory.style.display = 'none';
 const chance = document.getElementById('chance');
 chance.style.display = 'none';
 
+const video = document.getElementById('video');
+video.style.display = 'none';
+
 const restartButton = document.getElementById('restart-button');
 
 let selectedCharacter = null;
@@ -487,7 +490,7 @@ ch3.addEventListener('click', function() {
 
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
-let remainingTime = 10000;
+let remainingTime = 180000;
 
 //타이머
 let timerAnimation = null;
@@ -497,7 +500,7 @@ function startTimer() {
   function updateTimer() {
     const currentTime = Date.now();
     const elapsedTime = currentTime - startTime;
-    remainingTime = 10000 - elapsedTime;
+    remainingTime = 180000 - elapsedTime;
 
     const minuteString = Math.floor(remainingTime / 60000).toString().padStart(2, '0');
     const secondString = Math.floor(remainingTime % 60000 / 1000).toString().padStart(2, '0');

@@ -126,3 +126,37 @@ ul {
     top: 5%;
     left: 10%
 }
+
+#chance p#yes-btuoon img{
+    width: 300px;
+    position: absolute;
+    bottom: 2%;
+    left: 28%;
+}
+
+#chance p#no-btuoon img{
+    width: 50px;
+    position: absolute;
+    top: 5%;
+    left: 90%;
+}
+
+#chance p#yes-btuoon img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}
+
+#video{
+    width: 700px;
+    height: 500px;
+    position: absolute;
+    top: 20%;
+    left: 20%;
+}
+
+#video p#no-btuoon2 img{
+    width: 50px;
+    position: absolute;
+    top: 5%;
+    left: 20%;
+}
