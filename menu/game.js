@@ -1,4 +1,4 @@
-import HealthBar from "../item/healthbar.js";
+
 /**@type {HTMLCanvasElement} */
 
 const canvas = document.getElementById('game1');
@@ -86,13 +86,9 @@ const deathmusic = new Audio;
 deathmusic.src = '../sounds/dead.mp3';
 deathmusic.volume = 1;
 
-const winmusic = new Audio;
-winmusic.src = '../sounds/win.mp3';
-winmusic.volume = 1;
-
 
 // Player
-export class Player{
+class Player{
     position = {x:0, y:0}
     playerImage
     health
@@ -119,8 +115,8 @@ class Monster {
     
     constructor() {
         // 몬스터의 위치 랜덤으로 생성하기
-        this.position.x = Math.random() * map.width;
-        this.position.y = Math.random() * map.height;
+        this.position.x = Math.random() * canvas.width;
+        this.position.y = Math.random() * canvas.height;
         // 몬스터의 크기 랜덤으로 생성하기
         this.size = Math.random() * 50 + 20;
         // 몬스터 이동 속도 랜덤으로 생성하기
@@ -181,7 +177,7 @@ function createMonster() {
         monsters.push(monster);
     }
     drawMonsters();
-    console.log(healthBar.currentHealth);
+    console.log(currentHealth);
   }
   
 
@@ -236,25 +232,21 @@ function autoAttack() {
       25 + player.position.y > monster.position.y) {
 
       player.health -= 10;
-      healthBar.currentHealth -= 20;
+      currentHealth -= 10*2;
     }
   }
 }
 
 function drawAttack() {
-  const attackImage1 = new Image();
-  attackImage1.src = '../images/attackeffect/attack1.png'
-  const attackImage3 = new Image();
-  attackImage3.src = '../images/attackeffect/attack3.png'
-  const attackImage33 = new Image()
-  attackImage33.src = '../images/attackeffect/attack33.png'
+  const attackImage = new Image();
+  attackImage.src = '../images/attackeffect/attack3.png';
   let spriteX = 0;
   let spriteY = 0;
   let frameIndex = 0;
-  frameIndex = Math.floor(Date.now() / 500) % 4;
+  frameIndex = Math.floor(Date.now() / 500) % 2;
   spriteX = frameIndex*32;
   if(selectedCharacter== ch1)
-    ctx.drawImage(attackImage1, spriteX, spriteY, 32, 32, player.position.x-70, player.position.y-70, 180, 180);
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
  
   if(selectedCharacter == ch2){
     ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
@@ -263,9 +255,9 @@ function drawAttack() {
   }
   
   if(selectedCharacter == ch3){
-    ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
-    ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
-    ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x+10, player.position.y+5, 32, 48);
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-10, player.position.y-5, 32, 48);
+    ctx.drawImage(attackImage, spriteX, spriteY, 32, 48, player.position.x-20, player.position.y-20, 32, 48);
   }
 }
 
@@ -455,6 +447,44 @@ const show = new Audio;
 show.src = '../sounds/show.mp3';
 show.volume = 1;
 
+// hp바 구현
+const barWidth = 200;
+const barHeight = 20;
+const barX = 20;
+const barY = 30;
+
+let maxHealth = 200;
+let currentHealth = 200;
+
+function drawHealthBar() {
+  ctx.fillStyle = "gray";
+  ctx.fillRect(barX, barY, barWidth, barHeight);
+
+  if(currentHealth >= 0) {
+  ctx.fillStyle = "skyblue";
+  const currentHealthWidth = (currentHealth / maxHealth) * barWidth;
+  ctx.fillRect(barX, barY, currentHealthWidth, barHeight);
+  }
+}
+const yes = document.getElementById("yes-btuoon");
+const no = document.getElementById("no-btuoon");
+const noButton = document.getElementById("no-btuoon2");
+
+  function updateHP() {
+    if (player.health <= 50) {
+      chance.style.display = "block";
+      // gameLoop.pause();
+
+      yes.addEventListener('click', function(){
+        video.style.display = 'block';
+        chance.style.display = "none";
+        noButton.style.display = "none";
+      })
+    }
+  }
+
+
+
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
   console.log('캐릭터1을 선택했습니다.');
@@ -541,14 +571,13 @@ startButton.addEventListener('click', function() {
   startTimer();
 });
 
-const healthBar = new HealthBar();
-
 //gameLoop
 function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
   drawAttack();
-  healthBar.draw(ctx);
+  drawHealthBar();
+  updateHP();
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0) {
@@ -566,7 +595,6 @@ function gameLoop() {
     cancelAnimationFrame(timerAnimation);
     victory.style.display = 'block';
     music.pause();
-    winmusic.play();
     hitmusic.volume = 0;
 
   }else {
