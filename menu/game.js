@@ -1,4 +1,4 @@
-
+import HealthBar from "../item/healthbar.js";
 /**@type {HTMLCanvasElement} */
 
 const canvas = document.getElementById('game1');
@@ -89,7 +89,7 @@ winmusic.volume = 1;
 
 
 // Player
-class Player{
+export class Player{
     position = {x:0, y:0}
     playerImage
     health
@@ -178,7 +178,7 @@ function createMonster() {
         monsters.push(monster);
     }
     drawMonsters();
-    console.log(currentHealth);
+    console.log(healthBar.currentHealth);
   }
   
 
@@ -233,7 +233,7 @@ function autoAttack() {
       25 + player.position.y > monster.position.y) {
 
       player.health -= 10;
-      currentHealth -= 10*2;
+      healthBar.currentHealth -= 20;
     }
   }
 }
@@ -448,26 +448,6 @@ const show = new Audio;
 show.src = '../sounds/show.mp3';
 show.volume = 1;
 
-// hp바 구현
-const barWidth = 200;
-const barHeight = 20;
-const barX = 20;
-const barY = 30;
-
-let maxHealth = 200;
-let currentHealth = 200;
-
-function drawHealthBar() {
-  ctx.fillStyle = "gray";
-  ctx.fillRect(barX, barY, barWidth, barHeight);
-
-  if(currentHealth >= 0) {
-  ctx.fillStyle = "skyblue";
-  const currentHealthWidth = (currentHealth / maxHealth) * barWidth;
-  ctx.fillRect(barX, barY, currentHealthWidth, barHeight);
-  }
-}
-
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
   console.log('캐릭터1을 선택했습니다.');
@@ -554,12 +534,14 @@ startButton.addEventListener('click', function() {
   startTimer();
 });
 
+const healthBar = new HealthBar();
+
 //gameLoop
 function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
   drawAttack();
-  drawHealthBar();
+  healthBar.draw(ctx);
 
   // 다음 프레임에 대한 처리를 위해 루프 재귀 호출
   if(player.health <= 0) {
