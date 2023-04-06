@@ -48,7 +48,7 @@ const ch3Front = document.getElementById("ch3Front")
 const ch3Back = document.getElementById("ch3Back")
 const ch3Left = document.getElementById("ch3Left")
 const ch3Right = document.getElementById("ch3Right")
-const ch3Stop = document.getElementById("chStop")
+const ch3Stop = document.getElementById("ch3Stop")
 
 var characterSpeed = 1;
 var characterDirection = "stop"; // 캐릭터의 초기 방향은 멈춤
