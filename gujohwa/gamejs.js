@@ -1,5 +1,6 @@
 import HealthBar from "../item/healthbar.js";
-import MusicSound from "../item/musicsound.js";
+import Character from "../gujohwa/character.js";
+import SelectCharacter from "./characterSelection.js";
 /**@type {HTMLCanvasElement} */
 
 const canvas = document.getElementById('game1');
@@ -9,12 +10,6 @@ const ctx = canvas.getContext('2d');
 canvas.width = 1024;
 canvas.height = 576;
 
-//캐릭터 선택
-const ch1 = document.getElementById('ch1');
-const ch2 = document.getElementById('ch2');
-const ch3 = document.getElementById('ch3');
-const ch4 = document.getElementById('ch4');
-const ch5 = document.getElementById('ch5');
 
 const startButton = document.getElementById('start-button');
 startButton.style.display = 'none'; // 시작 버튼은 처음에 보이지 않음
@@ -32,11 +27,11 @@ const restartButton = document.getElementById('restart-button');
 
 let selectedCharacter = null;
 
-const ch1Front = document.getElementById("ch1Front")
-const ch1Back = document.getElementById("ch1Back")
-const ch1Left = document.getElementById("ch1Left")
-const ch1Right = document.getElementById("ch1Right")
-const ch1Stop = document.getElementById("ch1Stop")
+// const ch1Front = document.getElementById("ch1Front")
+// const ch1Back = document.getElementById("ch1Back")
+// const ch1Left = document.getElementById("ch1Left")
+// const ch1Right = document.getElementById("ch1Right")
+// const ch1Stop = document.getElementById("ch1Stop")
 
 const ch2Front = document.getElementById("ch2Front")
 const ch2Back = document.getElementById("ch2Back")
@@ -48,11 +43,28 @@ const ch3Front = document.getElementById("ch3Front")
 const ch3Back = document.getElementById("ch3Back")
 const ch3Left = document.getElementById("ch3Left")
 const ch3Right = document.getElementById("ch3Right")
-const ch3Stop = document.getElementById("chStop")
+const ch3Stop = document.getElementById("ch3Stop")
 
-var characterSpeed = 1;
-var characterDirection = "stop"; // 캐릭터의 초기 방향은 멈춤
 
+const music = new Audio;
+music.src = '../sounds/music.mp3';
+music.volume = 0.25;
+
+const bgmusic = new Audio;
+bgmusic.src = '../sounds/music2.mp3';
+bgmusic.volume = 1;
+
+const hitmusic = new Audio;
+hitmusic.src = '../sounds/slash.mp3';
+hitmusic.volume = 1;
+
+const deathmusic = new Audio;
+deathmusic.src = '../sounds/dead.mp3';
+deathmusic.volume = 1;
+
+const winmusic = new Audio;
+winmusic.src = '../sounds/win.mp3';
+winmusic.volume = 1;
 
 
 // Player
@@ -98,11 +110,19 @@ class Monster {
     }
 }
 
-const player = new Player();
-const musicsound = new MusicSound();
 
 // 몬스터 이미지 객체 생성
-let monsterImage = null;
+const monsterImage = new Image();
+
+
+const leftSrc= '../images/mob/frogleft.png';
+const rightSrc = '../images/mob/frogright.png'
+
+const monsterleft = new Image();
+monsterleft.src = '../images/mob/frogleft.png'
+
+const monsterright = new Image();
+monsterright.src = '../images/mob/frogright.png'
 
 // 몬스터 정보를 저장하는 배열
 let monsters = [];
@@ -113,14 +133,17 @@ function drawMonsters() {
     let spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표
     let spriteY = 0; // 스프라이트 이미지에서 사용할 y 좌표
     frameIndex = Math.floor(Date.now() / 500) % 4;
-    spriteX = frameIndex * 40;
+    spriteX = frameIndex*40;
     for (let i = 0; i < monsters.length-i; i++) {
         const monster = monsters[i];
+        // ctx.drawImage(monster.image, monster.position.x, monster.position.y, monster.size, monster.size);
         if(monster.position.x>player.position.x+25){
-            monsterImage = document.getElementById('monsterLeft');
+            monsterImage.src= leftSrc;
             ctx.drawImage(monsterImage, spriteX, spriteY, 40, 40, monster.position.x, monster.position.y, 40, 40);
+            // ctx.drawImage(monsterleft,monster.position.x, monster.position.y, monster.size, monster.size)
         }else{
-            monsterImage = document.getElementById('monsterRight');
+            monsterImage.src= rightSrc;
+            // ctx.drawImage(monsterright,monster.position.x, monster.position.y, monster.size, monster.size)
             ctx.drawImage(monsterImage, spriteX, spriteY, 40, 40, monster.position.x, monster.position.y, 40, 40);
         }
     }
@@ -129,7 +152,7 @@ function drawMonsters() {
 
 // 새로운 몬스터 생성 함수
 function createMonster() {
-    if(monsters.length <= 250) {
+    if(monsters.length <= 150) {
         const monster = new Monster();
         monsters.push(monster);
     }
@@ -148,18 +171,11 @@ function moveMonsters() {
     monster.position.y += monster.speed * Math.sin(monster.direction);
 
     // 화면 밖으로 나갔을 경우 위치 초기화
-    if (monster.position.x < -monster.size) {
-      monster.position.x = canvas.width + monster.size;
-    } else if (monster.position.x > canvas.width + monster.size) {
-      monster.position.x = -monster.size;
+    if (monster.position.x < -monster.size || monster.position.x > canvas.width + monster.size ||
+      monster.position.y < -monster.size || monster.position.y > canvas.height + monster.size) {
+      monster.position.x = Math.random() * canvas.width;
+      monster.position.y = Math.random() * canvas.height;
     }
-    
-    if (monster.position.y < -monster.size) {
-      monster.position.y = canvas.height + monster.size;
-    } else if (monster.position.y > canvas.height + monster.size) {
-      monster.position.y = -monster.size;
-    }
-    
     monster.direction = Math.atan2(player.position.y - monster.position.y, player.position.x - monster.position.x);
   }
 }
@@ -180,7 +196,7 @@ function autoAttack() {
     // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
     if (getDistance(player.position, monster.position) < player.attackRange) {
       monster.health -= 100;
-      musicsound.hitmusic.play();
+      hitmusic.play();
       
       if (monster.health <= 0) {
         // 몬스터가 죽었을 때의 처리
@@ -196,7 +212,7 @@ function autoAttack() {
       25 + player.position.y > monster.position.y) {
 
       player.health -= 10;
-      healthBar.currentHealth -= 5;
+      healthBar.currentHealth -= 20;
     }
   }
 }
@@ -234,45 +250,8 @@ function drawCharacter() {
   var spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표
   var spriteY = 0; // 스프라이트 이미지에서 사용할 y 좌표
 
-if(selectedCharacter == ch1){
-  if (characterDirection === "stop") {
-      frameIndex = Math.floor(Date.now() / 500) % 2;
-      spriteX = frameIndex*48;}
-  if (characterDirection === "left") {
-      frameIndex = Math.floor(Date.now() / 100) % 4;
-      //spriteX = 0
-      spriteX = frameIndex * 48;
-      player.position.x -= characterSpeed;}
-  if (characterDirection === "up") {
-      frameIndex = Math.floor(Date.now() / 100) % 4;
-      //spriteX = 0
-      spriteX = frameIndex * 48;
-      player.position.y -= characterSpeed;}
-  if (characterDirection === "down") {
-      frameIndex = Math.floor(Date.now() / 100) % 4;
-      //spriteX = 0
-      spriteX = frameIndex * 48;
-      player.position.y += characterSpeed;}
-   else if (characterDirection === "right") {
-      frameIndex = Math.floor(Date.now() / 100) % 4;
-      //spriteX = 0
-      spriteX = frameIndex * 48;
-      player.position.x+= characterSpeed;} 
-
-  if (characterDirection == 'stop')
-  ctx.drawImage(ch1Stop, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
-  if (characterDirection == 'up')
-  ctx.drawImage(ch1Back, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
-  if (characterDirection == 'down')
-  ctx.drawImage(ch1Front, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
-  if (characterDirection === "left") {
-  ctx.drawImage(ch1Left, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
-  }
-  if (characterDirection === "right") {
-  ctx.drawImage(ch1Right, spriteX, spriteY, 48, 48, player.position.x, player.position.y, 48, 48);
-  }
-}
-
+selectedCharacter.draw()
+  
 if(selectedCharacter == ch2){
   if (characterDirection === "stop") {
       frameIndex = Math.floor(Date.now() / 500) % 2;
@@ -394,7 +373,7 @@ const citystage = new Image();
 citystage.src = '../images/background/citytile1.png';
 
 citystage.onload = () => {
-  musicsound.bgmusic.play();
+  bgmusic.play();
   ctx.drawImage(citystage, 0, 0);
 }
 
@@ -410,43 +389,18 @@ function render(){
   drawCharacter();
 }
 
+const player = new Player();
+const show = new Audio;
+show.src = '../sounds/show.mp3';
+show.volume = 1;
 
-ch1.addEventListener('click', function() {
-  // 캐릭터1을 선택했을 때
-  console.log('캐릭터1을 선택했습니다.');
-  selectedCharacter = ch1;
-  startButton.style.display = 'block';
-  ch1.style.background = 'skyblue';
-  ch2.style.background =  'none';
-  ch3.style.background =  'none';
-  musicsound.show.play();
-});
 
-ch2.addEventListener('click', function() {
-  // 캐릭터2을 선택했을 때
-  console.log('캐릭터2을 선택했습니다.');
-  selectedCharacter = ch2;
-  startButton.style.display = 'block';
-  ch2.style.background = 'skyblue';
-  ch1.style.background =  'none';
-  ch3.style.background =  'none';
-  musicsound.show.play();
-});
-
-ch3.addEventListener('click', function() {
-  // 캐릭터3을 선택했을 때
-  console.log('캐릭터3을 선택했습니다.');
-  selectedCharacter = ch3;
-  startButton.style.display = 'block';
-  ch3.style.background = 'skyblue';
-  ch1.style.background =  'none';
-  ch2.style.background =  'none';
-  musicsound.show.play();
-});
 
 //게임시작
-const characterSeletion = document.getElementById('characterSelection');
-let remainingTime = 180000;
+const characterSeletion = document.getElementById('characterSelection')
+
+
+let remainingTime = 10000;
 
 //타이머
 let timerAnimation = null;
@@ -456,7 +410,7 @@ function startTimer() {
   function updateTimer() {
     const currentTime = Date.now();
     const elapsedTime = currentTime - startTime;
-    remainingTime = 180000 - elapsedTime;
+    remainingTime = 10000 - elapsedTime;
 
     const minuteString = Math.floor(remainingTime / 60000).toString().padStart(2, '0');
     const secondString = Math.floor(remainingTime % 60000 / 1000).toString().padStart(2, '0');
@@ -477,70 +431,11 @@ function startTimer() {
 }
 
 function startGame() {
-    musicsound.music.play();
-    musicsound.bgmusic.pause();
+    music.play();
+    bgmusic.pause();
     //캐릭터 선택 화면 숨기기
     characterSeletion.classList.add("hidden");
 }
-
-let chanceStep = 1;
-
-const showChance = () =>{
-  if(chanceStep != 1)
-  return;
-  chance.style.display = "block";
-}
-
-const noButton2 = document.getElementById("no-butoon2");
-noButton2.style.display = "none";
-let noStep = 1;
-
-const appearButton = () => {
-  if(noStep != 1)
-    return;
-  noButton2.style.display = "none";
-}
-
-const video = document.getElementById('video');
-video.style.display = 'none';
-
-const comment = document.getElementById('video-comment');
-
-function updateHP() {
-  if (player.health <= 50) {
-    // chance.style.display = "block";
-    // gameLoop.pause();
-    showChance();
-
-    const yesButton = document.getElementById("yes-butoon");
-    yesButton.addEventListener('click', () => {
-      chanceStep = 2;
-      chance.style.display = "none";
-      video.style.display = "block";
-    });
-    
-    const noButton = document.getElementById("no-butoon");
-    noButton.addEventListener('click', () => {
-      chanceStep = 2;
-      chance.style.display = "none";
-    });
-
-    appearButton();
-    // 8초 후에 실행되는 함수
-    function showButton() {
-      noStep = 2;
-      noButton2.style.display = "block";
-      noButton2.addEventListener('click', () => {
-        chance.style.display = "none";
-        video.style.display = "none";
-        player.health = 70;
-      });
-      comment.style.display = "none";
-    }
-    setTimeout(showButton, 8000);
-  }
-}
-
 
 startButton.addEventListener('click', function() {
   // 게임 시작 버튼을 눌렀을 때
@@ -563,7 +458,6 @@ function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
   drawAttack();
-  updateHP();
 
   healthBar.draw(ctx,player.position.x,player.position.y,selectedCharacter);
 
@@ -571,9 +465,9 @@ function gameLoop() {
   if(player.health <= 0) {
     cancelAnimationFrame(timerAnimation);
 
-    musicsound.music.pause();
-    musicsound.deathmusic.play();
-    musicsound.hitmusic.volume = 0;
+    music.pause();
+    deathmusic.play();
+    hitmusic.volume = 0;
     
     end.style.display = 'block';
     restartButton.addEventListener('click', function() {
@@ -582,9 +476,9 @@ function gameLoop() {
   } else if (remainingTime <= 0){
     cancelAnimationFrame(timerAnimation);
     victory.style.display = 'block';
-    musicsound.music.pause();
-    musicsound.winmusic.play();
-    musicsound.hitmusic.volume = 0;
+    music.pause();
+    winmusic.play();
+    hitmusic.volume = 0;
 
   }else {
     requestAnimationFrame(gameLoop);
