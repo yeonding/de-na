@@ -131,7 +131,6 @@ class Monster {
     }
 }
 
-
 // 몬스터 이미지 객체 생성
 const monsterImage = new Image();
 
@@ -487,7 +486,7 @@ ch3.addEventListener('click', function() {
 
 //게임시작
 const characterSeletion = document.getElementById('characterSelection');
-let remainingTime = 10000;
+let remainingTime = 180000;
 
 //타이머
 let timerAnimation = null;
@@ -497,7 +496,7 @@ function startTimer() {
   function updateTimer() {
     const currentTime = Date.now();
     const elapsedTime = currentTime - startTime;
-    remainingTime = 10000 - elapsedTime;
+    remainingTime = 180000 - elapsedTime;
 
     const minuteString = Math.floor(remainingTime / 60000).toString().padStart(2, '0');
     const secondString = Math.floor(remainingTime % 60000 / 1000).toString().padStart(2, '0');
@@ -524,6 +523,65 @@ function startGame() {
     characterSeletion.classList.add("hidden");
 }
 
+let chanceStep = 1;
+
+const showChance = () =>{
+  if(chanceStep != 1)
+  return;
+  chance.style.display = "block";
+}
+
+const noButton2 = document.getElementById("no-butoon2");
+noButton2.style.display = "none";
+let noStep = 1;
+
+const appearButton = () => {
+  if(noStep != 1)
+    return;
+  noButton2.style.display = "none";
+}
+
+const video = document.getElementById('video');
+video.style.display = 'none';
+
+const comment = document.getElementById('video-comment');
+
+function updateHP() {
+  if (player.health <= 50) {
+    // chance.style.display = "block";
+    // gameLoop.pause();
+    showChance();
+
+    const yesButton = document.getElementById("yes-butoon");
+    yesButton.addEventListener('click', () => {
+      chanceStep = 2;
+      chance.style.display = "none";
+      video.style.display = "block";
+    });
+    
+    const noButton = document.getElementById("no-butoon");
+    noButton.addEventListener('click', () => {
+      chanceStep = 2;
+      chance.style.display = "none";
+    });
+
+    appearButton();
+    // 8초 후에 실행되는 함수
+    function showButton() {
+      noStep = 2;
+      noButton2.style.display = "block";
+      noButton2.addEventListener('click', () => {
+        chance.style.display = "none";
+        video.style.display = "none";
+        player.health = 70;
+      });
+      comment.style.display = "none";
+    }
+    setTimeout(showButton, 8000);
+  }
+}
+
+
 startButton.addEventListener('click', function() {
   // 게임 시작 버튼을 눌렀을 때
   startGame();
@@ -545,6 +603,7 @@ function gameLoop() {
   render(); // 화면에 보여 주기
   createMonster();
   drawAttack();
+  updateHP();
 
   healthBar.draw(ctx,player.position.x,player.position.y,selectedCharacter);
 
