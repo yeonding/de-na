@@ -1,4 +1,5 @@
 import HealthBar from "../item/healthbar.js";
+import MusicSound from "../item/musicsound.js";
 /**@type {HTMLCanvasElement} */
 
 const canvas = document.getElementById('game1');
@@ -67,25 +68,6 @@ ch3Stop.src = "../images/player/ch2/spriteStop.png"
 var characterSpeed = 1;
 var characterDirection = "stop"; // 캐릭터의 초기 방향은 멈춤
 
-const music = new Audio;
-music.src = '../sounds/music.mp3';
-music.volume = 0.25;
-
-const bgmusic = new Audio;
-bgmusic.src = '../sounds/music2.mp3';
-bgmusic.volume = 1;
-
-const hitmusic = new Audio;
-hitmusic.src = '../sounds/slash.mp3';
-hitmusic.volume = 1;
-
-const deathmusic = new Audio;
-deathmusic.src = '../sounds/dead.mp3';
-deathmusic.volume = 1;
-
-const winmusic = new Audio;
-winmusic.src = '../sounds/win.mp3';
-winmusic.volume = 1;
 
 
 // Player
@@ -131,6 +113,8 @@ class Monster {
     }
 }
 
+const player = new Player();
+const musicsound = new MusicSound();
 
 // 몬스터 이미지 객체 생성
 const monsterImage = new Image();
@@ -217,7 +201,7 @@ function autoAttack() {
     // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
     if (getDistance(player.position, monster.position) < player.attackRange) {
       monster.health -= 100;
-      hitmusic.play();
+      musicsound.hitmusic.play();
       
       if (monster.health <= 0) {
         // 몬스터가 죽었을 때의 처리
@@ -431,7 +415,7 @@ const citystage = new Image();
 citystage.src = '../images/background/citytile1.png';
 
 citystage.onload = () => {
-  bgmusic.play();
+  musicsound.bgmusic.play();
   ctx.drawImage(citystage, 0, 0);
 }
 
@@ -447,10 +431,6 @@ function render(){
   drawCharacter();
 }
 
-const player = new Player();
-const show = new Audio;
-show.src = '../sounds/show.mp3';
-show.volume = 1;
 
 ch1.addEventListener('click', function() {
   // 캐릭터1을 선택했을 때
@@ -460,7 +440,7 @@ ch1.addEventListener('click', function() {
   ch1.style.background = 'skyblue';
   ch2.style.background =  'none';
   ch3.style.background =  'none';
-  show.play();
+  musicsound.show.play();
 });
 
 ch2.addEventListener('click', function() {
@@ -471,7 +451,7 @@ ch2.addEventListener('click', function() {
   ch2.style.background = 'skyblue';
   ch1.style.background =  'none';
   ch3.style.background =  'none';
-  show.play();
+  musicsound.show.play();
 });
 
 ch3.addEventListener('click', function() {
@@ -482,7 +462,7 @@ ch3.addEventListener('click', function() {
   ch3.style.background = 'skyblue';
   ch1.style.background =  'none';
   ch2.style.background =  'none';
-  show.play();
+  musicsound.show.play();
 });
 
 //게임시작
@@ -518,8 +498,8 @@ function startTimer() {
 }
 
 function startGame() {
-    music.play();
-    bgmusic.pause();
+    musicsound.music.play();
+    musicsound.bgmusic.pause();
     //캐릭터 선택 화면 숨기기
     characterSeletion.classList.add("hidden");
 }
@@ -552,9 +532,9 @@ function gameLoop() {
   if(player.health <= 0) {
     cancelAnimationFrame(timerAnimation);
 
-    music.pause();
-    deathmusic.play();
-    hitmusic.volume = 0;
+    musicsound.music.pause();
+    musicsound.deathmusic.play();
+    musicsound.hitmusic.volume = 0;
     
     end.style.display = 'block';
     restartButton.addEventListener('click', function() {
@@ -563,9 +543,9 @@ function gameLoop() {
   } else if (remainingTime < 0){
     cancelAnimationFrame(timerAnimation);
     victory.style.display = 'block';
-    music.pause();
-    winmusic.play();
-    hitmusic.volume = 0;
+    musicsound.music.pause();
+    musicsound.winmusic.play();
+    musicsound.hitmusic.volume = 0;
 
   }else {
     requestAnimationFrame(gameLoop);
