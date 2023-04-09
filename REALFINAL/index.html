@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/menu.css" type="text/css" rel="stylesheet">
+    <title>Dev's Nightmare</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+        
+        .show{
+            display: block;
+        }
+    </style>
+    </head>
+    <body>
+        <div id="main" class="main">
+            <h1><img src="images/logo/neon-logo.gif"/></h1>
+            <ul>
+                <!-- <img class= "logo2" src="images/background/mousepoint.png"> -->
+                <li id="start"><a id="start-button"></a></li>
+                <li id="album"><a id="album-button"></a></li>
+            </ul>
+        </div>    
+        <div id = "canvasImages" class ="hidden">
+            <img id= "map" src = "./images/background/map.png">
+        </div>
+        <div id = "characterSelection">
+            <div class="characters">
+                <img src="images/player/ch1/ch1.gif" id="ch1">
+                <img src="images/mob/HitPreview.gif" id="ch2">
+                <img src="images/mob/JumpPreview.gif" id="ch3">
+            </div>
+            <div id="canvasImages" class="hidden">
+                <img id="ch1Front" src="images/player/ch1/spriteFront.png">
+                <img id="ch1Back" src="images/player/ch1/spriteBack.png">
+                <img id="ch1Left" src="images/player/ch1/spriteLeft.png">
+                <img id="ch1Right" src="images/player/ch1/spriteRight.png" >
+                <img id="ch1Stop" src="images/player/ch1/spriteStop.png" >
+                <img id="ch2Front" src="images/player/ch5/spriteFront.png">
+                <img id="ch2Back" src="images/player/ch5/spriteBack.png">
+                <img id="ch2Left" src="images/player/ch5/spriteLeft.png">
+                <img id="ch2Right" src="images/player/ch5/spriteRight.png" >
+                <img id="ch2Stop" src="images/player/ch5/spriteStop.png" >
+                <img id="ch3Front" src="images/player/ch2/spriteFront.png">
+                <img id="ch3Back" src="images/player/ch2/spriteBack.png">
+                <img id="ch3Left" src="images/player/ch2/spriteLeft.png">
+                <img id="ch3Right" src="images/player/ch2/spriteRight.png" >
+                <img id="ch3Stop" src="images/player/ch2/spriteStop.png" >
+                <img id="monsterLeft" src = "images/mob/frogleft.png">
+                <img id="monsterRight" src = "images/mob/frogright.png">
+            </div>
+            <p id="game-start"><img src="images/logo/gamestart1.png"></p>
+        </div>
+    <script src="./index.js" type="module" defer="defer"> </script>
+</body>
+</html>
