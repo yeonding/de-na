@@ -3,6 +3,7 @@ import Monster from "./items/monster.js"
 import Player from "./items/player.js"
 import Timer from "./items/timer.js"
 import HealthBar from "./items/healthbar.js"
+import Popup  from "./items/popup.js"
 
 export default 
 class GameCanvas{
@@ -30,6 +31,9 @@ class GameCanvas{
 
         // 헬스바
         this.healthBar = new HealthBar();
+
+        // 찬스바
+        this.popup = new Popup();
 
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         document.addEventListener("keyup", this.handleKeyUp.bind(this));
@@ -103,11 +107,16 @@ class GameCanvas{
         this.timer.startTimer(this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
     }
+
+    update(){
+        this.popup.updateHP(this.player);
+    }
       
     run() {
         this.timer.timerAnimation = null;
         this.tid = setInterval(() => {
             this.paint();
+            this.update();
             this.createMonster();
             this.player.autoAttack(this.monsters);
             this.collision();

@@ -11,11 +11,18 @@ const ch2 = document.getElementById('ch2');
 const ch3 = document.getElementById('ch3');
 const gameStart = document.getElementById('game-start');
 gameStart.style.display = 'none';
+const album = document.getElementById('album')
+const talk = document.getElementById('talk')
+talk.style.display = 'none';
 
 startButton.addEventListener('click', function () {
     main.classList.add("hidden");
     characterSelection.style.display = 'block';
     dream.play()
+})
+
+album.addEventListener('click', function () {
+  talk.style.display = 'block';
 })
 
 let selectedCharacter = null;
