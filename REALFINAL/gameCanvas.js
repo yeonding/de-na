@@ -110,6 +110,7 @@ class GameCanvas{
 
     update(){
         this.popup.updateHP(this.player);
+        // setTimeout(this.popup.showButton, 8000);
     }
       
     run() {
