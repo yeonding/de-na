@@ -56,7 +56,10 @@ class Popup{
             });
         
             this.appearButton();
-            setTimeout(this.showButton(), 8000);
+
+            setTimeout(() => {
+                this.showButton();
+            }, 8000);
         }
     }
 }
