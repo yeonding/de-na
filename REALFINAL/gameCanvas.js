@@ -104,27 +104,6 @@ class GameCanvas{
             this.createMonster();
             this.player.autoAttack(this.monsters);
 
-            if(player.health <= 0) {
-                cancelAnimationFrame(timer.timerAnimation);
-            
-                this.background.music.pause();
-                this.deathmusic.play();
-                this.player.hitmusic.volume = 0;
-                
-                end.style.display = 'block';
-                restartButton.addEventListener('click', function() {
-                  document.location.reload();
-                });
-              } else if (timer.remainingTime <= 0){
-                cancelAnimationFrame(timer.timerAnimation);
-                victory.style.display = 'block';
-                this.background.music.pause();
-                this.winmusic.play();
-                this.player.hitmusic.volume = 0;
-            
-              }else {
-                requestAnimationFrame(run);
-              }
         }, 17);
       }
 }
