@@ -1,12 +1,16 @@
 export default
 class Background{
     map
+    music
     
     constructor(){
         this.map = document.getElementById("map")
+        this.music = document.getElementById("music")
     }
 
     draw(ctx, player){
+        this.music.play()
+        this.music.volume = 0.5
         ctx.drawImage(this.map, 0, 0)
         let bgX = -player.position.x;
         let bgY = -player.position.y;
