@@ -13,7 +13,8 @@ const gameStart = document.getElementById('game-start');
 gameStart.style.display = 'none';
 const album = document.getElementById('album')
 const talk = document.getElementById('talk')
-talk.style.display = 'none';
+const close = document.getElementById('close')
+talk.style.display = 'none'
 
 startButton.addEventListener('click', function () {
     main.classList.add("hidden");
@@ -23,6 +24,10 @@ startButton.addEventListener('click', function () {
 
 album.addEventListener('click', function () {
   talk.style.display = 'block';
+})
+
+close.addEventListener('click', function () {
+  talk.style.display = 'none';
 })
 
 let selectedCharacter = null;

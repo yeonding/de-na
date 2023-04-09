@@ -45,9 +45,9 @@ class Popup{
             this.showChance();
         
             this.yesButton.addEventListener('click', () => {
-              this.chanceStep = 2;
-              this.chance.style.style = 'none'
-              this.video.style.display = 'block'
+                this.chanceStep = 2;
+                this.chance.style.display = 'none'
+                this.video.style.display = 'block'
             });
         
             this.noButton.addEventListener('click', () => {
