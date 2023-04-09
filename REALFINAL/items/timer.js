@@ -6,7 +6,7 @@ class Timer{
     timerAnimation
     
     constructor(){
-        this.remainingTime = 180000
+        this.remainingTime = 120000
         this.timerAnimation = null
         this.x = 900
         this.y = 50
@@ -17,7 +17,7 @@ class Timer{
         const updateTimer = () => {
           const currentTime = Date.now();
           const elapsedTime = currentTime - startTime;
-          this.remainingTime = 180000 - elapsedTime;
+          this.remainingTime = 120000 - elapsedTime;
     
           const minuteString = Math.floor(this.remainingTime / 60000).toString().padStart(2, "0");
           const secondString = Math.floor((this.remainingTime % 60000) / 1000).toString().padStart(2, "0");

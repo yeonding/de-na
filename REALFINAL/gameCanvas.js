@@ -2,6 +2,7 @@ import Background from "./items/background.js"
 import Monster from "./items/monster.js"
 import Player from "./items/player.js"
 import Timer from "./items/timer.js"
+import HealthBar from "./items/healthbar.js"
 
 export default 
 class GameCanvas{
@@ -26,6 +27,9 @@ class GameCanvas{
 
         // 타이머
         this.timer = new Timer();
+
+        // 헬스바
+        this.healthBar = new HealthBar();
 
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         document.addEventListener("keyup", this.handleKeyUp.bind(this));
@@ -84,14 +88,20 @@ class GameCanvas{
             monster.draw();
             monster.move();
         }
-      }
+    }
     
+    collision(){
+        for ( let monster of this.monsters) {
+            this.player.collisionMonster(monster,this.healthBar)
+        }
+    }
+
     paint() {
         this.background.draw(this.ctx, this.player);
         this.player.draw(this.selectedCharacter, this.ctx);
         this.player.drawAttack(this.selectedCharacter, this.ctx);
         this.timer.startTimer(this.ctx);
-        // this.monster.draw(this.monster, this.monsters, this.ctx);
+        this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
     }
       
     run() {
@@ -100,6 +110,10 @@ class GameCanvas{
             this.paint();
             this.createMonster();
             this.player.autoAttack(this.monsters);
+            this.collision();
+            console.log(this.healthBar.currentHealth);
         }, 17);
       }
+    
 }
+

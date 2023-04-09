@@ -9,6 +9,7 @@ class Monster{
     player
     obj
     ctx
+    
     constructor(player,obj) {
         this.position.x = Math.floor(Math.random()*1024);
         this.position.y = Math.floor(Math.random()*576);

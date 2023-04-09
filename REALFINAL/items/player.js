@@ -17,7 +17,7 @@ class Player {
         this.position.x = this.ctx.width / 2;
         this.position.y = this.ctx.height / 2;
         this.health = 100;
-        this.attackRange = 100;
+        this.attackRange = 80;
         this.dx = 0;
         this.dy = 0;
 
@@ -59,6 +59,7 @@ class Player {
             this.dx = this.position.x - monster.position.x;
             this.dy = this.position.y - monster.position.y;
             this.d = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+            // this.d = 5;
 
             // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
             if (this.d < this.attackRange) {
@@ -80,7 +81,7 @@ class Player {
             this.position.x + 20 > monster.position.x &&
             this.position.y < monster.position.y + monster.size &&
             25 + this.position.y > monster.position.y) {
-
+            console.log("충돌중!!!");
             this.health -= 10;
             healthBar.currentHealth -= 5;
         }
