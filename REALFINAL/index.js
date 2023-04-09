@@ -3,6 +3,8 @@ import GameCanvas from "./gameCanvas.js";
 // 메인화면
 const startButton = document.getElementById('start-button');
 const main = document.getElementById('main')
+const dream = document.getElementById("dream")
+const show = document.getElementById("show")
 const characterSelection = document.getElementById('characterSelection')
 const ch1 = document.getElementById('ch1');
 const ch2 = document.getElementById('ch2');
@@ -13,9 +15,11 @@ gameStart.style.display = 'none';
 startButton.addEventListener('click', function () {
     main.classList.add("hidden");
     characterSelection.style.display = 'block';
+    dream.play()
 })
 
 let selectedCharacter = null;
+
 
 ch1.addEventListener('click', function () {
     // 캐릭터1을 선택했을 때
@@ -25,7 +29,7 @@ ch1.addEventListener('click', function () {
     ch1.style.background = 'skyblue';
     ch2.style.background = 'none';
     ch3.style.background = 'none';
-    // musicsound.show.play();
+    show.play();
 });
   
   ch2.addEventListener('click', function () {
@@ -36,7 +40,7 @@ ch1.addEventListener('click', function () {
     ch2.style.background = 'skyblue';
     ch1.style.background = 'none';
     ch3.style.background = 'none';
-    // musicsound.show.play();
+    show.play();
   });
   
   ch3.addEventListener('click', function () {
@@ -47,7 +51,7 @@ ch1.addEventListener('click', function () {
     ch3.style.background = 'skyblue';
     ch1.style.background = 'none';
     ch2.style.background = 'none';
-    // musicsound.show.play();
+    show.play();
   });
 
 // 게임 캔버스 불러오기
@@ -58,6 +62,7 @@ gameStart.addEventListener('click', function () {
     characterSelection.style.display = 'none';
     gameCanvas.obj.style.display = 'block';
     gameCanvas.run();
+    dream.pause()
     // gameLoop();
     // update();
     // startTimer();

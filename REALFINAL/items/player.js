@@ -11,6 +11,7 @@ class Player {
     speed
     direction
     ctx = {width: 1024, height:576}
+    hitmusic
 
     constructor(selectedCharacter) {
         this.selectedCharacter = selectedCharacter;
@@ -49,6 +50,8 @@ class Player {
         this.ch3Right = document.getElementById("ch3Right")
         this.ch3Stop = document.getElementById("ch3Stop")
 
+        this.hitmusic = document.getElementById("hitmusic")
+
     }
 
     // 플레이어가 몬스터를 공격하는 함수
@@ -63,7 +66,7 @@ class Player {
             // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
             if (this.d < this.attackRange) {
                 monster.health -= 100;
-                // musicsound.hitmusic.play();
+                this.hitmusic.play();
 
                 if (monster.health <= 0) {
                     // 몬스터가 죽었을 때의 처리

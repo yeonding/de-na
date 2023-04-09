@@ -27,6 +27,9 @@ class GameCanvas{
         // 타이머
         this.timer = new Timer();
 
+        this.deathmusic = document.getElementById("deathmusic")
+        this.winmusic = document.getElementById("winmusic")
+
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         document.addEventListener("keyup", this.handleKeyUp.bind(this));
     }
@@ -100,6 +103,28 @@ class GameCanvas{
             this.paint();
             this.createMonster();
             this.player.autoAttack(this.monsters);
+
+            if(player.health <= 0) {
+                cancelAnimationFrame(timer.timerAnimation);
+            
+                this.background.music.pause();
+                this.deathmusic.play();
+                this.player.hitmusic.volume = 0;
+                
+                end.style.display = 'block';
+                restartButton.addEventListener('click', function() {
+                  document.location.reload();
+                });
+              } else if (timer.remainingTime <= 0){
+                cancelAnimationFrame(timer.timerAnimation);
+                victory.style.display = 'block';
+                this.background.music.pause();
+                this.winmusic.play();
+                this.player.hitmusic.volume = 0;
+            
+              }else {
+                requestAnimationFrame(run);
+              }
         }, 17);
       }
 }
