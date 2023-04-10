@@ -109,7 +109,7 @@ class GameCanvas{
     }
 
     update(){
-        this.popup.updateHP(this.player, this.tid, this.healthBar);
+        this.popup.updateHP(this.player, this.tid, this.healthBar, this.background);
     }
 
     end(){

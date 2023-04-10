@@ -27,6 +27,7 @@ class Popup{
 
         this.eventmusic = document.getElementById("eventmusic");
         this.buttonmusic = document.getElementById("buttonmusic");
+        this.admusic = document.getElementById("admusic");
 
         this.isPaused = false;
 
@@ -74,7 +75,7 @@ class Popup{
         this.comment.style.display = 'none';
     }
     
-    updateHP(player, tid, healthBar){
+    updateHP(player, tid, healthBar, background){
         if (player.health == 50) {
             if(!this.isPaused){
                 clearInterval(tid); // 게임 중지
@@ -84,11 +85,13 @@ class Popup{
                 this.yesButton.addEventListener('click', () => {
                     this.chanceStep = 2;
                     this.chance.style.display = 'none'
-                    this.video.style.display = 'block'
                     this.buttonmusic.play()
+                    this.video.style.display = 'block'
+                    background.music.pause()
+                    this.admusic.play()
                     setTimeout(() => {
                         this.showButton(healthBar);
-                    }, 8000);
+                    }, 4000);
                 });
             
                 this.noButton.addEventListener('click', () => {
