@@ -73,6 +73,7 @@ class Popup{
         if (player.health <= 50) {
             if(!this.isPaused){
                 clearInterval(tid); // 게임 중지
+                ctx.fillText(remainingTime, x, y);
                 this.isPaused = true;
                 this.showChance();
         
@@ -80,6 +81,9 @@ class Popup{
                     this.chanceStep = 2;
                     this.chance.style.display = 'none'
                     this.video.style.display = 'block'
+                    setTimeout(() => {
+                        this.showButton(healthBar);
+                    }, 8000);
                 });
             
                 this.noButton.addEventListener('click', () => {
@@ -88,10 +92,6 @@ class Popup{
                 });
             
                 this.appearButton();
-
-                setTimeout(() => {
-                    this.showButton(healthBar);
-                }, 8000);
             }
         }
     }

@@ -15,6 +15,13 @@ const album = document.getElementById('album')
 const talk = document.getElementById('talk')
 const close = document.getElementById('close')
 talk.style.display = 'none'
+const intro1 = document.getElementById('intro1')
+intro1.style.display = 'none';
+const intro2 = document.getElementById('intro2')
+intro2.style.display = 'none';
+const intro3 = document.getElementById('intro3')
+intro3.style.display = 'none';
+
 
 startButton.addEventListener('click', function () {
     main.classList.add("hidden");
@@ -38,32 +45,47 @@ ch1.addEventListener('click', function () {
     console.log('캐릭터1을 선택했습니다.');
     gameStart.style.display = 'block';
     selectedCharacter = 1;
-    ch1.style.background = 'skyblue';
-    ch2.style.background = 'none';
-    ch3.style.background = 'none';
+    ch1.classList.add("big")
+    ch2.classList.remove("big")
+    ch3.classList.remove("big")
+    intro1.style.display = 'block'
+    ch2.style.background = 'none'
+    ch3.style.background = 'none'
+    intro2.style.display = 'none'
+    intro3.style.display = 'none'
     show.play();
 });
   
   ch2.addEventListener('click', function () {
     // 캐릭터2을 선택했을 때
-    console.log('캐릭터2을 선택했습니다.');
-    gameStart.style.display = 'block';
-    selectedCharacter = 2;
-    ch2.style.background = 'skyblue';
-    ch1.style.background = 'none';
-    ch3.style.background = 'none';
-    show.play();
+    console.log('캐릭터2을 선택했습니다.')
+    gameStart.style.display = 'block'
+    selectedCharacter = 2
+    ch2.classList.add("big")
+    ch1.classList.remove("big")
+    ch3.classList.remove("big")
+    intro2.style.display = 'block'
+    ch1.style.background = 'none'
+    ch3.style.background = 'none'
+    intro1.style.display =  'none'
+    intro3.style.display = 'none'
+    show.play()
   });
   
   ch3.addEventListener('click', function () {
     // 캐릭터3을 선택했을 때
     console.log('캐릭터3을 선택했습니다.');
-    gameStart.style.display = 'block';
-    selectedCharacter = 3;
-    ch3.style.background = 'skyblue';
-    ch1.style.background = 'none';
-    ch2.style.background = 'none';
-    show.play();
+    gameStart.style.display = 'block'
+    selectedCharacter = 3
+    ch3.classList.add("big")
+    ch1.classList.remove("big")
+    ch2.classList.remove("big")
+    intro3.style.display = 'block'
+    ch1.style.background = 'none'
+    ch2.style.background = 'none'
+    intro1.style.display = 'none'
+    intro2.style.display = 'none'
+    show.play()
   });
 
 // 게임 캔버스 불러오기

@@ -15,6 +15,10 @@
         .show{
             display: block;
         }
+
+        .big{
+            transform: scale(2.0);
+        }
     </style>
     </head>
     <body>
@@ -43,7 +47,7 @@
         <div id = "canvasImages" class ="hidden">
             <img id= "map" src = "./images/background/map.png">
         </div>
-        <div id="talk">
+        <div id="talk" class="hidden">
             <p id="close"><img src = "images/logo/no-button.png" /></p>
         </div>
         <div id = "characterSelection">
@@ -73,8 +77,20 @@
                 <img id="attackImg1" src="images/attackeffect/attack1.png">
                 <img id="attackImg2" src="images/attackeffect/attack3.png">
                 <img id="attackImg3" src="images/attackeffect/attack33.png">
-                
             </div>
+            <div id="intro1">
+                <img id="introch1"  src="./images/player/ch1/introch1.png"/>
+                <img id="name1"  src="./images/player/ch1/name1.png"/>
+            </div>
+            <div id="intro2">
+                <img id="introch2"  src="./images/player/ch2/introch2.png"/>
+                <img id="name2"  src="./images/player/ch2/name2.png"/>
+            </div>
+            <div id="intro3">
+                <img id="introch3"  src="./images/player/ch3/introch3.png"/>
+                <img id="name3"  src="./images/player/ch3/name3.png"/>
+            </div>
+
             <p id="game-start"><img src="images/logo/gamestart1.png"></p>
         </div>
         <div>
