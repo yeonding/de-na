@@ -25,6 +25,9 @@ class Popup{
         this.deathmusic = document.getElementById("deathmusic")
         this.deathmusic.volume = 1;
 
+        this.eventmusic = document.getElementById("eventmusic");
+        this.buttonmusic = document.getElementById("buttonmusic");
+
         this.isPaused = false;
 
     }
@@ -49,7 +52,8 @@ class Popup{
         if (this.chanceStep != 1)
             return;
         this.chance.classList.add("show");
-    }
+        this.eventmusic.play()
+    }   
     
     appearButton(){
         if (this.noStep != 1)
@@ -64,13 +68,14 @@ class Popup{
         this.noButton2.addEventListener('click', () => {
             this.chance.style.display = "none";
             this.video.style.display = "none";
+            this.buttonmusic.play()
             healthBar.currentHealth += 20;
         });
         this.comment.style.display = 'none';
     }
     
     updateHP(player, tid, healthBar){
-        if (player.health <= 50) {
+        if (player.health == 50) {
             if(!this.isPaused){
                 clearInterval(tid); // 게임 중지
                 this.isPaused = true;
@@ -80,6 +85,7 @@ class Popup{
                     this.chanceStep = 2;
                     this.chance.style.display = 'none'
                     this.video.style.display = 'block'
+                    this.buttonmusic.play()
                     setTimeout(() => {
                         this.showButton(healthBar);
                     }, 8000);
@@ -88,6 +94,7 @@ class Popup{
                 this.noButton.addEventListener('click', () => {
                     this.chanceStep = 2;
                     this.chance.style.display = 'none'
+                    this.buttonmusic.play()
                 });
             
                 this.appearButton();
