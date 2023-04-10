@@ -109,7 +109,7 @@ class GameCanvas{
     }
 
     update(){
-        this.popup.updateHP(this.player);
+        this.popup.updateHP(this.player, this.tid);
     }
       
     run() {
@@ -122,6 +122,28 @@ class GameCanvas{
             this.collision();
             console.log(this.healthBar.currentHealth);
         }, 17);
+
+        this.popup.noButton.addEventListener('click', () => {
+            this.tid = setInterval(() => {
+                this.paint();
+                this.update();
+                this.createMonster();
+                this.player.autoAttack(this.monsters);
+                this.collision();
+                console.log(this.healthBar.currentHealth);
+            }, 17);
+        })
+
+        this.popup.noButton2.addEventListener('click', () => {
+            this.tid = setInterval(() => {
+                this.paint();
+                this.update();
+                this.createMonster();
+                this.player.autoAttack(this.monsters);
+                this.collision();
+                console.log(this.healthBar.currentHealth);
+            }, 17);
+        })
       }
     
 }

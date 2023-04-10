@@ -15,6 +15,8 @@ class Popup{
         this.video = document.getElementById('video');
         this.comment = document.getElementById('video-comment');
 
+        this.isPaused = false;
+
     }
 
     showChance(){
@@ -40,26 +42,30 @@ class Popup{
         this.comment.style.display = 'none';
     }
     
-    updateHP(player){
+    updateHP(player, tid){
         if (player.health <= 50) {
-            this.showChance();
+            if(!this.isPaused){
+                clearInterval(tid); // 게임 중지
+                this.isPaused = true;
+                this.showChance();
         
-            this.yesButton.addEventListener('click', () => {
-                this.chanceStep = 2;
-                this.chance.style.display = 'none'
-                this.video.style.display = 'block'
-            });
-        
-            this.noButton.addEventListener('click', () => {
-              this.chanceStep = 2;
-              this.chance.style.display = 'none'
-            });
-        
-            this.appearButton();
+                this.yesButton.addEventListener('click', () => {
+                    this.chanceStep = 2;
+                    this.chance.style.display = 'none'
+                    this.video.style.display = 'block'
+                });
+            
+                this.noButton.addEventListener('click', () => {
+                    this.chanceStep = 2;
+                    this.chance.style.display = 'none'
+                });
+            
+                this.appearButton();
 
-            setTimeout(() => {
-                this.showButton();
-            }, 8000);
+                setTimeout(() => {
+                    this.showButton();
+                }, 8000);
+            }
         }
     }
 }
