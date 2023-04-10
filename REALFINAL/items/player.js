@@ -48,6 +48,7 @@ class Player {
         this.ch3Stop = document.getElementById("ch3Stop")
 
         this.hitmusic = document.getElementById("hitmusic")
+        this.hitmusic.volume = 0.5
 
     }
 

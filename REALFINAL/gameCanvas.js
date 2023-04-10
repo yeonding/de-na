@@ -74,38 +74,6 @@ class GameCanvas{
     
     createMonster() {
         if (this.monsters.length < 100) {
-            // 몬스터를 캔버스 외부에서 생성
-            const canvasWidth = this.obj.width;
-            const canvasHeight = this.obj.height;
-            const playerX = this.player.position.x;
-            const playerY = this.player.position.y;
-            const monsterSize = 40;
-            const borderMargin = 50;
-            let monsterX, monsterY;
-
-            // 플레이어가 중앙에 있는 경우
-            if (playerX > canvasWidth / 3 && playerX < canvasWidth * 2 / 3) {
-                monsterX = Math.random() > 0.5 ? -borderMargin - monsterSize : canvasWidth + borderMargin;
-                monsterY = Math.random() * canvasHeight;
-            }
-            // 플레이어가 상단에 있는 경우
-            else if (playerY < canvasHeight / 3) {
-                monsterX = Math.random() * canvasWidth;
-                monsterY = Math.random() > 0.5 ? canvasHeight + borderMargin : -borderMargin - monsterSize;
-            }
-            // 플레이어가 하단에 있는 경우
-            else {
-                monsterX = Math.random() * canvasWidth;
-                monsterY = Math.random() > 0.5 ? -borderMargin - monsterSize : canvasHeight + borderMargin;
-            }
-            const monster = {
-                position: { x: monsterX, y: monsterY },
-                direction: 0,
-                speed: 1,
-                size: 40,
-            };
-            this.monsters.push(new Monster(this.player, this.obj, monster));
-        if (this.monsters.length < 100) {
           // 몬스터를 캔버스 외부에서 생성
           const canvasWidth = this.obj.width;
           const canvasHeight = this.obj.height;
@@ -119,10 +87,10 @@ class GameCanvas{
           };
           this.monsters.push(new Monster(this.player, this.obj));
         }
-        for (let monster of this.monsters) {
+
+        for(let monster of this.monsters){
             monster.draw();
             monster.move();
-           
         }
     }
     
@@ -149,17 +117,21 @@ class GameCanvas{
             this.popup.showEnd();
             clearInterval(this.tid); 
             cancelAnimationFrame(this.timer.timerAnimation);
+            this.background.music.pause()
+            this.player.hitmusic.pause()
         }else if(this.timer.remainingTime == 0){
             this.popup.showVictory();
             clearInterval(this.tid); 
             cancelAnimationFrame(this.timer.timerAnimation);
+            this.background.music.pause()
+            this.player.hitmusic.pause()
         }else{
             // requestAnimationFrame(this.run())
         }
     }
       
     run() {
-        //this.timer.timerAnimation = null;
+        this.timer.timerAnimation = null;
         this.tid = setInterval(() => {
             this.paint();
             this.update();
@@ -190,11 +162,6 @@ class GameCanvas{
                 this.end();
             }, 17);
         })
-            console.log(this.healthBar.currentHealth);
-
-            
-        }, 30);
       }
     
 }
-
