@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/menu.css" type="text/css" rel="stylesheet">
+    <link rel="shortcut icon" href="#">
     <title>Dev's Nightmare</title>
     <style>
         .hidden {
@@ -17,10 +18,24 @@
     </style>
     </head>
     <body>
+        <div id="endScreenDefeat" class="hidden">
+            <p id="restart-button"><img src="images/logo/startagain2.png"></p>
+        </div>
+        <div id="victory" class="hidden">
+            <p id="backto"><img src="images/logo/startagain2.png"></p>
+        </div>
+        <div id="chance" class="hidden">
+            <p id="yes-butoon"><img src = "images/logo/yes-button.png" /></p>
+            <p id="no-butoon"><img src = "images/logo/no-button.png" /></p>
+        </div>
+        <div id="video" class="hidden">
+            <p id="video-class"><img src = "images/video/chancevideo.gif" /></p>
+            <p id="video-comment">8초뒤에 닫기 버튼이 나옵니다.</p>
+            <p id="no-butoon2"><img src = "images/logo/no-button.png" /></p>
+        </div>
         <div id="main" class="main">
             <h1><img src="images/logo/neon-logo.gif"/></h1>
             <ul>
-                <!-- <img class= "logo2" src="images/background/mousepoint.png"> -->
                 <li id="start"><a id="start-button"></a></li>
                 <li id="album"><a id="album-button"></a></li>
             </ul>
@@ -28,11 +43,14 @@
         <div id = "canvasImages" class ="hidden">
             <img id= "map" src = "./images/background/map.png">
         </div>
+        <div id="talk">
+            <p id="close"><img src = "images/logo/no-button.png" /></p>
+        </div>
         <div id = "characterSelection">
             <div class="characters">
                 <img src="images/player/ch1/ch1.gif" id="ch1">
-                <img src="images/mob/HitPreview.gif" id="ch2">
-                <img src="images/mob/JumpPreview.gif" id="ch3">
+                <img src="images/player/ch2/ch2.gif" id="ch2">
+                <img src="images/player/ch3/ch3.gif" id="ch3">
             </div>
             <div id="canvasImages" class="hidden">
                 <img id="ch1Front" src="images/player/ch1/spriteFront.png">
@@ -40,18 +58,22 @@
                 <img id="ch1Left" src="images/player/ch1/spriteLeft.png">
                 <img id="ch1Right" src="images/player/ch1/spriteRight.png" >
                 <img id="ch1Stop" src="images/player/ch1/spriteStop.png" >
-                <img id="ch2Front" src="images/player/ch5/spriteFront.png">
-                <img id="ch2Back" src="images/player/ch5/spriteBack.png">
-                <img id="ch2Left" src="images/player/ch5/spriteLeft.png">
-                <img id="ch2Right" src="images/player/ch5/spriteRight.png" >
-                <img id="ch2Stop" src="images/player/ch5/spriteStop.png" >
-                <img id="ch3Front" src="images/player/ch2/spriteFront.png">
-                <img id="ch3Back" src="images/player/ch2/spriteBack.png">
-                <img id="ch3Left" src="images/player/ch2/spriteLeft.png">
-                <img id="ch3Right" src="images/player/ch2/spriteRight.png" >
-                <img id="ch3Stop" src="images/player/ch2/spriteStop.png" >
+                <img id="ch2Front" src="images/player/ch2/spriteFront.png">
+                <img id="ch2Back" src="images/player/ch2/spriteBack.png">
+                <img id="ch2Left" src="images/player/ch2/spriteLeft.png">
+                <img id="ch2Right" src="images/player/ch2/spriteRight.png" >
+                <img id="ch2Stop" src="images/player/ch2/spriteStop.png" >
+                <img id="ch3Front" src="images/player/ch3/spriteFront.png">
+                <img id="ch3Back" src="images/player/ch3/spriteBack.png">
+                <img id="ch3Left" src="images/player/ch3/spriteLeft.png">
+                <img id="ch3Right" src="images/player/ch3/spriteRight.png" >
+                <img id="ch3Stop" src="images/player/ch3/spriteStop.png" >
                 <img id="monsterLeft" src = "images/mob/frogleft.png">
                 <img id="monsterRight" src = "images/mob/frogright.png">
+                <img id="attackImg1" src="images/attackeffect/attack1.png">
+                <img id="attackImg2" src="images/attackeffect/attack3.png">
+                <img id="attackImg3" src="images/attackeffect/attack33.png">
+                
             </div>
             <p id="game-start"><img src="images/logo/gamestart1.png"></p>
         </div>

@@ -3,6 +3,7 @@ import Monster from "./items/monster.js"
 import Player from "./items/player.js"
 import Timer from "./items/timer.js"
 import HealthBar from "./items/healthbar.js"
+import Popup  from "./items/popup.js"
 
 export default 
 class GameCanvas{
@@ -30,6 +31,9 @@ class GameCanvas{
 
         // 헬스바
         this.healthBar = new HealthBar();
+
+        // 찬스바
+        this.popup = new Popup();
 
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         document.addEventListener("keyup", this.handleKeyUp.bind(this));
@@ -101,6 +105,19 @@ class GameCanvas{
                 size: 40,
             };
             this.monsters.push(new Monster(this.player, this.obj, monster));
+        if (this.monsters.length < 100) {
+          // 몬스터를 캔버스 외부에서 생성
+          const canvasWidth = this.obj.width;
+          const canvasHeight = this.obj.height;
+          const monsterX = Math.random() > 0.5 ? Math.random() * canvasWidth : Math.random() > 0.5 ? canvasWidth + 50 : -50;
+          const monsterY = Math.random() > 0.5 ? Math.random() * canvasHeight : Math.random() > 0.5 ? canvasHeight + 50 : -50;
+          const monster = {
+            position: { x: monsterX, y: monsterY },
+            direction: 0,
+            speed: 1,
+            size: 40,
+          };
+          this.monsters.push(new Monster(this.player, this.obj));
         }
         for (let monster of this.monsters) {
             monster.draw();
@@ -122,14 +139,57 @@ class GameCanvas{
         this.timer.startTimer(this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
     }
+
+    update(){
+        this.popup.updateHP(this.player, this.tid, this.healthBar);
+    }
+
+    end(){
+        if(this.healthBar.currentHealth ==0){
+            this.popup.showEnd();
+            clearInterval(this.tid); 
+            cancelAnimationFrame(this.timer.timerAnimation);
+        }else if(this.timer.remainingTime == 0){
+            this.popup.showVictory();
+            clearInterval(this.tid); 
+            cancelAnimationFrame(this.timer.timerAnimation);
+        }else{
+            // requestAnimationFrame(this.run())
+        }
+    }
       
     run() {
         //this.timer.timerAnimation = null;
         this.tid = setInterval(() => {
             this.paint();
+            this.update();
             this.createMonster();
             this.player.autoAttack(this.monsters);
             this.collision();
+            this.end();
+        }, 17);
+
+        this.popup.noButton.addEventListener('click', () => {
+            this.tid = setInterval(() => {
+                this.paint();
+                this.update();
+                this.createMonster();
+                this.player.autoAttack(this.monsters);
+                this.collision();
+                this.end();
+            }, 17);
+        })
+
+        this.popup.noButton2.addEventListener('click', () => {
+            this.tid = setInterval(() => {
+                this.paint();
+                this.update();
+                this.createMonster();
+                this.player.autoAttack(this.monsters);
+                this.collision();
+                this.end();
+            }, 17);
+        })
             console.log(this.healthBar.currentHealth);
 
             
