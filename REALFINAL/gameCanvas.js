@@ -69,24 +69,43 @@ class GameCanvas{
     }
     
     createMonster() {
-        if (this.monsters.length < 250) {
-          // 몬스터를 캔버스 외부에서 생성
-          const canvasWidth = this.obj.width;
-          const canvasHeight = this.obj.height;
-          const monsterX = Math.random() > 0.5 ? Math.random() * canvasWidth : Math.random() > 0.5 ? canvasWidth + 50 : -50;
-          const monsterY = Math.random() > 0.5 ? Math.random() * canvasHeight : Math.random() > 0.5 ? canvasHeight + 50 : -50;
-          const monster = {
-            position: { x: monsterX, y: monsterY },
-            direction: 0,
-            speed: 1,
-            size: 40,
-          };
-          this.monsters.push(new Monster(this.player, this.obj));
-        }
+        if (this.monsters.length < 100) {
+            // 몬스터를 캔버스 외부에서 생성
+            const canvasWidth = this.obj.width;
+            const canvasHeight = this.obj.height;
+            const playerX = this.player.position.x;
+            const playerY = this.player.position.y;
+            const monsterSize = 40;
+            const borderMargin = 50;
+            let monsterX, monsterY;
 
-        for(let monster of this.monsters){
+            // 플레이어가 중앙에 있는 경우
+            if (playerX > canvasWidth / 3 && playerX < canvasWidth * 2 / 3) {
+                monsterX = Math.random() > 0.5 ? -borderMargin - monsterSize : canvasWidth + borderMargin;
+                monsterY = Math.random() * canvasHeight;
+            }
+            // 플레이어가 상단에 있는 경우
+            else if (playerY < canvasHeight / 3) {
+                monsterX = Math.random() * canvasWidth;
+                monsterY = Math.random() > 0.5 ? canvasHeight + borderMargin : -borderMargin - monsterSize;
+            }
+            // 플레이어가 하단에 있는 경우
+            else {
+                monsterX = Math.random() * canvasWidth;
+                monsterY = Math.random() > 0.5 ? -borderMargin - monsterSize : canvasHeight + borderMargin;
+            }
+            const monster = {
+                position: { x: monsterX, y: monsterY },
+                direction: 0,
+                speed: 1,
+                size: 40,
+            };
+            this.monsters.push(new Monster(this.player, this.obj, monster));
+        }
+        for (let monster of this.monsters) {
             monster.draw();
             monster.move();
+           
         }
     }
     
@@ -105,14 +124,16 @@ class GameCanvas{
     }
       
     run() {
-        this.timer.timerAnimation = null;
+        //this.timer.timerAnimation = null;
         this.tid = setInterval(() => {
             this.paint();
             this.createMonster();
             this.player.autoAttack(this.monsters);
             this.collision();
             console.log(this.healthBar.currentHealth);
-        }, 17);
+
+            
+        }, 30);
       }
     
 }

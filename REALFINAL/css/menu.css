@@ -105,3 +105,49 @@ body{
     transition: all 0.5s ease 0s;
     transform: scale(1.1);
 }
+
+/* endScreenDefeat */
+#endScreenDefeat {
+    background-image: url('../images/background/gameover.png');
+    width: 700px;
+    height: 500px;
+    position:absolute;
+    top: 5%;
+    left: 10%;
+    display: none;
+}
+
+#endScreenDefeat p#restart-button img{
+    width: 200px;
+    position: absolute;
+    bottom: 2%;
+    left: 35%;
+}
+
+#endScreenDefeat p#restart-button img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}
+
+/* victory */
+#victory {
+    background-image: url('../images/background/victory.png');
+    width: 700px;
+    height: 500px;
+    position:absolute;
+    top: 5%;
+    left: 10%;
+    display: none;
+}
+
+#victory p#backto img{
+    width: 200px;
+    position: absolute;
+    bottom: 2%;
+    left: 35%;
+}
+
+#victory p#backto img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}
