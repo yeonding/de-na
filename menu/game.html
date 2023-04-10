@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .canvasImages{
+            display: none;
+        }
+    </style>
+    <link href="../css/game.css" type="text/css" rel="stylesheet">
+    <script type="module" src="game.js" defer="defer"></script>
+    <link rel="short icon" href="#">
+</head>
+<body>
+    <div id="endScreenDefeat">
+        <p id="restart-button"><img src="../images/logo/startagain2.png"></p>
+    </div>
+    <div id="victory">
+        <p id="backto"><a href="../index.html"><img src="../images/logo/startagain2.png"></a></p>
+    </div>
+    <div id="chance">
+        <p id="yes-butoon"><img src = "../images/logo/yes-button.png" /></p>
+        <p id="no-butoon"><img src = "../images/logo/no-button.png" /></p>
+    </div>
+    <div id="video">
+        <p id="video-class"><img src = "../images/video/chancevideo.gif" /></p>
+        <p id="video-comment">8초뒤에 닫기 버튼이 나옵니다.</p>
+        <p id="no-butoon2"><img src = "../images/logo/no-button.png" /></p>
+    </div>
+    <div id="characterSelection">
+        <div class="characters">
+            <img src="../images/player/ch1/ch1.gif" id="ch1">
+            <img src="../images/mob/HitPreview.gif" id="ch2">
+            <img src="../images/mob/JumpPreview.gif" id="ch3">
+        </div> 
+        <div class="canvasImages">
+            <img id="ch1Front" src="../images/player/ch1/spriteFront.png">
+            <img id="ch1Back" src="../images/player/ch1/spriteBack.png">
+            <img id="ch1Left" src="../images/player/ch1/spriteLeft.png">
+            <img id="ch1Right" src="../images/player/ch1/spriteRight.png" >
+            <img id="ch1Stop" src="../images/player/ch1/spriteStop.png" >
+            <img id="ch2Front" src="../images/player/ch5/spriteFront.png">
+            <img id="ch2Back" src="../images/player/ch5/spriteBack.png">
+            <img id="ch2Left" src="../images/player/ch5/spriteLeft.png">
+            <img id="ch2Right" src="../images/player/ch5/spriteRight.png" >
+            <img id="ch2Stop" src="../images/player/ch5/spriteStop.png" >
+            <img id="ch3Front" src="../images/player/ch2/spriteFront.png">
+            <img id="ch3Back" src="../images/player/ch2/spriteBack.png">
+            <img id="ch3Left" src="../images/player/ch2/spriteLeft.png">
+            <img id="ch3Right" src="../images/player/ch2/spriteRight.png" >
+            <img id="ch3Stop" src="../images/player/ch2/spriteStop.png" >
+            <img id="monsterLeft" src = "../images/mob/frogleft.png">
+            <img id="monsterRight" src = "../images/mob/frogright.png">
+        </div>
+        <p id="start-button"><img src="../images/logo/gamestart1.png"></p>
+    </div>
+    <audio id="show" src="../sounds/show.mp3"></audio>
+    <audio id = "music" src="../sounds/music.mp3"></audio>
+    <audio id = "bgmusic" src="../sounds/music2.mp3"></audio>
+    <audio id = "hitmusic" src="../sounds/slash.mp3"></audio>
+    <audio id = "deathmusic" src="../sounds/dead.mp3"></audio>
+    <audio id = "winmusic" src="../sounds/win.mp3"></audio>
+    <canvas id="game1"></canvas>
+</body>
+</html>
