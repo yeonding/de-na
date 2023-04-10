@@ -114,7 +114,7 @@ class GameCanvas{
             cancelAnimationFrame(this.timer.timerAnimation);
             this.background.music.pause()
             this.player.hitmusic.pause()
-        }else if(this.timer.remainingTime == 0){
+        }else if(this.timer.remainingTime <= 0){
             this.popup.showVictory();
             clearInterval(this.tid); 
             cancelAnimationFrame(this.timer.timerAnimation);

@@ -58,22 +58,92 @@ body{
 }
 
 #talk{
-    width: 700px;
-    height: 500px;
+    width: 960px;
+    height: 680px;
     background: url("../images/background/citytile1.png");
     position:absolute;
-    top: 13%;
+    top: 4%;
     left: 50%;
     transform: translateX(-50%);
 }
 
 #talk p#close img{
-    width: 50px;
+    width: 100px;
+}
+
+#talk p#close img{
+    position: absolute;
+    right: 1%;
 }
 
 #talk p#close img:hover{
     transition: all 0.5s ease 0s;
     transform: scale(1.1);
+}
+
+#talk p img{
+    width: 120px;
+}
+
+#talk p img{
+    width: 120px;
+}
+
+#talk p#people1{
+    position: absolute;
+    top: 50%;
+    right: 5%;
+}
+
+#talk p#people2{
+    position: absolute;
+    top: 18%;
+    left: 18%;
+}
+
+#talk p#people3{
+    position: absolute;
+    top: 25%;
+    right: 46%;
+}
+
+#talk p#people4{
+    position: absolute;
+    bottom: 20%;
+    right: 35%;
+    opacity: 0.6;
+}
+
+#talk p#people5{
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+}
+
+#info{
+    display: none;
+    width: 700px;
+    height: 500px;
+    position:absolute;
+    top: 5%;
+    left: 10%;
+}
+
+#info #rule{
+
+}
+
+#info #mouse img{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 100px;
+    transform: rotate(30deg);
+}
+
+#info #mouse img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1) rotate(1deg);
 }
 
 #characterSelection{
