@@ -11,10 +11,10 @@ class Monster{
     ctx
     
     constructor(player,obj) {
-        this.position.x = Math.floor(Math.random()*1024);
-        this.position.y = Math.floor(Math.random()*576);
-        this.size = Math.random() * 50 + 20;
-        this.speed = Math.random() * 2 + 1;
+        this.position.x = Math.random() > 0.5 ? Math.random() * obj.width : Math.random() > 0.5 ? obj.width + 50 : -50;
+        this.position.y = Math.random() > 0.5 ? Math.random() * obj.height : Math.random() > 0.5 ? obj.height + 50 : -50;
+        this.size = Math.floor((Math.random() * 50) + 20);
+        this.speed = Math.floor((Math.random() * 2) + 1);
         this.direction = Math.atan2(player.position.y - this.position.y, player.position.x - this.position.x);
         this.monsterImage = null;
         this.health = 100;

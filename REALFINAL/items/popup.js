@@ -73,7 +73,6 @@ class Popup{
         if (player.health <= 50) {
             if(!this.isPaused){
                 clearInterval(tid); // 게임 중지
-                ctx.fillText(remainingTime, x, y);
                 this.isPaused = true;
                 this.showChance();
         

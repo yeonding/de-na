@@ -1,5 +1,5 @@
-export default 
-class Player {
+export default
+    class Player {
     position = { x: 0, y: 0 }
     health
     attackRange
@@ -10,7 +10,7 @@ class Player {
     attackImage3
     speed
     direction
-    ctx = {width: 1024, height:576}
+    ctx = { width: 1024, height: 576 }
     hitmusic
 
     constructor(selectedCharacter) {
@@ -18,7 +18,7 @@ class Player {
         this.position.x = this.ctx.width / 2;
         this.position.y = this.ctx.height / 2;
         this.health = 100;
-        this.attackRange = 80;
+        this.attackRange = 70;
         this.dx = 0;
         this.dy = 0;
 
@@ -74,18 +74,38 @@ class Player {
             }
         }
     }
-
     // 플레이어와 몬스터 충돌 시 플레이어 체력 닳기
     collisionMonster(monster, healthBar) {
+
+        const knockbackDistance = 10;
+        const knockbackDirection = Math.atan2(this.position.y - monster.position.y, this.position.x - monster.position.x);
+        const knockbackX = knockbackDistance * Math.cos(knockbackDirection);
+        const knockbackY = knockbackDistance * Math.sin(knockbackDirection);
+
+        const playerSize = 20; // 플레이어 이미지의 가로 길이
+        // const playerOffsetX = 20; // 플레이어 이미지의 중심점을 기준으로 한 X축의 위치
+        // const playerOffsetY = 15; // 플레이어 이미지의 중심점을 기준으로 한 Y축의 위치
+        const pushbackDistance = 100; // 넉백 거리
+
         if (this.position.x < monster.position.x + monster.size &&
-            this.position.x + 20 > monster.position.x &&
+            this.position.x + playerSize > monster.position.x &&
             this.position.y < monster.position.y + monster.size &&
-            25 + this.position.y > monster.position.y) {
-            console.log(`충돌 ${this.health}`);
+            15 + this.position.y > monster.position.y) {
+            // 충돌한 경우
             this.health -= 10;
             healthBar.currentHealth -= 5;
+
+            // 충돌 시,  플레이어 넉백
+            this.position.x += knockbackX;
+            this.position.y += knockbackY;
+
+            // 충돌 시, 몬스터를 플레이어 쪽으로 넉백
+            const pushbackAngle = Math.atan2(monster.position.y - this.position.y, monster.position.x - this.position.x);
+            monster.position.x += pushbackDistance * Math.cos(pushbackAngle);
+            monster.position.y += pushbackDistance * Math.sin(pushbackAngle);
         }
     }
+
 
     drawAttack(selectedCharacter, ctx) {
         let attackImage1 = this.attackImage1;
@@ -97,7 +117,7 @@ class Player {
         frameIndex = Math.floor(Date.now() / 500) % 4;
         spriteX = frameIndex * 32;
 
-        switch(selectedCharacter){
+        switch (selectedCharacter) {
             case 1:
                 ctx.drawImage(attackImage1, spriteX, spriteY, 32, 32, this.position.x - 70, this.position.y - 70, 180, 180);
                 break
@@ -122,137 +142,137 @@ class Player {
         let frameIndex = 4; // 스프라이트 이미지에서 사용할 프레임 인덱스
         let spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표
         let spriteY = 0; // 스프라이트 이미지에서 사용할 y 좌표
-    
-        switch(selectedCharacter){
-        case 1 : {
-            console.log('캐릭터1 그리기')
-            if (this.direction === "stop") {
-                frameIndex = Math.floor(Date.now() / 500) % 2;
-                spriteX = frameIndex * 48;
-                ctx.drawImage(this.ch1Stop, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
-            }
-            if (this.direction === "left") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteX = frameIndex * 48;
-                this.position.x -= speed;
-                ctx.drawImage(this.ch1Left, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
-            }
-            if (this.direction === "up") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteX = frameIndex * 48;
-                this.position.y -= speed;
-                ctx.drawImage(this.ch1Back, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
 
+        switch (selectedCharacter) {
+            case 1: {
+                console.log('캐릭터1 그리기')
+                if (this.direction === "stop") {
+                    frameIndex = Math.floor(Date.now() / 500) % 2;
+                    spriteX = frameIndex * 48;
+                    ctx.drawImage(this.ch1Stop, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
+                }
+                if (this.direction === "left") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteX = frameIndex * 48;
+                    this.position.x -= speed;
+                    ctx.drawImage(this.ch1Left, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
+                }
+                if (this.direction === "up") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteX = frameIndex * 48;
+                    this.position.y -= speed;
+                    ctx.drawImage(this.ch1Back, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
+
+                }
+                if (this.direction === "down") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteX = frameIndex * 48;
+                    this.position.y += speed;
+                    ctx.drawImage(this.ch1Front, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
+                }
+                else if (this.direction === "right") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteX = frameIndex * 48;
+                    this.position.x += speed;
+                    ctx.drawImage(this.ch1Right, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
+                }
             }
-            if (this.direction === "down") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteX = frameIndex * 48;
-                this.position.y += speed;
-                ctx.drawImage(this.ch1Front, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
+                break
+
+            case 2: {
+                if (direction === "stop") {
+                    frameIndex = Math.floor(Date.now() / 500) % 2;
+                    spriteX = frameIndex * 16;
+                }
+                if (direction === "left") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteY = frameIndex * 16;
+                    this.position.x -= speed;
+                }
+                if (direction === "up") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteY = frameIndex * 16;
+                    this.position.y -= speed;
+                }
+                if (direction === "down") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteY = frameIndex * 16;
+                    this.position.y += speed;
+                }
+                else if (direction === "right") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteY = frameIndex * 16;
+                    this.position.x += speed;
+                }
+
+                if (direction == 'stop')
+                    ctx.drawImage(this.ch2Stop, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                if (direction == 'up')
+                    ctx.drawImage(this.ch2Back, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                if (direction == 'down')
+                    ctx.drawImage(this.ch2Front, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                if (direction === "left") {
+                    ctx.drawImage(this.ch2Left, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                }
+                if (direction === "right") {
+                    ctx.drawImage(this.ch2Right, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                }
             }
-            else if (this.direction === "right") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteX = frameIndex * 48;
-                this.position.x += speed;
-                ctx.drawImage(this.ch1Right, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
+                break
+
+            case 3: {
+                if (direction === "stop") {
+                    frameIndex = Math.floor(Date.now() / 500) % 2;
+                    spriteX = frameIndex * 16;
+                }
+                if (direction === "left") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteY = frameIndex * 16;
+                    this.position.x -= speed;
+                }
+                if (direction === "up") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteY = frameIndex * 16;
+                    this.position.y -= speed;
+                }
+                if (direction === "down") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteY = frameIndex * 16;
+                    this.position.y += speed;
+                }
+                else if (direction === "right") {
+                    frameIndex = Math.floor(Date.now() / 100) % 4;
+                    //spriteX = 0
+                    spriteY = frameIndex * 16;
+                    this.position.x += speed;
+                }
+
+                if (direction == 'stop')
+                    ctx.drawImage(this.ch3Stop, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                if (direction == 'up')
+                    ctx.drawImage(this.ch3Back, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                if (direction == 'down')
+                    ctx.drawImage(this.ch3Front, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                if (direction === "left") {
+                    ctx.drawImage(this.ch3Left, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                }
+                if (direction === "right") {
+                    ctx.drawImage(this.ch3Right, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
+                }
             }
+                break
         }
-        break
-
-       case 2: {
-            if (direction === "stop") {
-                frameIndex = Math.floor(Date.now() / 500) % 2;
-                spriteX = frameIndex * 16;
-            }
-            if (direction === "left") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteY = frameIndex * 16;
-                this.position.x -= speed;
-            }
-            if (direction === "up") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteY = frameIndex * 16;
-                this.position.y -= speed;
-            }
-            if (direction === "down") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteY = frameIndex * 16;
-                this.position.y += speed;
-            }
-            else if (direction === "right") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteY = frameIndex * 16;
-                this.position.x += speed;
-            }
-
-            if (direction == 'stop')
-                ctx.drawImage(this.ch2Stop, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            if (direction == 'up')
-                ctx.drawImage(this.ch2Back, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            if (direction == 'down')
-                ctx.drawImage(this.ch2Front, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            if (direction === "left") {
-                ctx.drawImage(this.ch2Left, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            }
-            if (direction === "right") {
-                ctx.drawImage(this.ch2Right, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            }
-        }
-        break
-
-       case 3: {
-            if (direction === "stop") {
-                frameIndex = Math.floor(Date.now() / 500) % 2;
-                spriteX = frameIndex * 16;
-            }
-            if (direction === "left") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteY = frameIndex * 16;
-                this.position.x -= speed;
-            }
-            if (direction === "up") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteY = frameIndex * 16;
-                this.position.y -= speed;
-            }
-            if (direction === "down") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteY = frameIndex * 16;
-                this.position.y += speed;
-            }
-            else if (direction === "right") {
-                frameIndex = Math.floor(Date.now() / 100) % 4;
-                //spriteX = 0
-                spriteY = frameIndex * 16;
-                this.position.x += speed;
-            }
-
-            if (direction == 'stop')
-                ctx.drawImage(this.ch3Stop, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            if (direction == 'up')
-                ctx.drawImage(this.ch3Back, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            if (direction == 'down')
-                ctx.drawImage(this.ch3Front, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            if (direction === "left") {
-                ctx.drawImage(this.ch3Left, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            }
-            if (direction === "right") {
-                ctx.drawImage(this.ch3Right, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
-            }
-        }
-        break
-    }
         if (this.position.x <= 0) {
             this.position.x = 0
         }
