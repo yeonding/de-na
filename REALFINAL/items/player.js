@@ -25,12 +25,9 @@ class Player {
         this.speed = 0;
         this.direction = "stop";
 
-        this.attackImage1 = new Image();
-        this.attackImage1.src = 'images/attackeffect/attack1.png'
-        this.attackImage2 = new Image();
-        this.attackImage2.src = 'images/attackeffect/attack3.png'
-        this.attackImage3 = new Image()
-        this.attackImage3.src = 'images/attackeffect/attack33.png'
+        this.attackImage1 = document.getElementById("attackImg1")
+        this.attackImage2 = document.getElementById("attackImg2")
+        this.attackImage3 = document.getElementById("attackImg3")
 
         this.ch1Front = document.getElementById("ch1Front")
         this.ch1Back = document.getElementById("ch1Back")
@@ -84,7 +81,7 @@ class Player {
             this.position.x + 20 > monster.position.x &&
             this.position.y < monster.position.y + monster.size &&
             25 + this.position.y > monster.position.y) {
-            console.log("충돌중!!!");
+            console.log(`충돌 ${this.health}`);
             this.health -= 10;
             healthBar.currentHealth -= 5;
         }
