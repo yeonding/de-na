@@ -73,7 +73,7 @@ class GameCanvas{
     }
     
     createMonster() {
-        if (this.monsters.length < 250) {
+        if (this.monsters.length < 100) {
           // 몬스터를 캔버스 외부에서 생성
           const canvasWidth = this.obj.width;
           const canvasHeight = this.obj.height;
@@ -109,7 +109,21 @@ class GameCanvas{
     }
 
     update(){
-        this.popup.updateHP(this.player, this.tid);
+        this.popup.updateHP(this.player, this.tid, this.healthBar);
+    }
+
+    end(){
+        if(this.healthBar.currentHealth ==0){
+            this.popup.showEnd();
+            clearInterval(this.tid); 
+            cancelAnimationFrame(this.timer.timerAnimation);
+        }else if(this.timer.remainingTime == 0){
+            this.popup.showVictory();
+            clearInterval(this.tid); 
+            cancelAnimationFrame(this.timer.timerAnimation);
+        }else{
+            // requestAnimationFrame(this.run())
+        }
     }
       
     run() {
@@ -120,7 +134,7 @@ class GameCanvas{
             this.createMonster();
             this.player.autoAttack(this.monsters);
             this.collision();
-            console.log(this.healthBar.currentHealth);
+            this.end();
         }, 17);
 
         this.popup.noButton.addEventListener('click', () => {
@@ -130,7 +144,7 @@ class GameCanvas{
                 this.createMonster();
                 this.player.autoAttack(this.monsters);
                 this.collision();
-                console.log(this.healthBar.currentHealth);
+                this.end();
             }, 17);
         })
 
@@ -141,7 +155,7 @@ class GameCanvas{
                 this.createMonster();
                 this.player.autoAttack(this.monsters);
                 this.collision();
-                console.log(this.healthBar.currentHealth);
+                this.end();
             }, 17);
         })
       }
