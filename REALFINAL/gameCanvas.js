@@ -84,7 +84,22 @@ class GameCanvas{
         for (let monster of this.monsters) {
             monster.draw();
             monster.move();
+
+            if (monster.health <= 0) {
+                monster.drawDead()
+
+                if(monster.deadIndex == 20){
+                // setTimeout(() => {
+                 let idxToRemove = this.monsters.indexOf(monster)
+                 this.monsters.splice(idxToRemove, 1);
+                }
+                // }, 1000);               // 몬스터가 죽었을 때의 처리
+                // monsters.splice(i, 1);
+                // i--; // 삭제된 요소 이후의 요소들의 인덱스를 감소시킴
+            }
         }
+
+
     }
 
     collision() {
@@ -92,8 +107,10 @@ class GameCanvas{
             this.player.collisionMonster(monster, this.healthBar)
             console.log("충돌중" + this.healthBar.currentHealth);
             console.log("충돌중 플레이어" + this.player.health);
+
         }
     }
+
 
     paint() {
         this.background.draw(this.ctx, this.player);
@@ -101,6 +118,7 @@ class GameCanvas{
         this.player.drawAttack(this.selectedCharacter, this.ctx);
         this.timer.startTimer(this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
+     
     }
 
     update(){
@@ -127,7 +145,7 @@ class GameCanvas{
             this.paint();
             this.update();
             this.createMonster();
-            this.player.autoAttack(this.monsters);
+            this.player.autoAttack(this.monsters,this.ctx);
             this.collision();
             this.end();
         }, 17);
@@ -137,7 +155,7 @@ class GameCanvas{
                 this.paint();
                 this.update();
                 this.createMonster();
-                this.player.autoAttack(this.monsters);
+                this.player.autoAttack(this.monsters,this.ctx);
                 this.collision();
                 this.end();
             }, 17);
@@ -148,7 +166,7 @@ class GameCanvas{
                 this.paint();
                 this.update();
                 this.createMonster();
-                this.player.autoAttack(this.monsters);
+                this.player.autoAttack(this.monsters,this.ctx);
                 this.collision();
                 this.end();
             }, 17);

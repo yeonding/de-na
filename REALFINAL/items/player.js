@@ -13,6 +13,9 @@ export default
     ctx = { width: 1024, height: 576 }
     hitmusic
 
+    deadIndex
+    indexDelay
+
     constructor(selectedCharacter) {
         this.selectedCharacter = selectedCharacter;
         this.position.x = this.ctx.width / 2;
@@ -25,9 +28,13 @@ export default
         this.speed = 0;
         this.direction = "stop";
 
+        this.deadIndex = 0
+        this.indexDelay = 7
+
+
         this.attackImage1 = document.getElementById("attackImg1")
         this.attackImage2 = document.getElementById("attackImg2")
-        this.attackImage3 = document.getElementById("attackImg3")
+        this.attackImage3 = document.getElementById("attackImg44")
 
         this.ch1Front = document.getElementById("ch1Front")
         this.ch1Back = document.getElementById("ch1Back")
@@ -52,7 +59,7 @@ export default
     }
 
     // 플레이어가 몬스터를 공격하는 함수
-    autoAttack(monsters) {
+    autoAttack(monsters, ctx) {
         for (let i = 0; i < monsters.length; i++) {
             let monster = monsters[i];
             // 플레이어-몬스터간 이동 거리 계산
@@ -65,12 +72,6 @@ export default
             if (this.d < this.attackRange) {
                 monster.health -= 100;
                 this.hitmusic.play();
-
-                if (monster.health <= 0) {
-                    // 몬스터가 죽었을 때의 처리
-                    monsters.splice(i, 1);
-                    i--; // 삭제된 요소 이후의 요소들의 인덱스를 감소시킴
-                }
             }
         }
     }
@@ -93,7 +94,7 @@ export default
             15 + this.position.y > monster.position.y) {
             // 충돌한 경우
             this.health -= 10;
-            healthBar.currentHealth -= 5;
+            healthBar.currentHealth -= monster.att;
 
             // 충돌 시,  플레이어 넉백
             this.position.x += knockbackX;
@@ -127,9 +128,11 @@ export default
                 ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 20, this.position.y - 20, 32, 48);
                 break
             case 3:
-                ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, this.position.x + 10, this.position.y + 5, 32, 48);
-                ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, this.position.x - 10, this.position.y - 5, 32, 48);
-                ctx.drawImage(attackImage3, spriteX, spriteY, 32, 48, this.position.x - 20, this.position.y - 20, 32, 48);
+                frameIndex = Math.floor(Date.now() / 100) % 2;
+                ctx.drawImage(attackImage3, spriteX, spriteY, 42, 42, this.position.x + 10, this.position.y + 5, 92, 92);
+                ctx.drawImage(attackImage3, spriteX, spriteY, 42, 42, this.position.x - 10, this.position.y - 5, 92, 92);
+                ctx.drawImage(attackImage3, spriteX, spriteY, 42, 42, this.position.x - 20, this.position.y - 20, 92, 92);
+                ctx.drawImage(attackImage3, spriteX, spriteY, 42, 42, this.position.x - 20, this.position.y - 20, 92, 92);
                 break
         }
     }
