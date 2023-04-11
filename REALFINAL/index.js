@@ -16,10 +16,12 @@ const ch3 = document.getElementById('ch3');
 const gameStart = document.getElementById('game-start');
 gameStart.style.display = 'none';
 const album = document.getElementById('album')
+const clickmusic = document.getElementById("clickmusic")
 
 // 앨범 부분
 const talk = document.getElementById('talk')
 const close = document.getElementById('close')
+const infomusic = document.getElementById("infomusic")
 talk.style.display = 'none'
 const intro1 = document.getElementById('intro1')
 intro1.style.display = 'none';
@@ -54,15 +56,17 @@ const talk5 = document.getElementById('talk5')
 
 startButton.addEventListener('click', function () {
     main.classList.add("hidden");
+    clickmusic.play()
+    dream.play()
     info.style.display = 'block'
 })
 
 mouse.addEventListener('click', function () {
   main.classList.add("hidden");
   info.style.display = 'none'
+  clickmusic.play()
   characterSelection.style.display = 'block';
-  dream.play()
-})
+  })
 
 album.addEventListener('click', function () {
   clickmusic.play()
@@ -70,62 +74,77 @@ album.addEventListener('click', function () {
 })
 
 back.addEventListener('click', function () {
+  clickmusic.play()
   info.style.display = 'block'
   characterSelection.style.display = 'none';
 })
 
 close.addEventListener('click', function () {
   talk.style.display = 'none';
+  clickmusic.play()
 })
 
 people1.addEventListener('click', function(){
   talk1.classList.add("show");
   no1.classList.add("show")
+
 })
 
 no1.addEventListener('click', function(){
   talk1.classList.remove("show");
   no1.classList.remove("show");
+ 
+  
 })
 
 people2.addEventListener('click', function(){
   talk2.classList.add("show");
   no2.classList.add("show")
+  
 })
 
 no2.addEventListener('click', function(){
   talk2.classList.remove("show");
   no2.classList.remove("show");
+  
+  
 })
 
 people3.addEventListener('click', function(){
   talk3.classList.add("show");
   no3.classList.add("show")
+  
 })
 
 no3.addEventListener('click', function(){
   talk3.classList.remove("show");
   no3.classList.remove("show");
+
+  
 })
 
 people4.addEventListener('click', function(){
   talk4.classList.add("show");
   no4.classList.add("show")
+ 
 })
 
 no4.addEventListener('click', function(){
   talk4.classList.remove("show");
   no4.classList.remove("show");
+ 
 })
 
 people5.addEventListener('click', function(){
   talk5.classList.add("show");
   no5.classList.add("show")
+  
 })
 
 no5.addEventListener('click', function(){
   talk5.classList.remove("show");
   no5.classList.remove("show");
+  
 })
 
 let selectedCharacter = null;

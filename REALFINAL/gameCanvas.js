@@ -121,20 +121,20 @@ class GameCanvas{
     }
 
     update(){
-        this.popup.updateHP(this.tid, this.healthBar);
+        this.popup.updateHP(this.tid, this.healthBar, this.background);
     }
 
     end(){
         if(this.healthBar.currentHealth ==0){
             this.popup.showEnd();
             clearInterval(this.tid); 
-            this.background.music.pause()
-            this.player.hitmusic.pause()
+            this.background.music.volume = 0
+            this.player.hitmusic.volume = 0
         }else if(this.killCount > 1000){
             this.popup.showVictory();
             clearInterval(this.tid); 
-            this.background.music.pause()
-            this.player.hitmusic.pause()
+            this.background.music.volume = 0
+            this.player.hitmusic.volume = 0
         }else{
             // requestAnimationFrame(this.run())
         }
@@ -202,11 +202,14 @@ class GameCanvas{
             }, 45);
         })
 
+
+
         this.popup.noButton2.addEventListener('click', () => {
             this.tid = setInterval(() => {
                 this.paint();
                 this.update();
                 this.createMonster();
+
                 this.player.autoAttack(this.monsters,this.ctx);
                 this.collision();
                 this.end();

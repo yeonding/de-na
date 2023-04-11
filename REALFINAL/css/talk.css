@@ -49,6 +49,7 @@
 #talk p#people1:hover, #talk p#people2:hover, #talk p#people3:hover, #talk p#people4:hover, #talk p#people5:hover{
     transition: all 0.5s ease 0s;
     transform: scale(1.5);
+    
 }
 
 #talk p#people1{
