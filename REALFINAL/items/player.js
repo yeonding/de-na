@@ -22,7 +22,7 @@ export default
         this.dx = 0;
         this.dy = 0;
 
-        this.speed = 0;
+        this.speed = 2;
         this.direction = "stop";
 
         this.attackImage1 = document.getElementById("attackImg1")
@@ -137,7 +137,7 @@ export default
 
     draw(selectedCharacter, ctx) {
         console.log(`선택된 캐릭터는 ${selectedCharacter} 입니다`)
-        let speed = 1;
+        let speed = 2;
         let direction = this.direction;
         let frameIndex = 4; // 스프라이트 이미지에서 사용할 프레임 인덱스
         let spriteX = 0; // 스프라이트 이미지에서 사용할 x 좌표

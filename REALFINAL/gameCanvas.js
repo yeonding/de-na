@@ -76,14 +76,14 @@ class GameCanvas{
     createMonster() {
 
         this.monsterShowDelay--;
-        if (this.monsters.length < 60) {
+        if (this.monsters.length < 150) {
             this.monsters.push(new Monster(this.player, this.obj));
             this.monsterShowDelay = Math.floor(Math.random() * 5 + 1);
     }
 
         for (let monster of this.monsters) {
             monster.draw();
-            monster.move();
+            // monster.move();
         }
     }
 
@@ -112,7 +112,7 @@ class GameCanvas{
             this.popup.showEnd();
             clearInterval(this.tid); 
             cancelAnimationFrame(this.timer.timerAnimation);
-        }else if(this.timer.remainingTime == 0){
+        }else if(this.timer.remainingTime <= 0){
             this.popup.showVictory();
             clearInterval(this.tid); 
             cancelAnimationFrame(this.timer.timerAnimation);
@@ -130,7 +130,12 @@ class GameCanvas{
             this.player.autoAttack(this.monsters);
             this.collision();
             this.end();
-        }, 17);
+        }, 30);
+        this.tid = setInterval(() => {
+            for (let monster of this.monsters) {
+                monster.move();
+            }
+        }, 45);
 
         this.popup.noButton.addEventListener('click', () => {
             this.tid = setInterval(() => {
@@ -140,7 +145,12 @@ class GameCanvas{
                 this.player.autoAttack(this.monsters);
                 this.collision();
                 this.end();
-            }, 17);
+            }, 30);
+            this.tid = setInterval(() => {
+                for (let monster of this.monsters) {
+                    monster.move();
+                }
+            }, 45);
         })
 
         this.popup.noButton2.addEventListener('click', () => {
@@ -151,7 +161,12 @@ class GameCanvas{
                 this.player.autoAttack(this.monsters);
                 this.collision();
                 this.end();
-            }, 17);
+            }, 30);
+            this.tid = setInterval(() => {
+                for (let monster of this.monsters) {
+                    monster.move();
+                }
+            }, 45);
         })
       }
     
