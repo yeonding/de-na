@@ -1,7 +1,6 @@
 import Background from "./items/background.js"
 import Monster from "./items/monster.js"
 import Player from "./items/player.js"
-import Timer from "./items/timer.js"
 import HealthBar from "./items/healthbar.js"
 import Popup  from "./items/popup.js"
 
@@ -26,9 +25,9 @@ class GameCanvas{
         this.monsters = []
         this.monsterImage = null
         this.monsterShowDelay = Math.floor(Math.random() * 5 + 1);
-
-        // 타이머
-        this.timer = new Timer();
+        
+        // killCount
+        this.killCount = 0;
 
         // 헬스바
         this.healthBar = new HealthBar();
@@ -99,7 +98,6 @@ class GameCanvas{
         this.background.draw(this.ctx, this.player);
         this.player.draw(this.selectedCharacter, this.ctx);
         this.player.drawAttack(this.selectedCharacter, this.ctx);
-        this.timer.startTimer(this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
     }
 
@@ -111,13 +109,11 @@ class GameCanvas{
         if(this.healthBar.currentHealth ==0){
             this.popup.showEnd();
             clearInterval(this.tid); 
-            cancelAnimationFrame(this.timer.timerAnimation);
             this.background.music.pause()
             this.player.hitmusic.pause()
-        }else if(this.timer.remainingTime <= 0){
+        }else if(this.killCount > 1000){
             this.popup.showVictory();
             clearInterval(this.tid); 
-            cancelAnimationFrame(this.timer.timerAnimation);
             this.background.music.pause()
             this.player.hitmusic.pause()
         }else{
@@ -126,7 +122,6 @@ class GameCanvas{
     }
       
     run() {
-        this.timer.timerAnimation = null;
         this.tid = setInterval(() => {
             this.paint();
             this.update();
