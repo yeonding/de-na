@@ -1,0 +1,21 @@
+/* victory */
+#victory {
+    background-image: url('../images/background/victory.png');
+    width: 700px;
+    height: 500px;
+    position:absolute;
+    top: 5%;
+    left: 10%;
+}
+
+#victory p#backto img{
+    width: 200px;
+    position: absolute;
+    bottom: 2%;
+    left: 35%;
+}
+
+#victory p#backto img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}

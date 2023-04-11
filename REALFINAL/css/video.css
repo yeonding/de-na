@@ -1,0 +1,25 @@
+#video{
+    width: 700px;
+    height: 500px;
+    position: absolute;
+    top: 15%;
+    left: 18%;
+}
+
+#video p#no-butoon2 img{
+    width: 50px;
+    position: absolute;
+    top: 5%;
+    left: 63%;
+}
+
+#video p#video-comment{
+    position: absolute;
+    top: 2%;
+    left: 38%;
+}
+
+#video p#no-butoon2 img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}

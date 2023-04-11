@@ -1,0 +1,83 @@
+#talk{
+    width: 1024px;
+    height: 576px;
+    background: url("../images/background/citytile1.png");
+    position:absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#talk p#close img{
+    width: 80px;
+}
+
+#talk p#close img{
+    position: absolute;
+    right: 1%;
+}
+
+#talk p#close img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}
+
+#talk p img{
+    width: 120px;
+}
+
+#talk p#no1 img, #talk p#no2 img, #talk p#no3 img, #talk p#no4 img, #talk p#no5 img{
+    position: absolute;
+    bottom: 15%;
+    left: 46%;
+    width: 50px;
+    height: 50px;
+}
+
+#talk p#no1 img:hover, #talk p#no2 img:hover, #talk p#no3 img:hover, #talk p#no4 img:hover, #talk p#no5 img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.2);
+}
+
+#talk p#talk1 img, #talk p#talk2 img, #talk p#talk3 img, #talk p#talk4 img, #talk p#talk5 img{
+    position: absolute;
+    left: 25%;
+    top : 6%;
+    width: 500px;
+}
+
+#talk p#people1:hover, #talk p#people2:hover, #talk p#people3:hover, #talk p#people4:hover, #talk p#people5:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.5);
+}
+
+#talk p#people1{
+    position: absolute;
+    bottom: 15%;
+    right: 13%;
+}
+
+#talk p#people2{
+    position: absolute;
+    top: 20%;
+    left: 16.5%;
+}
+
+#talk p#people3{
+    position: absolute;
+    top: 30%;
+    right: 49%;
+}
+
+#talk p#people4{
+    position: absolute;
+    bottom: 10%;
+    right: 35%;
+    opacity: 0.6;
+}
+
+#talk p#people5{
+    position: absolute;
+    bottom: 5%;
+    left: 16.5%;
+}

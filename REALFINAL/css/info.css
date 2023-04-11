@@ -1,0 +1,21 @@
+#info{
+    display: none;
+    width: 700px;
+    height: 500px;
+    position:absolute;
+    top: 5%;
+    left: 10%;
+}
+
+#info #mouse img{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    width: 100px;
+    transform: rotate(10deg);
+}
+
+#info #mouse img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1) rotate(15deg);
+}
