@@ -104,7 +104,7 @@ class GameCanvas{
     }
 
     update(){
-        this.popup.updateHP(this.player, this.tid, this.healthBar);
+        this.popup.updateHP(this.player, this.tid, this.healthBar, this.background);
     }
 
     end(){
@@ -112,10 +112,14 @@ class GameCanvas{
             this.popup.showEnd();
             clearInterval(this.tid); 
             cancelAnimationFrame(this.timer.timerAnimation);
+            this.background.music.pause()
+            this.player.hitmusic.pause()
         }else if(this.timer.remainingTime <= 0){
             this.popup.showVictory();
             clearInterval(this.tid); 
             cancelAnimationFrame(this.timer.timerAnimation);
+            this.background.music.pause()
+            this.player.hitmusic.pause()
         }else{
             // requestAnimationFrame(this.run())
         }
@@ -171,4 +175,3 @@ class GameCanvas{
       }
     
 }
-

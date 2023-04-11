@@ -21,12 +21,21 @@ const intro2 = document.getElementById('intro2')
 intro2.style.display = 'none';
 const intro3 = document.getElementById('intro3')
 intro3.style.display = 'none';
+const info = document.getElementById('info')
+info.style.display = 'none'
+const mouse = document.getElementById('mouse')
 
 
 startButton.addEventListener('click', function () {
     main.classList.add("hidden");
-    characterSelection.style.display = 'block';
-    dream.play()
+    info.style.display = 'block'
+})
+
+mouse.addEventListener('click', function () {
+  main.classList.add("hidden");
+  info.style.display = 'none'
+  characterSelection.style.display = 'block';
+  dream.play()
 })
 
 album.addEventListener('click', function () {
