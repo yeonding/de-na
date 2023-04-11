@@ -75,8 +75,8 @@ class Popup{
         this.comment.style.display = 'none';
     }
     
-    updateHP(player, tid, healthBar, background){
-        if (player.health == 50) {
+    updateHP(tid, healthBar){
+        if (healthBar.currentHealth == 25) {
             if(!this.isPaused){
                 clearInterval(tid); // 게임 중지
                 this.isPaused = true;
@@ -87,7 +87,6 @@ class Popup{
                     this.chance.style.display = 'none'
                     this.buttonmusic.play()
                     this.video.style.display = 'block'
-                    background.music.pause()
                     this.admusic.play()
                     setTimeout(() => {
                         this.showButton(healthBar);

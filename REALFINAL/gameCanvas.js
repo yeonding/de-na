@@ -75,34 +75,53 @@ class GameCanvas{
     createMonster() {
 
         this.monsterShowDelay--;
-        if (this.monsters.length < 150) {
+        if (this.monsters.length < 100) {
             this.monsters.push(new Monster(this.player, this.obj));
             this.monsterShowDelay = Math.floor(Math.random() * 5 + 1);
     }
 
         for (let monster of this.monsters) {
             monster.draw();
-            // monster.move();
+            //monster.move();
+
+            if (monster.health <= 0) {
+                monster.drawDead()
+
+                if(monster.deadIndex == 20){
+                // setTimeout(() => {
+                 let idxToRemove = this.monsters.indexOf(monster)
+                 this.monsters.splice(idxToRemove, 1);
+                }
+                // }, 1000);               // 몬스터가 죽었을 때의 처리
+                // monsters.splice(i, 1);
+                // i--; // 삭제된 요소 이후의 요소들의 인덱스를 감소시킴
+            }
         }
+
+
     }
 
     collision() {
         for (let monster of this.monsters) {
             this.player.collisionMonster(monster, this.healthBar)
-            console.log("충돌중" + this.healthBar.currentHealth);
-            console.log("충돌중 플레이어" + this.player.health);
+            //console.log("충돌중" + this.healthBar.currentHealth);
+            //console.log("충돌중 플레이어" + this.player.health);
+
         }
     }
+
 
     paint() {
         this.background.draw(this.ctx, this.player);
         this.player.draw(this.selectedCharacter, this.ctx);
         this.player.drawAttack(this.selectedCharacter, this.ctx);
+        //this.timer.startTimer(this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
+     
     }
 
     update(){
-        this.popup.updateHP(this.player, this.tid, this.healthBar, this.background);
+        this.popup.updateHP(this.tid, this.healthBar);
     }
 
     end(){
@@ -120,13 +139,42 @@ class GameCanvas{
             // requestAnimationFrame(this.run())
         }
     }
+
+    // loop () {
+    //     clearInterval(this.tid1);
+    //     clearInterval(this.tid2);
+      
+    //     this.tid1 = setInterval(() => {
+    //       this.paint();
+    //       this.update();
+    //       this.createMonster();
+    //       this.player.autoAttack(this.monsters, this.ctx);
+    //       this.collision();
+    //       this.end();
+    //     }, 30);
+      
+    //     this.tid2 = setInterval(() => {
+    //       for (let monster of this.monsters) {
+    //         monster.move();
+    //       }
+    //     }, 45);
+    //   }
+      
+    //   run() {
+    //     this.tid1 = null;
+    //     this.tid2 = null;
+      
+    //     this.popup.noButton.addEventListener('click', startGame.bind(this));
+    //     this.popup.noButton2.addEventListener('click', startGame.bind(this));
+    //   }
+      
       
     run() {
         this.tid = setInterval(() => {
             this.paint();
             this.update();
             this.createMonster();
-            this.player.autoAttack(this.monsters);
+            this.player.autoAttack(this.monsters,this.ctx);
             this.collision();
             this.end();
         }, 30);
@@ -136,12 +184,14 @@ class GameCanvas{
             }
         }, 45);
 
+
+
         this.popup.noButton.addEventListener('click', () => {
             this.tid = setInterval(() => {
                 this.paint();
                 this.update();
                 this.createMonster();
-                this.player.autoAttack(this.monsters);
+                this.player.autoAttack(this.monsters,this.ctx);
                 this.collision();
                 this.end();
             }, 30);
@@ -157,7 +207,7 @@ class GameCanvas{
                 this.paint();
                 this.update();
                 this.createMonster();
-                this.player.autoAttack(this.monsters);
+                this.player.autoAttack(this.monsters,this.ctx);
                 this.collision();
                 this.end();
             }, 30);
@@ -168,5 +218,5 @@ class GameCanvas{
             }, 45);
         })
       }
-    
 }
+
