@@ -52,11 +52,25 @@
     
 }
 
-#talk p#people1{
+#talk p#people1 {
     position: absolute;
     bottom: 15%;
     right: 13%;
-}
+  }
+  
+  #talk #name1{
+    position: absolute;
+    top: 45%;
+    right: 14%;
+    width: 100px;
+    height: 50px;
+  }
+  
+  #talk p#people1:hover ~ p#name1{
+    background: url("../images/people/yelin.png");
+    background-size: cover;
+  }
+
 
 #talk p#people2{
     position: absolute;
@@ -64,10 +78,36 @@
     left: 16.5%;
 }
 
+#talk #name2{
+    position: absolute;
+    top: 10%;
+    left: 17%;
+    width: 100px;
+    height: 50px;
+}
+
+#talk p#people2:hover ~ p#name2{
+    background: url("../images/people/dowon.png");
+    background-size: cover;
+}
+
 #talk p#people3{
     position: absolute;
     top: 30%;
     right: 49%;
+}
+
+#talk #name3{
+    position: absolute;
+    top: 22%;
+    left: 41%;
+    width: 100px;
+    height: 50px;
+}
+
+#talk p#people3:hover ~ p#name3{
+    background: url("../images/people/yeonju.png");
+    background-size: cover;
 }
 
 #talk p#people4{
@@ -77,8 +117,34 @@
     opacity: 0.6;
 }
 
+#talk #name4{
+    position: absolute;
+    bottom: 33%;
+    right: 35%;
+    width: 100px;
+    height: 50px;
+}
+
+#talk p#people4:hover ~ p#name4{
+    background: url("../images/people/chaewon.png");
+    background-size: cover;
+}
+
 #talk p#people5{
     position: absolute;
     bottom: 5%;
     left: 16.5%;
+}
+
+#talk #name5{
+    position: absolute;
+    bottom: 28%;
+    left: 17%;
+    width: 100px;
+    height: 50px;
+}
+
+#talk p#people5:hover ~ p#name5{
+    background: url("../images/people/gyuuu.png");
+    background-size: cover;
 }
