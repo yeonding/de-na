@@ -1,7 +1,6 @@
 import Background from "./items/background.js"
 import Monster from "./items/monster.js"
 import Player from "./items/player.js"
-import Timer from "./items/timer.js"
 import HealthBar from "./items/healthbar.js"
 import Popup  from "./items/popup.js"
 
@@ -25,9 +24,10 @@ class GameCanvas{
         // 몬스터 
         this.monsters = []
         this.monsterImage = null
-
-        // 타이머
-        this.timer = new Timer();
+        this.monsterShowDelay = Math.floor(Math.random() * 5 + 1);
+        
+        // killCount
+        this.killCount = 0;
 
         // 헬스바
         this.healthBar = new HealthBar();
@@ -73,30 +73,24 @@ class GameCanvas{
     }
     
     createMonster() {
-        if (this.monsters.length < 100) {
-          // 몬스터를 캔버스 외부에서 생성
-          const canvasWidth = this.obj.width;
-          const canvasHeight = this.obj.height;
-          const monsterX = Math.random() > 0.5 ? Math.random() * canvasWidth : Math.random() > 0.5 ? canvasWidth + 50 : -50;
-          const monsterY = Math.random() > 0.5 ? Math.random() * canvasHeight : Math.random() > 0.5 ? canvasHeight + 50 : -50;
-          const monster = {
-            position: { x: monsterX, y: monsterY },
-            direction: 0,
-            speed: 1,
-            size: 40,
-          };
-          this.monsters.push(new Monster(this.player, this.obj));
-        }
 
-        for(let monster of this.monsters){
+        this.monsterShowDelay--;
+        if (this.monsters.length < 150) {
+            this.monsters.push(new Monster(this.player, this.obj));
+            this.monsterShowDelay = Math.floor(Math.random() * 5 + 1);
+    }
+
+        for (let monster of this.monsters) {
             monster.draw();
-            monster.move();
+            // monster.move();
         }
     }
-    
-    collision(){
-        for ( let monster of this.monsters) {
-            this.player.collisionMonster(monster,this.healthBar)
+
+    collision() {
+        for (let monster of this.monsters) {
+            this.player.collisionMonster(monster, this.healthBar)
+            console.log("충돌중" + this.healthBar.currentHealth);
+            console.log("충돌중 플레이어" + this.player.health);
         }
     }
 
@@ -104,7 +98,6 @@ class GameCanvas{
         this.background.draw(this.ctx, this.player);
         this.player.draw(this.selectedCharacter, this.ctx);
         this.player.drawAttack(this.selectedCharacter, this.ctx);
-        this.timer.startTimer(this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
     }
 
@@ -116,13 +109,11 @@ class GameCanvas{
         if(this.healthBar.currentHealth ==0){
             this.popup.showEnd();
             clearInterval(this.tid); 
-            cancelAnimationFrame(this.timer.timerAnimation);
             this.background.music.pause()
             this.player.hitmusic.pause()
-        }else if(this.timer.remainingTime == 0){
+        }else if(this.killCount > 1000){
             this.popup.showVictory();
             clearInterval(this.tid); 
-            cancelAnimationFrame(this.timer.timerAnimation);
             this.background.music.pause()
             this.player.hitmusic.pause()
         }else{
@@ -131,7 +122,6 @@ class GameCanvas{
     }
       
     run() {
-        this.timer.timerAnimation = null;
         this.tid = setInterval(() => {
             this.paint();
             this.update();
@@ -139,7 +129,12 @@ class GameCanvas{
             this.player.autoAttack(this.monsters);
             this.collision();
             this.end();
-        }, 17);
+        }, 30);
+        this.tid = setInterval(() => {
+            for (let monster of this.monsters) {
+                monster.move();
+            }
+        }, 45);
 
         this.popup.noButton.addEventListener('click', () => {
             this.tid = setInterval(() => {
@@ -149,7 +144,12 @@ class GameCanvas{
                 this.player.autoAttack(this.monsters);
                 this.collision();
                 this.end();
-            }, 17);
+            }, 30);
+            this.tid = setInterval(() => {
+                for (let monster of this.monsters) {
+                    monster.move();
+                }
+            }, 45);
         })
 
         this.popup.noButton2.addEventListener('click', () => {
@@ -160,7 +160,12 @@ class GameCanvas{
                 this.player.autoAttack(this.monsters);
                 this.collision();
                 this.end();
-            }, 17);
+            }, 30);
+            this.tid = setInterval(() => {
+                for (let monster of this.monsters) {
+                    monster.move();
+                }
+            }, 45);
         })
       }
     
