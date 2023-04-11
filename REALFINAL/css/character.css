@@ -1,0 +1,77 @@
+#characterSelection{
+    display: none;
+    width: 700px;
+    height: 500px;
+    background: url("../images/background/pink2.png");
+    position:absolute;
+    top: 5%;
+    left: 10%;
+}
+
+#characterSelection .characters{
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    transform: translateZ(-50%);
+}
+
+#characterSelection .characters img#ch1{
+    position: absolute;
+    left: 5%;
+}
+
+#characterSelection .characters img#ch1:hover, img#ch2:hover, img#ch3:hover, img#ch4:hover,img#ch5:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(2.0);
+}
+
+#characterSelection .characters img#ch2{
+    position: absolute;
+    left: 25%;
+}
+
+#characterSelection .characters img#ch3{
+    position: absolute;
+    left: 45%;
+}
+
+#characterSelection p#game-start img{
+    width: 200px;
+    position: absolute;
+    bottom: 8%;
+    left: 15%;
+}
+
+#characterSelection p#game-start img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1);
+}
+
+/* 캐릭터 소개 */
+#intro1 img#introch1, #intro2 img#introch2, #intro3 img#introch3{
+    width: 130px;
+    position: absolute;
+    top: 20%;
+    right: 9%;
+}
+
+#intro1 img#name1, #intro2 img#name2, #intro3 img#name3{
+    position: absolute;
+    top: 45%;
+    right: 0%;
+}
+
+/* 마우스 */
+#back img{
+    position: absolute;
+    top: -250px;
+    right: 5%;
+    width: 80px;
+    transform: rotate(200deg);
+}
+
+#back img:hover{
+    transition: all 0.5s ease 0s;
+    transform: scale(1.1) rotate(210deg);
+}

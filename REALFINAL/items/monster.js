@@ -5,14 +5,17 @@ class Monster{
     speed
     direction
     monsterImage
+    hitImage
     health
     player
     obj
     ctx
+    att
+    deadIndex
     
     constructor(player,obj) {
-        this.position.x = Math.random() > 0.5 ? Math.random() * obj.width : Math.random() > 0.5 ? obj.width + 50 : -50;
-        this.position.y = Math.random() > 0.5 ? Math.random() * obj.height : Math.random() > 0.5 ? obj.height + 50 : -50;
+        this.position.x = Math.random() > 0.5 ? Math.random() * obj.width : Math.random() > 0.5 ? obj.width + 200 : -200;
+        this.position.y = Math.random() > 0.5 ? Math.random() * obj.height : Math.random() > 0.5 ? obj.height + 200 : -200;
         this.size = Math.floor((Math.random() * 50) + 20);
         this.speed = Math.floor((Math.random() * 4) + 1);
         this.direction = Math.atan2(player.position.y - this.position.y, player.position.x - this.position.x);
@@ -21,8 +24,14 @@ class Monster{
         this.player = player;
         this.obj = obj;
         this.ctx = obj.getContext('2d')
+        this.hitImage = document.getElementById('monsterHit')
+        this.att = 1
+
+        this.deadIndex=0
+
     }
 
+ 
     // 몬스터 그리는 함수
     draw(){
         let frameIndex = 4; 
@@ -31,6 +40,7 @@ class Monster{
         frameIndex = Math.floor(Date.now() / 500) % 4;
         spriteX = frameIndex * 40;
 
+        if(!this.health <= 0){
             if(this.position.x > this.player.position.x+25){
                 this.monsterImage = document.getElementById('monsterLeft');
                 this.ctx.drawImage(this.monsterImage, spriteX, spriteY, 40, 40, this.position.x, this.position.y, 40, 40);
@@ -38,8 +48,24 @@ class Monster{
                 this.monsterImage = document.getElementById('monsterRight');
                 this.ctx.drawImage(this.monsterImage, spriteX, spriteY, 40, 40, this.position.x, this.position.y, 40, 40);
             }
+        }    
         }
+
+    drawDead(){
+            this.att = 0
+            let frameIndex = Math.floor(3) % 3;
+            let spriteX = frameIndex * 40;
+            let spriteY = 0
+            
+            this.ctx.drawImage(this.hitImage, 
+             spriteX, spriteY,
+             40, 40, this.position.x, this.position.y, 
+             40, 40);
+             this.deadIndex++
+            }     
     
+
+
 
     move() {
 

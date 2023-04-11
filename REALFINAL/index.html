@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/menu.css" type="text/css" rel="stylesheet">
+    <link href="css/index.css" type="text/css" rel="stylesheet">
     <link rel="shortcut icon" href="#">
     <title>Dev's Nightmare</title>
     <style>
@@ -22,31 +22,15 @@
     </style>
     </head>
     <body>
-        <div id="endScreenDefeat" class="hidden">
-            <p id="restart-button"><img src="images/logo/startagain2.png"></p>
-        </div>
-        <div id="victory" class="hidden">
-            <p id="backto"><img src="images/logo/startagain2.png"></p>
-        </div>
-        <div id="chance" class="hidden">
-            <p id="yes-butoon"><img src = "images/logo/yes-button.png" /></p>
-            <p id="no-butoon"><img src = "images/logo/no-button.png" /></p>
-        </div>
-        <div id="video" class="hidden">
-            <p id="video-class"><img src = "images/video/chancevideo.gif" /></p>
-            <p id="video-comment">4초뒤에 닫기 버튼이 나옵니다.</p>
-            <p id="no-butoon2"><img src = "images/logo/no-button.png" /></p>
-        </div>
+        <!-- 메인화면 -->
         <div id="main" class="main">
             <h1><img src="images/logo/neon-logo.gif"/></h1>
             <ul>
                 <li id="start"><a id="start-button"></a></li>
                 <li id="album"><a id="album-button"></a></li>
             </ul>
-        </div>    
-        <div id = "canvasImages" class ="hidden">
-            <img id= "map" src = "./images/background/map.png">
         </div>
+<<<<<<< HEAD
         <div id="talk" class="hidden">
             <p id="close"><img src = "images/logo/no-button.png" /></p>
             <p id="people1"><img src = "images/people/people1.gif" /></p>
@@ -55,16 +39,44 @@
             <p id="people4"><img src = "images/people/people4.gif" /></p>
             <p id="people5"><img src = "images/people/people5.gif" /></p>
         </div>
+=======
+
+        <!-- 게임설명 -->
+>>>>>>> 8259a98ff9810526d1e3d695c77fe3d64c0de43a
         <div id="info">
             <p id="rule"><img src="./images/background/info.png" /></p>
             <p id="mouse"><img src="./images/background/mousepoint.png" /></p>
         </div>
+
+        <!-- 캐릭터선택 -->
         <div id = "characterSelection">
+
+            <!-- 캐릭터 선택 -->
             <div class="characters">
                 <img src="images/player/ch1/ch1.gif" id="ch1">
                 <img src="images/player/ch2/ch2.gif" id="ch2">
                 <img src="images/player/ch3/ch3.gif" id="ch3">
+                <p id="back"><img src="./images/background/mousepoint.png" /></p>
             </div>
+
+            <!-- 캐릭터 소개 -->
+            <div id="intro1">
+                <img id="introch1"  src="./images/player/ch1/introch1.png"/>
+                <img id="name1"  src="./images/player/ch1/name1.png"/>
+            </div>
+            <div id="intro2">
+                <img id="introch2"  src="./images/player/ch2/introch2.png"/>
+                <img id="name2"  src="./images/player/ch2/name2.png"/>
+            </div>
+            <div id="intro3">
+                <img id="introch3"  src="./images/player/ch3/introch3.png"/>
+                <img id="name3"  src="./images/player/ch3/name3.png"/>
+            </div>
+
+            <!-- 시작버튼 -->
+            <p id="game-start"><img src="images/logo/gamestart1.png"></p>
+
+            <!-- 움직이는 캐릭터 이미지 -->
             <div id="canvasImages" class="hidden">
                 <img id="ch1Front" src="images/player/ch1/spriteFront.png">
                 <img id="ch1Back" src="images/player/ch1/spriteBack.png">
@@ -83,25 +95,63 @@
                 <img id="ch3Stop" src="images/player/ch3/spriteStop.png" >
                 <img id="monsterLeft" src = "images/mob/frogleft.png">
                 <img id="monsterRight" src = "images/mob/frogright.png">
+                <img id="monsterHit" src="images/mob/monsterHit.png">
                 <img id="attackImg1" src="images/attackeffect/attack1.png">
                 <img id="attackImg2" src="images/attackeffect/attack3.png">
                 <img id="attackImg3" src="images/attackeffect/attack33.png">
+                <img id="attackImg44" src="images/attackeffect/attack44.png">
             </div>
-            <div id="intro1">
-                <img id="introch1"  src="./images/player/ch1/introch1.png"/>
-                <img id="name1"  src="./images/player/ch1/name1.png"/>
-            </div>
-            <div id="intro2">
-                <img id="introch2"  src="./images/player/ch2/introch2.png"/>
-                <img id="name2"  src="./images/player/ch2/name2.png"/>
-            </div>
-            <div id="intro3">
-                <img id="introch3"  src="./images/player/ch3/introch3.png"/>
-                <img id="name3"  src="./images/player/ch3/name3.png"/>
-            </div>
-
-            <p id="game-start"><img src="images/logo/gamestart1.png"></p>
+        </div> 
+        
+        <!-- 캔버스 이미지 -->
+        <div id = "canvasImages" class ="hidden">
+            <img id= "map" src = "./images/background/map.png">
         </div>
+
+        <!-- 종료화면 -->
+        <div id="endScreenDefeat" class="hidden">
+            <p id="restart-button"><img src="images/logo/startagain2.png"></p>
+        </div>
+
+        <!-- 승리화면 -->
+        <div id="victory" class="hidden">
+            <p id="backto"><img src="images/logo/startagain2.png"></p>
+        </div>
+
+        <!-- 찬스화면 -->
+        <div id="chance" class="hidden">
+            <p id="yes-butoon"><img src = "images/logo/yes-button.png" /></p>
+            <p id="no-butoon"><img src = "images/logo/no-button.png" /></p>
+        </div>
+
+        <!-- 비디오 팝업 -->
+        <div id="video" class="hidden">
+            <p id="video-class"><img src = "images/video/chancevideo.gif" /></p>
+            <p id="video-comment">4초뒤에 닫기 버튼이 나옵니다.</p>
+            <p id="no-butoon2"><img src = "images/logo/no-button.png" /></p>
+        </div>
+
+        <!-- 앨범 -->
+        <div id="talk" class="hidden">
+            <p id="close"><img src = "images/logo/no-button.png" /></p>
+            <p id="people1"><img src = "images/people/people1.gif" /></p>
+            <p id="people2"><img src = "images/people/people2.gif" /></p>
+            <p id="people3"><img src = "images/people/people3.gif" /></p>
+            <p id="people4"><img src = "images/people/people4.gif" /></p>
+            <p id="people5"><img src = "images/people/people5.gif" /></p>
+            <p id="talk1" class="hidden"><img src = "images/people/feel.png"/></p>
+            <p id="no1" class="hidden"><img src = "images/logo/no-button.png" /></p>
+            <p id="talk2" class="hidden"><img src = "images/people/feel.png" /></p>
+            <p id="no2" class="hidden"><img src = "images/logo/no-button.png" /></p>
+            <p id="talk3" class="hidden"><img src = "images/people/feel.png" /></p>
+            <p id="no3" class="hidden"><img src = "images/logo/no-button.png" /></p>
+            <p id="talk4" class="hidden"><img src = "images/people/feel.png" /></p>
+            <p id="no4" class="hidden"><img src = "images/logo/no-button.png" /></p>
+            <p id="talk5" class="hidden"><img src = "images/people/feel.png" /></p>
+            <p id="no5" class="hidden"><img src = "images/logo/no-button.png" /></p>
+        </div>
+
+        <!-- 오디오 -->
         <div>
             <audio id="dream" src="sounds/dream.mp3"></audio>
             <audio id="show" src="sounds/show.mp3"></audio>
@@ -113,8 +163,11 @@
             <audio id = "eventmusic" src="sounds/event.mp3"></audio>
             <audio id = "buttonmusic" src="sounds/button.mp3"></audio>
             <audio id = "admusic" src="sounds/advertise.mp3"></audio>
+<<<<<<< HEAD
             <audio id = "clickmusic" src="sounds/mouseclick.mp3"></audio>
 
+=======
+>>>>>>> 8259a98ff9810526d1e3d695c77fe3d64c0de43a
         </div>
     <script src="./index.js" type="module" defer="defer"> </script>
 </body>
