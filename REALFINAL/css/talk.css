@@ -148,3 +148,38 @@
     background: url("../images/people/gyuuu.png");
     background-size: cover;
 }
+
+#talk #sogam1 img{
+    position: absolute;
+    width: 330px;
+    top : 30%;
+    left: 33%;
+}
+
+#talk #sogam2 img{
+    position: absolute;
+    width: 330px;
+    top : 32%;
+    left: 35%;
+}
+
+#talk #sogam3 img{
+    position: absolute;
+    width: 250px;
+    top : 29%;
+    left: 36%;
+}
+
+#talk #sogam4 img{
+    position: absolute;
+    width: 300px;
+    top : 33%;
+    left: 34.5%;
+}
+
+#talk #sogam5 img{
+    position: absolute;
+    width: 300px;
+    top : 30%;
+    left: 34.5%;
+}

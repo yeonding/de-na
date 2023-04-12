@@ -25,7 +25,7 @@ class Monster{
         this.obj = obj;
         this.ctx = obj.getContext('2d')
         this.hitImage = document.getElementById('monsterHit')
-        this.att = 1
+        this.att = 3
 
         this.deadIndex=0
 

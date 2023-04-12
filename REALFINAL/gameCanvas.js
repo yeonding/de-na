@@ -115,26 +115,24 @@ class GameCanvas{
     }
 
     drawKillCount() {
-        if(this.killCount>399)
+        if(this.killCount>499)
         return;
         this.ctx.font = " 30px san-serif"
         this.ctx.fillStyle = "black"
-        let remainingCount = 400-this.killCount;
+        let remainingCount = 500-this.killCount;
         this.ctx.fillText(remainingCount,885,60)
     }
+
     drawCountMonster(){
         this.ctx.drawImage(this.countMonster,800,20,170,60)
+        this.drawKillCount();
     }
+
     paint() {
         this.background.draw(this.ctx, this.player);
-        this.drawKillCount();
         this.player.draw(this.selectedCharacter, this.ctx);
         this.player.drawAttack(this.selectedCharacter, this.ctx);
-        this.drawCountMonster();
-        this.drawKillCount();
-        //this.timer.startTimer(this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
-     
     }
 
     update(){
@@ -145,13 +143,13 @@ class GameCanvas{
     }
 
     end(){
-        if(this.healthBar.currentHealth ==0){
+        if(this.healthBar.currentHealth <= 0){
             this.popup.showEnd();
             clearInterval(this.tid1); 
             clearInterval(this.tid2); 
             this.background.music.volume = 0
             this.player.hitmusic.volume = 0
-        }else if(this.killCount > 400){
+        }else if(this.killCount >= 500){
             this.popup.showVictory();
             clearInterval(this.tid1); 
             clearInterval(this.tid2); 
@@ -167,6 +165,7 @@ class GameCanvas{
         this.tid1 = setInterval(() => {
             this.paint();
             this.update();
+            this.drawCountMonster();
             this.end();
         }, 30);
         this.tid2 = setInterval(() => {
@@ -179,6 +178,7 @@ class GameCanvas{
             this.tid1 = setInterval(() => {
                 this.paint();
                 this.update();
+                this.drawCountMonster();
                 this.end();
             }, 30);
             this.tid2 = setInterval(() => {
@@ -192,6 +192,7 @@ class GameCanvas{
             this.tid1 = setInterval(() => {
                 this.paint();
                 this.update();
+                this.drawCountMonster();
                 this.end();
             }, 30);
             this.tid2 = setInterval(() => {

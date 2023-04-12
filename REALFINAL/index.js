@@ -34,22 +34,27 @@ intro3.style.display = 'none';
 const people1 = document.getElementById('people1')
 const no1 = document.getElementById('no1')
 const talk1 = document.getElementById('talk1')
+const sogam1 = document.getElementById('sogam1')
 
 const people2 = document.getElementById('people2')
 const no2 = document.getElementById('no2')
 const talk2 = document.getElementById('talk2')
+const sogam2 = document.getElementById('sogam2')
 
 const people3 = document.getElementById('people3')
 const no3 = document.getElementById('no3')
 const talk3 = document.getElementById('talk3')
+const sogam3 = document.getElementById('sogam3')
 
 const people4 = document.getElementById('people4')
 const no4 = document.getElementById('no4')
 const talk4 = document.getElementById('talk4')
+const sogam4 = document.getElementById('sogam4')
 
 const people5 = document.getElementById('people5')
 const no5 = document.getElementById('no5')
 const talk5 = document.getElementById('talk5')
+const sogam5 = document.getElementById('sogam5')
 
 
 // 함수 실행 부분
@@ -87,64 +92,62 @@ close.addEventListener('click', function () {
 people1.addEventListener('click', function(){
   talk1.classList.add("show");
   no1.classList.add("show")
+  sogam1.classList.add("show")
 
 })
 
 no1.addEventListener('click', function(){
   talk1.classList.remove("show");
   no1.classList.remove("show");
- 
-  
+  sogam1.classList.remove("show")
 })
 
 people2.addEventListener('click', function(){
   talk2.classList.add("show");
   no2.classList.add("show")
-  
+  sogam2.classList.add("show")
 })
 
 no2.addEventListener('click', function(){
   talk2.classList.remove("show");
   no2.classList.remove("show");
-  
-  
+  sogam2.classList.remove("show")
 })
 
 people3.addEventListener('click', function(){
   talk3.classList.add("show");
   no3.classList.add("show")
-  
+  sogam3.classList.add("show")
 })
 
 no3.addEventListener('click', function(){
   talk3.classList.remove("show");
   no3.classList.remove("show");
-
-  
+  sogam3.classList.remove("show")
 })
 
 people4.addEventListener('click', function(){
   talk4.classList.add("show");
   no4.classList.add("show")
- 
+  sogam4.classList.add("show")
 })
 
 no4.addEventListener('click', function(){
   talk4.classList.remove("show");
   no4.classList.remove("show");
- 
+  sogam4.classList.remove("show")
 })
 
 people5.addEventListener('click', function(){
   talk5.classList.add("show");
   no5.classList.add("show")
-  
+  sogam5.classList.add("show")
 })
 
 no5.addEventListener('click', function(){
   talk5.classList.remove("show");
   no5.classList.remove("show");
-  
+  sogam5.classList.remove("show")
 })
 
 let selectedCharacter = null;
