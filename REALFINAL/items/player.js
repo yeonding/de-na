@@ -1,7 +1,6 @@
 export default
     class Player {
     position = { x: 0, y: 0 }
-    health
     attackRange
     dx
     dy
@@ -20,7 +19,6 @@ export default
         this.selectedCharacter = selectedCharacter;
         this.position.x = this.ctx.width / 2;
         this.position.y = this.ctx.height / 2;
-        this.health = 100;
         this.attackRange = 70;
         this.dx = 0;
         this.dy = 0;
@@ -121,7 +119,6 @@ export default
             this.position.y < monster.position.y + monster.size &&
             15 + this.position.y > monster.position.y) {
             // 충돌한 경우
-            this.health -= 10;
             healthBar.currentHealth -= monster.att;
 
             // 충돌 시,  플레이어 넉백
