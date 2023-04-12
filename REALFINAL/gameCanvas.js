@@ -91,6 +91,7 @@ class GameCanvas{
                 // setTimeout(() => {
                  let idxToRemove = this.monsters.indexOf(monster)
                  this.monsters.splice(idxToRemove, 1);
+                 this.killCount++;
                 }
                 // }, 1000);               // 몬스터가 죽었을 때의 처리
                 // monsters.splice(i, 1);
@@ -110,9 +111,18 @@ class GameCanvas{
         }
     }
 
+    drawKillCount() {
+        if(this.killCount>400)
+        return;
+        this.ctx.font = " 30px san-serif"
+        this.ctx.fillStyle = "white"
+        let remainingCount = 400-this.killCount;
+        this.ctx.fillText(`남은 몬스터 : ${remainingCount}`,700,50)
+    }
 
     paint() {
         this.background.draw(this.ctx, this.player);
+        this.drawKillCount();
         this.player.draw(this.selectedCharacter, this.ctx);
         this.player.drawAttack(this.selectedCharacter, this.ctx);
         //this.timer.startTimer(this.ctx);
@@ -130,9 +140,9 @@ class GameCanvas{
             clearInterval(this.tid); 
             this.background.music.volume = 0
             this.player.hitmusic.volume = 0
-        }else if(this.killCount > 1000){
+        }else if(this.killCount > 400){
             this.popup.showVictory();
-            clearInterval(this.tid); 
+            clearInterval(this.tid);
             this.background.music.volume = 0
             this.player.hitmusic.volume = 0
         }else{
@@ -140,34 +150,6 @@ class GameCanvas{
         }
     }
 
-    // loop () {
-    //     clearInterval(this.tid1);
-    //     clearInterval(this.tid2);
-      
-    //     this.tid1 = setInterval(() => {
-    //       this.paint();
-    //       this.update();
-    //       this.createMonster();
-    //       this.player.autoAttack(this.monsters, this.ctx);
-    //       this.collision();
-    //       this.end();
-    //     }, 30);
-      
-    //     this.tid2 = setInterval(() => {
-    //       for (let monster of this.monsters) {
-    //         monster.move();
-    //       }
-    //     }, 45);
-    //   }
-      
-    //   run() {
-    //     this.tid1 = null;
-    //     this.tid2 = null;
-      
-    //     this.popup.noButton.addEventListener('click', startGame.bind(this));
-    //     this.popup.noButton2.addEventListener('click', startGame.bind(this));
-    //   }
-      
       
     run() {
         this.tid = setInterval(() => {
