@@ -138,7 +138,7 @@ class GameCanvas{
     update(){
         this.popup.updateHP(this.tid1, this.tid2, this.healthBar, this.background);
         this.createMonster();
-        this.player.autoAttack(this.monsters,this.ctx);
+        this.player.autoAttack(this.monsters,this.ctx,this.selectedCharacter);
         this.collision();
     }
 

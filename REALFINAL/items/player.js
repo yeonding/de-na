@@ -35,6 +35,9 @@ export default
         this.attackImage1 = document.getElementById("attackImg1")
         this.attackImage2 = document.getElementById("attackImg2")
         this.attackImage3 = document.getElementById("attackImg44")
+        this.attacked1 = document.getElementById("attaked1")
+        this.attacked2 = document.getElementById("attaked2")
+        this.attacked3 = document.getElementById("attaked3")
 
         this.ch1Front = document.getElementById("ch1Front")
         this.ch1Back = document.getElementById("ch1Back")
@@ -60,7 +63,7 @@ export default
     }
 
     // 플레이어가 몬스터를 공격하는 함수
-    autoAttack(monsters, ctx) {
+    autoAttack(monsters, ctx, selectedCharacter) {
         for (let i = 0; i < monsters.length; i++) {
             let monster = monsters[i];
             // 플레이어-몬스터간 이동 거리 계산
@@ -71,6 +74,30 @@ export default
 
             // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
             if (this.d < this.attackRange) {
+                let attacked1 = this.attacked1;
+                let attacked2 = this.attacked2;
+                let attackImage3 = this.attackImage3;
+                let spriteX = 0;
+                let spriteY = 0;
+                let frameIndex = 0;
+                spriteX = frameIndex * 32;
+                switch (selectedCharacter) {
+                    case 1:
+                        frameIndex = Math.floor(Date.now() / 300) % 6;       
+                        spriteX = frameIndex * 32;
+                        ctx.drawImage(attacked1, spriteX, spriteY, 32, 32, monster.position.x, monster.position.y, 62, 62);
+                        break
+                    case 2:
+                        frameIndex = Math.floor(Date.now() / 200) % 8;       
+                        spriteX = frameIndex * 30;
+                        ctx.drawImage(attacked2, spriteX, spriteY, 30, 28, monster.position.x, monster.position.y, 40, 38);
+                        break
+                    case 3:
+                        frameIndex = Math.floor(Date.now() / 500) % 8;       
+                        spriteX = frameIndex * 20;
+                        ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, monster.position.x, monster.position.y, 70, 70);
+                        break
+                }
                 monster.health -= 100;
                 this.hitmusic.play();
             }
@@ -124,17 +151,17 @@ export default
                 ctx.drawImage(attackImage1, spriteX, spriteY, 32, 32, this.position.x - 70, this.position.y - 70, 180, 180);
                 break
             case 2:
-                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x + 10, this.position.y + 5, 42, 58);
-                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 10, this.position.y - 5, 42, 58);
-                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 20, this.position.y - 20, 42, 58);
+                //ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x + 10, this.position.y + 5, 32, 48);
+                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 10, this.position.y - 5, 32, 48);
+                //ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 20, this.position.y - 20, 32, 48);
                 break
             case 3:
                 frameIndex = Math.floor(Date.now() / Math.random()*300+100) % 8;       
                 let frameSlowIndex =  Math.floor(Date.now() / 800) % 8;
                 spriteX = frameIndex * 20;
                 let spriteSlowX = frameSlowIndex *20
-                ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x + (Math.random()*20+20), this.position.y - (Math.random()*20+20), 46, 46);
-                ctx.drawImage(attackImage3, spriteSlowX, spriteY, 20, 28, this.position.x + (Math.random()*35+1), this.position.y + (Math.random()*55+(-20))+1, 50, 58);
+                ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x + (Math.random()*140-70), this.position.y - (Math.random()*140-70), 46, 46);
+                ctx.drawImage(attackImage3, spriteSlowX, spriteY, 20, 28, this.position.x + (Math.random()*140-70), this.position.y + (Math.random()*140-70)+1, 50, 58);
                 ctx.drawImage(attackImage3, spriteSlowX, spriteY, 20, 28, this.position.x - (Math.random()*10+(-10)), this.position.y - (Math.random()*10+2)+1, 20, 28);
                 ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x - (Math.random()*30+20), this.position.y - (Math.random()*30+20), 46, 46);
                 ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x - (Math.random()*20+10), this.position.y + (Math.random()*10+10), 46, 46);
