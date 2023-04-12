@@ -124,16 +124,20 @@ export default
                 ctx.drawImage(attackImage1, spriteX, spriteY, 32, 32, this.position.x - 70, this.position.y - 70, 180, 180);
                 break
             case 2:
-                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x + 10, this.position.y + 5, 32, 48);
-                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 10, this.position.y - 5, 32, 48);
-                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 20, this.position.y - 20, 32, 48);
+                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x + 10, this.position.y + 5, 42, 58);
+                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 10, this.position.y - 5, 42, 58);
+                ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 20, this.position.y - 20, 42, 58);
                 break
             case 3:
-                frameIndex = Math.floor(Date.now() / 100) % 2;
-                ctx.drawImage(attackImage3, spriteX, spriteY, 42, 42, this.position.x + 10, this.position.y + 5, 92, 92);
-                ctx.drawImage(attackImage3, spriteX, spriteY, 42, 42, this.position.x - 10, this.position.y - 5, 92, 92);
-                ctx.drawImage(attackImage3, spriteX, spriteY, 42, 42, this.position.x - 20, this.position.y - 20, 92, 92);
-                ctx.drawImage(attackImage3, spriteX, spriteY, 42, 42, this.position.x - 20, this.position.y - 20, 92, 92);
+                frameIndex = Math.floor(Date.now() / Math.random()*300+100) % 8;       
+                let frameSlowIndex =  Math.floor(Date.now() / 800) % 8;
+                spriteX = frameIndex * 20;
+                let spriteSlowX = frameSlowIndex *20
+                ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x + (Math.random()*20+20), this.position.y - (Math.random()*20+20), 46, 46);
+                ctx.drawImage(attackImage3, spriteSlowX, spriteY, 20, 28, this.position.x + (Math.random()*35+1), this.position.y + (Math.random()*55+(-20))+1, 50, 58);
+                ctx.drawImage(attackImage3, spriteSlowX, spriteY, 20, 28, this.position.x - (Math.random()*10+(-10)), this.position.y - (Math.random()*10+2)+1, 20, 28);
+                ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x - (Math.random()*30+20), this.position.y - (Math.random()*30+20), 46, 46);
+                ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x - (Math.random()*20+10), this.position.y + (Math.random()*10+10), 46, 46);
                 break
         }
     }
