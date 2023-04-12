@@ -68,8 +68,8 @@ startButton.addEventListener('click', function () {
 
 mouse.addEventListener('click', function () {
   main.classList.add("hidden");
-  info.style.display = 'none'
   clickmusic.play()
+  info.style.display = 'none'
   characterSelection.style.display = 'block';
   })
 
@@ -85,13 +85,14 @@ back.addEventListener('click', function () {
 })
 
 close.addEventListener('click', function () {
-  talk.style.display = 'none';
   clickmusic.play()
+  talk.style.display = 'none';
 })
 
 people1.addEventListener('click', function(){
   talk1.classList.add("show");
   no1.classList.add("show")
+  clickmusic.play()
   sogam1.classList.add("show")
 
 })
@@ -99,54 +100,63 @@ people1.addEventListener('click', function(){
 no1.addEventListener('click', function(){
   talk1.classList.remove("show");
   no1.classList.remove("show");
+  clickmusic.play()
   sogam1.classList.remove("show")
 })
 
 people2.addEventListener('click', function(){
   talk2.classList.add("show");
   no2.classList.add("show")
+  clickmusic.play()
   sogam2.classList.add("show")
 })
 
 no2.addEventListener('click', function(){
   talk2.classList.remove("show");
   no2.classList.remove("show");
+  clickmusic.play()
   sogam2.classList.remove("show")
 })
 
 people3.addEventListener('click', function(){
   talk3.classList.add("show");
   no3.classList.add("show")
+  clickmusic.play()
   sogam3.classList.add("show")
 })
 
 no3.addEventListener('click', function(){
   talk3.classList.remove("show");
   no3.classList.remove("show");
+  clickmusic.play()
   sogam3.classList.remove("show")
 })
 
 people4.addEventListener('click', function(){
   talk4.classList.add("show");
   no4.classList.add("show")
+  clickmusic.play()
   sogam4.classList.add("show")
 })
 
 no4.addEventListener('click', function(){
   talk4.classList.remove("show");
   no4.classList.remove("show");
+  clickmusic.play()
   sogam4.classList.remove("show")
 })
 
 people5.addEventListener('click', function(){
   talk5.classList.add("show");
   no5.classList.add("show")
+  clickmusic.play()
   sogam5.classList.add("show")
 })
 
 no5.addEventListener('click', function(){
   talk5.classList.remove("show");
   no5.classList.remove("show");
+  clickmusic.play()
   sogam5.classList.remove("show")
 })
 

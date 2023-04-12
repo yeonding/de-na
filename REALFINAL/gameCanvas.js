@@ -40,6 +40,15 @@ class GameCanvas{
 
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         document.addEventListener("keyup", this.handleKeyUp.bind(this));
+        
+        //소리 조절
+        this.audioplay = document.getElementById("audioplay")
+        this.audioplay.addEventListener("click", this.handleClick.bind(this));
+        this.obj.addEventListener("click", this.handleClick.bind(this));
+       
+
+        
+        
     }
 
     handleKeyDown(event) {
@@ -57,6 +66,28 @@ class GameCanvas{
     handleKeyUp(event) {
         if (event.keyCode === 37 || event.keyCode === 39 || event.keyCode === 38 || event.keyCode === 40) { // 왼쪽 또는 오른쪽 방향키를 떼었을 때
             this.player.direction = "stop";
+        }
+    }
+
+    handleClick(event) {
+        const x = event.offsetX;
+        const y = event.offsetY;
+      
+        // 오디오 이미지를 클릭했을 경우
+        if (x >= 10 && x <= 35 && y >= 10 && y <= 35) {
+          if (!this.background.music.muted) {
+            this.background.music.pause();
+            this.player.hitmusic.pause();
+            this.background.music.muted = true;
+            this.player.hitmusic.muted = true;
+            console.log("음악 일시정지");
+          } else {
+            this.background.music.play();
+            this.player.hitmusic.play();
+            this.background.music.muted = false;
+            this.player.hitmusic.muted = false;
+            console.log("음악 재생 중");
+          }
         }
     }
     
@@ -133,13 +164,16 @@ class GameCanvas{
         this.player.draw(this.selectedCharacter, this.ctx);
         this.player.drawAttack(this.selectedCharacter, this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
+        this.ctx.drawImage(this.audioplay, 10, 10, 25, 25)
     }
 
     update(){
+        // this.handleClick();
         this.popup.updateHP(this.tid1, this.tid2, this.healthBar, this.background);
         this.createMonster();
         this.player.autoAttack(this.monsters,this.ctx);
         this.collision();
+                
     }
 
     end(){
