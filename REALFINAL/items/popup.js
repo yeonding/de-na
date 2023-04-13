@@ -3,17 +3,17 @@ class Popup{
 
     constructor(){
         // 찬스바
-        this.chance = document.getElementById('chance')
-        this.chanceStep = 1
+        this.chance = document.getElementById('chance');
+        this.chanceStep = 1;
         this.noStep = 1;
         this.yesButton = document.getElementById("yes-butoon");
         this.noButton = document.getElementById("no-butoon");
-        this.noButton2 = document.getElementById("no-butoon2")
+        this.noButton2 = document.getElementById("no-butoon2");
         this.noButton2.style.display = 'none';
         this.victory = document.getElementById('victory');
-        this.end = document.getElementById("endScreenDefeat")
+        this.end = document.getElementById("endScreenDefeat");
         this.restartButton = document.getElementById('restart-button');
-        this.backto = document.getElementById("backto")
+        this.backto = document.getElementById("backto");
 
         // 비디오
         this.video = document.getElementById('video');
@@ -22,7 +22,7 @@ class Popup{
         // 음악
         this.winmusic = document.getElementById("winmusic");
         this.winmusic.volume = 1;
-        this.deathmusic = document.getElementById("deathmusic")
+        this.deathmusic = document.getElementById("deathmusic");
         this.deathmusic.volume = 1;
 
         this.eventmusic = document.getElementById("eventmusic");
@@ -30,7 +30,6 @@ class Popup{
         this.admusic = document.getElementById("admusic");
 
         this.isPaused = false;
-
     }
 
     showEnd(){
@@ -53,7 +52,7 @@ class Popup{
         if (this.chanceStep != 1)
             return;
         this.chance.classList.add("show");
-        this.eventmusic.play()
+        this.eventmusic.play();
     }   
     
     appearButton(){
@@ -69,7 +68,7 @@ class Popup{
         this.noButton2.addEventListener('click', () => {
             this.chance.style.display = "none";
             this.video.style.display = "none";
-            this.buttonmusic.play()
+            this.buttonmusic.play();
             healthBar.currentHealth += 20;
         });
         this.comment.style.display = 'none';
@@ -85,11 +84,11 @@ class Popup{
         
                 this.yesButton.addEventListener('click', () => {
                     this.chanceStep = 2;
-                    this.chance.style.display = 'none'
-                    this.buttonmusic.play()
-                    this.video.style.display = 'block'
-                    this.admusic.play()
-                    background.music.volume = 0
+                    this.chance.style.display = 'none';
+                    this.buttonmusic.play();
+                    this.video.style.display = 'block';
+                    this.admusic.play();
+                    background.music.volume = 0;
                     setTimeout(() => {
                         this.showButton(healthBar);
                     }, 4000);
@@ -97,8 +96,8 @@ class Popup{
             
                 this.noButton.addEventListener('click', () => {
                     this.chanceStep = 2;
-                    this.chance.style.display = 'none'
-                    this.buttonmusic.play()
+                    this.chance.style.display = 'none';
+                    this.buttonmusic.play();
                 });
             
                 this.appearButton();

@@ -3,9 +3,9 @@
     background-image: url('../images/background/gameover.png');
     width: 700px;
     height: 500px;
-    position:absolute;
-    top: 5%;
-    left: 10%;
+    position:fixed;
+    top: 45px;
+    left: 180px;
 }
 
 #endScreenDefeat p#restart-button img{
