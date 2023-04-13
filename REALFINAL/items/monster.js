@@ -25,12 +25,11 @@ class Monster{
         this.obj = obj;
         this.ctx = obj.getContext('2d')
         this.hitImage = document.getElementById('monsterHit')
-        this.att = 3
+        this.att = 2
 
         this.deadIndex=0
 
     }
-
  
     // 몬스터 그리는 함수
     draw(){
@@ -49,7 +48,7 @@ class Monster{
                 this.ctx.drawImage(this.monsterImage, spriteX, spriteY, 40, 40, this.position.x, this.position.y, 40, 40);
             }
         }    
-        }
+    }
 
     secondDraw() {
         let frameIndex = 4; 
@@ -81,9 +80,6 @@ class Monster{
              40, 40);
              this.deadIndex++
             }     
-    
-
-
 
     move() {
 
@@ -103,5 +99,13 @@ class Monster{
             this.position.x = monsterX;
             this.position.y = monsterY;
             }
+    }
+
+    get att(){
+        return this.att
+    }
+
+    get speed(){
+        return this.speed
     }
 }

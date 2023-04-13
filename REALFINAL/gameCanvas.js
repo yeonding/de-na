@@ -122,7 +122,11 @@ export default
                 monster.draw();
             else {
                 monster.secondDraw();
+                monster.att = 3
+                monster.speed = Math.floor((Math.random() * 4) + 1.2)
+                // this.drawAlarm();
             }
+
             //monster.move();
 
             if (monster.health <= 0) {
@@ -138,10 +142,18 @@ export default
                 // monsters.splice(i, 1);
                 // i--; // 삭제된 요소 이후의 요소들의 인덱스를 감소시킴
             }
+            
         }
 
 
     }
+
+    // drawAlarm(){
+    //     this.ctx.font = '50px Arial';
+    //     this.ctx.fillStyle = 'red';
+    //     this.ctx.textAlign = 'center';
+    //     this.ctx.fillText('몬스터의 공격력과 스피드가 올라갑니다', 200 , 200);
+    // }
 
     collision() {
         for (let monster of this.monsters) {
@@ -183,7 +195,6 @@ export default
         this.createMonster();
         this.player.autoAttack(this.monsters, this.ctx, this.selectedCharacter);
         this.collision();
-
     }
 
     end() {
