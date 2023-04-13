@@ -51,6 +51,24 @@ class Monster{
         }    
         }
 
+    secondDraw() {
+        let frameIndex = 4; 
+        let spriteX = 0; 
+        let spriteY = 0; 
+        frameIndex = Math.floor(Date.now() / 500) % 4;
+        spriteX = frameIndex * 40;
+
+        if(!this.health <= 0){
+            if(this.position.x > this.player.position.x+25){
+                this.monsterImage = document.getElementById('secondMonsterLeft');
+                this.ctx.drawImage(this.monsterImage, spriteX, spriteY, 40, 40, this.position.x, this.position.y, 40, 40);
+            }else{
+                this.monsterImage = document.getElementById('secondMonsterRight');
+                this.ctx.drawImage(this.monsterImage, spriteX, spriteY, 40, 40, this.position.x, this.position.y, 40, 40);
+            }
+        }    
+        }
+
     drawDead(){
             this.att = 0
             let frameIndex = Math.floor(3) % 3;
