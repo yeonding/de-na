@@ -3,9 +3,9 @@
     background-image: url('../images/background/chance.png');
     width: 700px;
     height: 500px;
-    position:absolute;
-    top: 5%;
-    left: 10%;
+    position:fixed;
+    top: 45px;
+    left: 180px
 }
 
 #chance p#yes-butoon img{
@@ -30,4 +30,14 @@
 #chance p#no-butoon img:hover{
     transition: all 0.5s ease 0s;
     transform: scale(1.1);
+}
+
+div#comment{
+    background: url("../images/mob/comment.png");
+    background-size: cover;
+    width: 800px;
+    height: 200px;
+    position: fixed;
+    top: 160px;
+    left: 150px;
 }

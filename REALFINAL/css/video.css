@@ -1,9 +1,9 @@
 #video{
     width: 700px;
     height: 500px;
-    position: absolute;
-    top: 15%;
-    left: 18%;
+    position:fixed;
+    top: 130px;
+    left: 275px;
 }
 
 #video p#no-butoon2 img{

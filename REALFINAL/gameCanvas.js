@@ -1,36 +1,35 @@
-import Background from "./items/background.js"
-import Monster from "./items/monster.js"
-import Player from "./items/player.js"
-import HealthBar from "./items/healthbar.js"
-import Popup from "./items/popup.js"
+import Background from "./items/background.js";
+import Monster from "./items/monster.js";
+import Player from "./items/player.js";
+import HealthBar from "./items/healthbar.js";
+import Popup from "./items/popup.js";
 
 export default
     class GameCanvas {
     constructor(selectedCharacter) {
-        this.obj = document.createElement('canvas')
-        document.body.append(this.obj)
-        this.obj.style.display = "none"
-        this.obj.width = 1024
-        this.obj.height = 576
-        this.ctx = this.obj.getContext('2d')
-        this.tid1 = null
-        this.tid2 = null
+        this.obj = document.createElement('canvas');
+        document.body.append(this.obj);
+        this.obj.style.display = "none";
+        this.obj.width = 1024;
+        this.obj.height = 576;
+        this.ctx = this.obj.getContext('2d');
+        this.tid1 = null;
+        this.tid2 = null;
 
-        this.background = new Background()
+        this.background = new Background();
         this.player = new Player(this.selectedCharacter, this.ctx);
-        this.selectedCharacter = selectedCharacter
+        this.selectedCharacter = selectedCharacter;
 
-        this.x = Math.floor(Math.random() * 1024)
-        this.y = Math.floor(Math.random() * 576)
+        this.x = Math.floor(Math.random() * 1024);
+        this.y = Math.floor(Math.random() * 576);
         // 몬스터 
-        this.monsters = []
-        this.monsterImage = null
+        this.monsters = [];
+        this.monsterImage = null;
         this.monsterShowDelay = Math.floor(Math.random() * 5 + 1);
 
         // killCount
         this.killCount = 0;
-        this.countMonster = document.getElementById("countmonster")
-
+        this.countMonster = document.getElementById("countmonster");
 
         // 헬스바
         this.healthBar = new HealthBar();
@@ -38,19 +37,21 @@ export default
         // 찬스바
         this.popup = new Popup();
 
+        // 공격력 상승
+        this.comment1 = document.getElementById('comment1');
+        this.comment2 = document.getElementById('comment2');
+        this.comment3 = document.getElementById('comment3');
+        this.comment = document.getElementById('comment');
+
         document.addEventListener("keydown", this.handleKeyDown.bind(this));
         document.addEventListener("keyup", this.handleKeyUp.bind(this));
 
         //소리 조절
-        this.audioplay = document.getElementById("audioplay")
+        this.audioplay = document.getElementById("audioplay");
         this.audioplay.addEventListener("click", this.handleClick.bind(this));
-        this.audiomute = document.getElementById("audiomute")
+        this.audiomute = document.getElementById("audiomute");
         this.audiomute.addEventListener("click", this.handleClick.bind(this));
         this.obj.addEventListener("click", this.handleClick.bind(this));
-
-
-
-
     }
 
     handleKeyDown(event) {
@@ -122,59 +123,58 @@ export default
                 monster.draw();
             else {
                 monster.secondDraw();
-                monster.att = 3
-                monster.speed = Math.floor((Math.random() * 4) + 1.2)
-                // this.drawAlarm();
+                monster.att = 3;
+                monster.speed = Math.floor((Math.random() * 4) + 1.2);
+                if(this.killCount >= 248 && this.killCount <= 288){
+                    this.drawAlert(this.selectedCharacter);
+                    this.comment.classList.add('show');
+                }else{
+                    this.comment.classList.remove('show');
+                }
             }
 
-            //monster.move();
-
             if (monster.health <= 0) {
-                monster.drawDead()
+                monster.drawDead();
 
                 if (monster.deadIndex == 20) {
-                    // setTimeout(() => {
-                    let idxToRemove = this.monsters.indexOf(monster)
+                    let idxToRemove = this.monsters.indexOf(monster);
                     this.monsters.splice(idxToRemove, 1);
                     this.killCount++;
                 }
-                // }, 1000);               // 몬스터가 죽었을 때의 처리
-                // monsters.splice(i, 1);
-                // i--; // 삭제된 요소 이후의 요소들의 인덱스를 감소시킴
             }
-            
         }
-
-
     }
 
-    // drawAlarm(){
-    //     this.ctx.font = '50px Arial';
-    //     this.ctx.fillStyle = 'red';
-    //     this.ctx.textAlign = 'center';
-    //     this.ctx.fillText('몬스터의 공격력과 스피드가 올라갑니다', 200 , 200);
-    // }
+    drawAlert(selectedCharacter){
+        this.selectedCharacter = selectedCharacter;
+        switch(selectedCharacter){
+            case 1:
+                this.ctx.drawImage(this.comment1, this.obj.width/4-100, 400);
+                break;
+            case 2 :
+                this.ctx.drawImage(this.comment2, this.obj.width/4-100, 400);
+                break;
+            case 3:
+                this.ctx.drawImage(this.comment3, this.obj.width/4-100, 400);
+                break;
+        }
+    }
 
     collision() {
         for (let monster of this.monsters) {
-            this.player.collisionMonster(monster, this.healthBar)
-            //console.log("충돌중" + this.healthBar.currentHealth);
-            //console.log("충돌중 플레이어" + this.player.health);
-
+            this.player.collisionMonster(monster, this.healthBar);
         }
     }
 
     drawKillCount() {
-        if (this.killCount > 499)
-            return;
-        this.ctx.font = " 30px san-serif"
-        this.ctx.fillStyle = "black"
-        let remainingCount = 500 - this.killCount;
-        this.ctx.fillText(remainingCount, 885, 60)
+        this.ctx.font = " 30px san-serif";
+        this.ctx.fillStyle = "black";
+        let remainingCount = (500 - this.killCount>0)?(500 - this.killCount):0;
+        this.ctx.fillText(remainingCount, 885, 68);
     }
 
     drawCountMonster() {
-        this.ctx.drawImage(this.countMonster, 800, 20, 170, 60)
+        this.ctx.drawImage(this.countMonster, 800, 5, 170, 85);
         this.drawKillCount();
     }
 
@@ -184,9 +184,9 @@ export default
         this.player.drawAttack(this.selectedCharacter, this.ctx);
         this.healthBar.draw(this.ctx, this.player.position.x, this.player.position.y, this.selectedCharacter);
         if(this.background.music.muted == false && this.player.hitmusic.muted == false)
-            this.ctx.drawImage(this.audioplay, 10, 10, 25, 25)
-            else
-            this.ctx.drawImage(this.audiomute, 10, 10, 25, 25)
+            this.ctx.drawImage(this.audioplay, 10, 10, 25, 25);
+        else
+            this.ctx.drawImage(this.audiomute, 10, 10, 25, 25);
     }
 
     update() {
@@ -202,17 +202,15 @@ export default
             this.popup.showEnd();
             clearInterval(this.tid1);
             clearInterval(this.tid2);
-            this.background.music.volume = 0
-            this.player.hitmusic.volume = 0
+            this.background.music.volume = 0;
+            this.player.hitmusic.volume = 0;
         } else if (this.killCount >= 500) {
             this.popup.showVictory();
             clearInterval(this.tid1);
             clearInterval(this.tid2);
-            this.background.music.volume = 0
-            this.player.hitmusic.volume = 0
-        } else {
-            // requestAnimationFrame(this.run())
-        }
+            this.background.music.volume = 0;
+            this.player.hitmusic.volume = 0;
+        } 
     }
 
 

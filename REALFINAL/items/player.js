@@ -1,19 +1,19 @@
 export default
     class Player {
-    position = { x: 0, y: 0 }
-    attackRange
-    dx
-    dy
-    attackImage1
-    attackImage2
-    attackImage3
-    speed
-    direction
-    ctx = { width: 1024, height: 576 }
-    hitmusic
+    position = { x: 0, y: 0 };
+    attackRange;
+    dx;
+    dy;
+    attackImage1;
+    attackImage2;
+    attackImage3;
+    speed;
+    direction;
+    ctx = { width: 1024, height: 576 };
+    hitmusic;
 
-    deadIndex
-    indexDelay
+    deadIndex;
+    indexDelay;
 
     constructor(selectedCharacter) {
         this.selectedCharacter = selectedCharacter;
@@ -26,38 +26,37 @@ export default
         this.speed = 2;
         this.direction = "stop";
 
-        this.deadIndex = 0
-        this.indexDelay = 7
+        this.deadIndex = 0;
+        this.indexDelay = 7;
 
 
-        this.attackImage1 = document.getElementById("attackImg1")
-        this.attackImage2 = document.getElementById("attackImg2")
-        this.attackImage3 = document.getElementById("attackImg44")
-        this.attacked1 = document.getElementById("attaked1")
-        this.attacked2 = document.getElementById("attaked2")
-        this.attacked3 = document.getElementById("attaked3")
+        this.attackImage1 = document.getElementById("attackImg1");
+        this.attackImage2 = document.getElementById("attackImg2");
+        this.attackImage3 = document.getElementById("attackImg44");
+        this.attacked1 = document.getElementById("attaked1");
+        this.attacked2 = document.getElementById("attaked2");
+        this.attacked3 = document.getElementById("attaked3");
 
-        this.ch1Front = document.getElementById("ch1Front")
-        this.ch1Back = document.getElementById("ch1Back")
-        this.ch1Left = document.getElementById("ch1Left")
-        this.ch1Right = document.getElementById("ch1Right")
-        this.ch1Stop = document.getElementById("ch1Stop")
+        this.ch1Front = document.getElementById("ch1Front");
+        this.ch1Back = document.getElementById("ch1Back");
+        this.ch1Left = document.getElementById("ch1Left");
+        this.ch1Right = document.getElementById("ch1Right");
+        this.ch1Stop = document.getElementById("ch1Stop");
 
-        this.ch2Front = document.getElementById("ch2Front")
-        this.ch2Back = document.getElementById("ch2Back")
-        this.ch2Left = document.getElementById("ch2Left")
-        this.ch2Right = document.getElementById("ch2Right")
-        this.ch2Stop = document.getElementById("ch2Stop")
+        this.ch2Front = document.getElementById("ch2Front");
+        this.ch2Back = document.getElementById("ch2Back");
+        this.ch2Left = document.getElementById("ch2Left");
+        this.ch2Right = document.getElementById("ch2Right");
+        this.ch2Stop = document.getElementById("ch2Stop");
 
-        this.ch3Front = document.getElementById("ch3Front")
-        this.ch3Back = document.getElementById("ch3Back")
-        this.ch3Left = document.getElementById("ch3Left")
-        this.ch3Right = document.getElementById("ch3Right")
-        this.ch3Stop = document.getElementById("ch3Stop")
+        this.ch3Front = document.getElementById("ch3Front");
+        this.ch3Back = document.getElementById("ch3Back");
+        this.ch3Left = document.getElementById("ch3Left");
+        this.ch3Right = document.getElementById("ch3Right");
+        this.ch3Stop = document.getElementById("ch3Stop");
 
-        this.hitmusic = document.getElementById("hitmusic")
-        this.hitmusic.volume = 0.5
-
+        this.hitmusic = document.getElementById("hitmusic");
+        this.hitmusic.volume = 0.5;
     }
 
     // 플레이어가 몬스터를 공격하는 함수
@@ -68,7 +67,6 @@ export default
             this.dx = this.position.x - monster.position.x;
             this.dy = this.position.y - monster.position.y;
             this.d = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
-            // this.d = 5;
 
             // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
             if (this.d < this.attackRange) {
@@ -146,29 +144,27 @@ export default
         switch (selectedCharacter) {
             case 1:
                 ctx.drawImage(attackImage1, spriteX, spriteY, 32, 32, this.position.x - 70, this.position.y - 70, 180, 180);
-                break
+                break;
             case 2:
-                //ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x + 10, this.position.y + 5, 32, 48);
                 ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 10, this.position.y - 5, 32, 48);
-                //ctx.drawImage(attackImage2, spriteX, spriteY, 32, 48, this.position.x - 20, this.position.y - 20, 32, 48);
-                break
+                break;
             case 3:
                 frameIndex = Math.floor(Date.now() / Math.random()*300+100) % 8;       
                 let frameSlowIndex =  Math.floor(Date.now() / 800) % 8;
                 spriteX = frameIndex * 20;
-                let spriteSlowX = frameSlowIndex *20
+                let spriteSlowX = frameSlowIndex * 20;
                 ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x + (Math.random()*140-70), this.position.y - (Math.random()*140-70), 46, 46);
                 ctx.drawImage(attackImage3, spriteSlowX, spriteY, 20, 28, this.position.x + (Math.random()*140-70), this.position.y + (Math.random()*140-70)+1, 50, 58);
                 ctx.drawImage(attackImage3, spriteSlowX, spriteY, 20, 28, this.position.x - (Math.random()*10+(-10)), this.position.y - (Math.random()*10+2)+1, 20, 28);
                 ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x - (Math.random()*30+20), this.position.y - (Math.random()*30+20), 46, 46);
                 ctx.drawImage(attackImage3, spriteX, spriteY, 20, 28, this.position.x - (Math.random()*20+10), this.position.y + (Math.random()*10+10), 46, 46);
-                break
+                break;
         }
     }
 
 
     draw(selectedCharacter, ctx) {
-        console.log(`선택된 캐릭터는 ${selectedCharacter} 입니다`)
+        console.log(`선택된 캐릭터는 ${selectedCharacter} 입니다`);
         let speed = 2;
         let direction = this.direction;
         let frameIndex = 4; // 스프라이트 이미지에서 사용할 프레임 인덱스
@@ -177,7 +173,7 @@ export default
 
         switch (selectedCharacter) {
             case 1: {
-                console.log('캐릭터1 그리기')
+                console.log('캐릭터1 그리기');
                 if (this.direction === "stop") {
                     frameIndex = Math.floor(Date.now() / 500) % 2;
                     spriteX = frameIndex * 48;
@@ -185,14 +181,12 @@ export default
                 }
                 if (this.direction === "left") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteX = frameIndex * 48;
                     this.position.x -= speed;
                     ctx.drawImage(this.ch1Left, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
                 }
                 if (this.direction === "up") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteX = frameIndex * 48;
                     this.position.y -= speed;
                     ctx.drawImage(this.ch1Back, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
@@ -200,20 +194,18 @@ export default
                 }
                 if (this.direction === "down") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteX = frameIndex * 48;
                     this.position.y += speed;
                     ctx.drawImage(this.ch1Front, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
                 }
                 else if (this.direction === "right") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteX = frameIndex * 48;
                     this.position.x += speed;
                     ctx.drawImage(this.ch1Right, spriteX, spriteY, 48, 48, this.position.x, this.position.y, 48, 48);
                 }
             }
-                break
+                break;
 
             case 2: {
                 if (direction === "stop") {
@@ -222,25 +214,21 @@ export default
                 }
                 if (direction === "left") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteY = frameIndex * 16;
                     this.position.x -= speed;
                 }
                 if (direction === "up") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteY = frameIndex * 16;
                     this.position.y -= speed;
                 }
                 if (direction === "down") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteY = frameIndex * 16;
                     this.position.y += speed;
                 }
                 else if (direction === "right") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteY = frameIndex * 16;
                     this.position.x += speed;
                 }
@@ -258,7 +246,7 @@ export default
                     ctx.drawImage(this.ch2Right, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
                 }
             }
-                break
+                break;
 
             case 3: {
                 if (direction === "stop") {
@@ -267,25 +255,21 @@ export default
                 }
                 if (direction === "left") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteY = frameIndex * 16;
                     this.position.x -= speed;
                 }
                 if (direction === "up") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteY = frameIndex * 16;
                     this.position.y -= speed;
                 }
                 if (direction === "down") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteY = frameIndex * 16;
                     this.position.y += speed;
                 }
                 else if (direction === "right") {
                     frameIndex = Math.floor(Date.now() / 100) % 4;
-                    //spriteX = 0
                     spriteY = frameIndex * 16;
                     this.position.x += speed;
                 }
@@ -303,20 +287,19 @@ export default
                     ctx.drawImage(this.ch3Right, spriteX, spriteY, 16, 16, this.position.x, this.position.y, 16, 16);
                 }
             }
-                break
+                break;
         }
         if (this.position.x <= 0) {
-            this.position.x = 0
+            this.position.x = 0;
         }
         if (this.position.x >= this.ctx.width - 40) {
-            this.position.x = this.ctx.width - 40
+            this.position.x = this.ctx.width - 40;
         }
-
         if (this.position.y <= 0) {
-            this.position.y = 0
+            this.position.y = 0;
         }
         if (this.position.y >= this.ctx.height - 45) {
-            this.position.y = this.ctx.height - 45
+            this.position.y = this.ctx.height - 45;
         }
     }
 }
