@@ -125,12 +125,6 @@ export default
                 monster.secondDraw();
                 monster.att = 3;
                 monster.speed = Math.floor((Math.random() * 4) + 1.2);
-                if(this.killCount >= 248 && this.killCount <= 288){
-                    this.drawAlert(this.selectedCharacter);
-                    this.comment.classList.add('show');
-                }else{
-                    this.comment.classList.remove('show');
-                }
             }
 
             if (monster.health <= 0) {
@@ -142,6 +136,15 @@ export default
                     this.killCount++;
                 }
             }
+        }
+    }
+    
+    drawDialog(){
+        if(this.killCount >= 248 && this.killCount <= 288){
+            this.drawAlert(this.selectedCharacter);
+            this.comment.classList.add('show');
+        }else{
+            this.comment.classList.remove('show');
         }
     }
 
@@ -194,6 +197,7 @@ export default
         this.popup.updateHP(this.tid1, this.tid2, this.healthBar, this.background);
         this.createMonster();
         this.player.autoAttack(this.monsters, this.ctx, this.selectedCharacter);
+        this.drawDialog();
         this.collision();
     }
 
