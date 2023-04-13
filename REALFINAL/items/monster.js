@@ -25,6 +25,7 @@ class Monster{
         this.obj = obj;
         this.ctx = obj.getContext('2d');
         this.hitImage = document.getElementById('monsterHit');
+        this.secondMonsterDead = document.getElementById('secondMonsterDead')
         this.att = 2;
 
         this.deadIndex=0;
@@ -69,7 +70,7 @@ class Monster{
 
     drawDead(){
         this.att = 0;
-        let frameIndex = Math.floor(3) % 3;
+        let frameIndex = Math.floor(Date.now() / 300) % 3;
         let spriteX = frameIndex * 40;
         let spriteY = 0;
         
@@ -77,8 +78,21 @@ class Monster{
             spriteX, spriteY,
             40, 40, this.position.x, this.position.y, 
             40, 40);
-        this.deadIndex++;
-    }     
+        this.deadIndex++;      
+    }
+    
+    drawSecondDead(){
+        this.att = 0;
+        let frameIndex = Math.floor(Date.now() / 300) % 3;
+        let spriteX = frameIndex * 40;
+        let spriteY = 0;
+        
+        this.ctx.drawImage(this.secondMonsterDead, 
+            spriteX, spriteY,
+            40, 40, this.position.x, this.position.y, 
+            40, 40);
+        this.deadIndex++;   
+    }
 
     move() {
         this.direction = Math.atan2(this.player.position.y - this.position.y, this.player.position.x - this.position.x);

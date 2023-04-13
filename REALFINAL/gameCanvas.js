@@ -128,7 +128,11 @@ export default
             }
 
             if (monster.health <= 0) {
-                monster.drawDead();
+                if (this.killCount < 250)
+                    monster.drawDead();
+                else{
+                    monster.drawSecondDead();
+                }
 
                 if (monster.deadIndex == 20) {
                     let idxToRemove = this.monsters.indexOf(monster);
@@ -140,7 +144,7 @@ export default
     }
     
     drawDialog(){
-        if(this.killCount >= 248 && this.killCount <= 288){
+        if( 248 <= this.killCount && this.killCount <= 288 ){
             this.drawAlert(this.selectedCharacter);
             this.comment.classList.add('show');
         }else{
@@ -194,7 +198,7 @@ export default
 
     update() {
         // this.handleClick();
-        this.popup.updateHP(this.tid1, this.tid2, this.healthBar, this.background);
+        this.popup.updateHP(this.tid1, this.tid2, this.healthBar, this.background, this.killCount);
         this.createMonster();
         this.player.autoAttack(this.monsters, this.ctx, this.selectedCharacter);
         this.drawDialog();

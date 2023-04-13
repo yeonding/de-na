@@ -74,9 +74,8 @@ class Popup{
         this.comment.style.display = 'none';
     }
     
-    updateHP(tid1, tid2, healthBar, background){
-        if (healthBar.currentHealth <= 25) {
-            if(!this.isPaused){
+    updateHP(tid1, tid2, healthBar, background, killCount){
+        if (healthBar.currentHealth <= 25 && !(killCount <= 288 && killCount >= 248)) {            if(!this.isPaused){
                 clearInterval(tid1); // 게임 중지
                 clearInterval(tid2); // 게임 중지
                 this.isPaused = true;

@@ -12,7 +12,6 @@ export default class HealthBar {
         this.height = 8;
         this.x;
         this.y;
-
         this.maxHealth = 50;
         this.currentHealth = 50;
     }

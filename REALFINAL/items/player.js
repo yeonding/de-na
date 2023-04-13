@@ -2,8 +2,6 @@ export default
     class Player {
     position = { x: 0, y: 0 };
     attackRange;
-    dx;
-    dy;
     attackImage1;
     attackImage2;
     attackImage3;
@@ -20,8 +18,6 @@ export default
         this.position.x = this.ctx.width / 2;
         this.position.y = this.ctx.height / 2;
         this.attackRange = 70;
-        this.dx = 0;
-        this.dy = 0;
 
         this.speed = 2;
         this.direction = "stop";
@@ -35,7 +31,6 @@ export default
         this.attackImage3 = document.getElementById("attackImg44");
         this.attacked1 = document.getElementById("attaked1");
         this.attacked2 = document.getElementById("attaked2");
-        this.attacked3 = document.getElementById("attaked3");
 
         this.ch1Front = document.getElementById("ch1Front");
         this.ch1Back = document.getElementById("ch1Back");
@@ -61,15 +56,16 @@ export default
 
     // 플레이어가 몬스터를 공격하는 함수
     autoAttack(monsters, ctx, selectedCharacter) {
+        
         for (let i = 0; i < monsters.length; i++) {
             let monster = monsters[i];
             // 플레이어-몬스터간 이동 거리 계산
-            this.dx = this.position.x - monster.position.x;
-            this.dy = this.position.y - monster.position.y;
-            this.d = Math.sqrt(this.dx * this.dx + this.dy * this.dy);
+            let dx = this.position.x - monster.position.x;
+            let dy = this.position.y - monster.position.y;
+            let d = Math.sqrt(dx * dx + dy * dy);
 
             // 플레이어와 몬스터의 거리가 공격 범위 이내에 있다면
-            if (this.d < this.attackRange) {
+            if (d < this.attackRange) {
                 let attacked1 = this.attacked1;
                 let attacked2 = this.attacked2;
                 let attackImage3 = this.attackImage3;
