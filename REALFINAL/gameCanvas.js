@@ -144,7 +144,7 @@ export default
     }
     
     drawDialog(){
-        if( 248 <= this.killCount && this.killCount <= 288 ){
+        if( 248 <= this.killCount && this.killCount <= 268 ){
             this.drawAlert(this.selectedCharacter);
             this.comment.classList.add('show');
         }else{

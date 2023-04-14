@@ -75,7 +75,7 @@ class Popup{
     }
     
     updateHP(tid1, tid2, healthBar, background, killCount){
-        if (healthBar.currentHealth <= 25 && !(killCount <= 288 && killCount >= 248)) {            if(!this.isPaused){
+        if (healthBar.currentHealth <= 25 && !(killCount <= 268 && killCount >= 248)) {            if(!this.isPaused){
                 clearInterval(tid1); // 게임 중지
                 clearInterval(tid2); // 게임 중지
                 this.isPaused = true;
